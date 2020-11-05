@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--<activity android:name=".RegisterActivity"/>-->
-        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity"/>
         <activity android:name=".ActiveProductActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".OptionActivity" />
@@ -21,8 +20,7 @@
         <activity android:name=".ShoppingCarActivity" />
         <activity android:name=".ProductActivity" />
         <activity android:name=".MainActivity" />
-        <!--<activity android:name=".LoginActivity">-->
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
