@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MenuBar"></activity>
         <activity android:name=".DeliverActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".ActiveProductActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".OptionActivity" />
@@ -20,8 +20,8 @@
         <activity android:name=".ProductSummaryActivity" />
         <activity android:name=".ShoppingCarActivity" />
         <activity android:name=".ProductActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

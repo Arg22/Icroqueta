@@ -16,6 +16,8 @@ public class MenuBar extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_bar);
+
+        
     }
 
     /**
@@ -39,6 +41,8 @@ public class MenuBar extends AppCompatActivity {
 
 
         return true;
+
+
     }
 
     /**
@@ -86,8 +90,6 @@ public class MenuBar extends AppCompatActivity {
                 break;
 
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 }

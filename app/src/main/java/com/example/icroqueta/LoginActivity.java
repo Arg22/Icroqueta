@@ -22,7 +22,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openPrincipal(View view) {
-        Intent intent= new Intent(this, MainActivity.class);
+           Intent intent= new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+
+    public void comprobarDatos(View view) {
+        //Aqui se recogerian los datos con la base de datos y comprobaria
+
+
+
+        openPrincipal(view); //en caso afirmativo abrimos home
     }
 }

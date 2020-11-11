@@ -46,7 +46,4 @@
             android:title="@string/cerrar_sesi_n"/>
     </menu>
 </item>
-
-
-
 </menu>

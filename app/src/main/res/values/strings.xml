@@ -1,17 +1,25 @@
 <resources>
+    <string name="apellidos">Apellidos</string>
     <string name="app_name">i-Croqueta</string>
+    <string name="atr_s">Atrás</string>
     <string name="carrito">Carrito</string>
-    <string name="ver_carro">Ver carro</string>
-    <string name="finalizar_compra">Finalizar compra</string>
-    <string name="mi_cuenta">Mi cuenta</string>
-    <string name="opciones">Opciones</string>
-    <string name="mi_historial">Mi historial</string>
-    <string name="pedidos_activos">Pedidos activos</string>
-    <string name="reparto">Reparto</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
-    <string name="registrarse">Registrarse</string>
-    <string name="entrar">Entrar</string>
-    <string name="usuario">Usuario</string>
     <string name="contrasena">Contraseña</string>
+    <string name="correo">Correo</string>
+    <string name="entrar">Entrar</string>
+    <string name="fecha_de_nacimiento_dd_mm_aaaa">Fecha de nacimiento (dd/mm/aaaa)</string>
+    <string name="finalizar_compra">Finalizar compra</string>
+    <string name="hombre">Hombre</string>
     <string name="logo_descripcion">Logo de iCroqueta</string>
+    <string name="mi_cuenta">Mi cuenta</string>
+    <string name="mi_historial">Mi historial</string>
+    <string name="mujer">Mujer</string>
+    <string name="nombre">Nombre</string>
+    <string name="opciones">Opciones</string>
+    <string name="pedidos_activos">Pedidos activos</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="reparto">Reparto</string>
+    <string name="sexo">Sexo:</string>
+    <string name="usuario">Usuario</string>
+    <string name="ver_carro">Ver carro</string>
 </resources>

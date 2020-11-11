@@ -8,37 +8,26 @@
     tools:context=".RegisterActivity">
 
 
-
-    <RadioButton
-        android:id="@+id/mujer"
-        android:layout_width="101dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:text="Mujer"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hombre"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        android:onClick="onRadioButtonClicked"/>
-
     <EditText
         android:id="@+id/nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Nombre"
+        android:hint="@string/nombre"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/apellido"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/apellido"
@@ -46,31 +35,41 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Apellidos"
+        android:hint="@string/apellidos"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/cumpleaños"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
+        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/cumpleaños"
-        android:layout_width="match_parent"
+        android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Fecha de nacimiento (dd/mm/aaaa)"
+        android:hint="@string/fecha_de_nacimiento_dd_mm_aaaa"
         android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/correo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/apellido" />
+        app:layout_constraintTop_toBottomOf="@+id/apellido"
+        tools:targetApi="lollipop" />
 
 
     <EditText
@@ -79,16 +78,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Correo"
+        android:hint="@string/correo"
         android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cumpleaños" />
+        app:layout_constraintTop_toBottomOf="@+id/cumpleaños"
+        tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/user"
@@ -96,16 +99,20 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Usuario"
+        android:hint="@string/usuario"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo" />
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/password"
@@ -113,32 +120,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="Contraseña"
+        android:hint="@string/contrasena"
         android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/radioSex"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user" />
+        app:layout_constraintTop_toBottomOf="@+id/user"
+        tools:targetApi="lollipop" />
 
     <Button
         android:id="@+id/registrarse"
-        android:layout_width="match_parent"
+        android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/button_rounded"
         android:onClick="openLogin"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
+        app:layout_constraintBottom_toTopOf="@+id/atras"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hombre" />
+        app:layout_constraintTop_toBottomOf="@+id/radioSex" />
 
     <Button
         android:id="@+id/atras"
@@ -146,14 +159,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openBack"
-        android:text="Atrás"
+        android:text="@string/atr_s"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registrarse" />
 
@@ -161,27 +176,58 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
         android:gravity="center"
-        android:text="Sexo:"
+        android:text="@string/sexo"
         android:textColor="@android:color/darker_gray"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/radioSex"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toTopOf="@+id/radioSex" />
 
-    <RadioButton
-        android:id="@+id/hombre"
-        android:layout_width="118dp"
+    <RadioGroup
+        android:id="@+id/radioSex"
+        android:layout_width="230dp"
         android:layout_height="45dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:text="Hombre"
-        android:textSize="18sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/registrarse"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        android:onClick="onRadioButtonClicked"/>
+        tools:ignore="MissingConstraints">
 
 
+        <RadioButton
+            android:id="@+id/hombre"
+            android:layout_width="107dp"
+            android:layout_height="45dp"
+            android:text="@string/hombre"
+            android:textSize="18sp"
+
+            app:layout_constraintEnd_toStartOf="@+id/mujer"
+
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <RadioButton
+            android:id="@+id/mujer"
+            android:layout_width="94dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="32dp"
+
+            android:text="@string/mujer"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/hombre"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hombre" />
+
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
