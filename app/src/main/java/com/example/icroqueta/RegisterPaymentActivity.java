@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class RegisterPaymentActivity extends AppCompatActivity {
+public class RegisterPaymentActivity extends MenuBar {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

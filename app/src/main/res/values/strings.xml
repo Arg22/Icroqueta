@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">i-Croqueta</string>
     <string name="carrito">Carrito</string>
-    <string name="usuario">Usuario</string>
     <string name="ver_carro">Ver carro</string>
     <string name="finalizar_compra">Finalizar compra</string>
     <string name="mi_cuenta">Mi cuenta</string>
@@ -10,4 +9,9 @@
     <string name="pedidos_activos">Pedidos activos</string>
     <string name="reparto">Reparto</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="entrar">Entrar</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="logo_descripcion">Logo de iCroqueta</string>
 </resources>

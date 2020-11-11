@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class DeliverActivity extends AppCompatActivity {
+public class DeliverActivity extends MenuBar {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
