@@ -22,4 +22,9 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent= new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
+    public void openBack(View view) {
+        Intent intent= new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
 }

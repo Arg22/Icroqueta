@@ -6,7 +6,7 @@
         android:id="@+id/panelCart"
         android:icon="@drawable/im_cart"
         android:title="@string/carrito"
-        app:showAsAction="always">
+        app:showAsAction="ifRoom">
         <menu>
             <item
                 android:id="@+id/myCart"
@@ -34,7 +34,7 @@
             android:id="@+id/myHistory"
             android:title="@string/mi_historial"/>
         <item
-            android:id="@+id/myOrders"
+            android:id="@+id/myActiveProduct"
             android:title="@string/pedidos_activos"/>
         <!--Solo se activa si tienes pedidos-->
         <item

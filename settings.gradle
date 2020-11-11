@@ -1,2 +1,3 @@
+include ':mysql-connector-java-8.0.12'
 include ':app'
 rootProject.name = "Icroqueta"
