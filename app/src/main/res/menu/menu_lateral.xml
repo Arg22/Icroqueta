@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorBackground">
+    <item
+        android:title="Ingredientes"
 
-    <group android:checkableBehavior="all">
-        <item
-            android:id="@+id/nav_1"
+        >
+        <menu>
 
-            android:title="Prueba1" />
-        <item
-            android:id="@+id/nav_2"
+            <item
+                android:title="Pollo"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="Salmón"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="Queso chedar"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="Terneta"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="Gluten Free"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="Sin lactosa"
+                app:actionLayout="@layout/widget_check" />
 
-            android:title="Prueba2" />
-        <item
-            android:id="@+id/nav_3"
-
-            android:title="Prueba3" />
-    </group>
+        </menu>
+    </item>
 </menu>
+

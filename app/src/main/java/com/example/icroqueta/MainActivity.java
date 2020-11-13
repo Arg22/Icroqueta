@@ -35,10 +35,8 @@ public class MainActivity extends MenuBar {
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_1, R.id.nav_2, R.id.nav_3)
-                .setDrawerLayout(drawer)
-                .build();
+
+        mAppBarConfiguration = new AppBarConfiguration.Builder().build();
 
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -46,6 +44,8 @@ public class MainActivity extends MenuBar {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+
+    //Al hacer click en el icono sale el menú lateral
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);

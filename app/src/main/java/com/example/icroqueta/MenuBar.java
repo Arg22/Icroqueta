@@ -30,6 +30,9 @@ public class MenuBar extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu,menu);
 
 
+        /*Back key
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
         /*Aqui hay que poner un if segun el rol
         MenuItem item = menu.findItem(R.id.myDeliver);
         item.setVisible(false);*/
@@ -85,7 +88,7 @@ public class MenuBar extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.myEndPurchase: //cambiar
-                intent= new Intent(this, LoginActivity.class);
+                intent= new Intent(this, ProductSummaryActivity.class);
                 startActivity(intent);
                 break;
 

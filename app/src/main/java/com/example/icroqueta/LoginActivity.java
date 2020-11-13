@@ -8,29 +8,26 @@ import android.view.View;
 
 
 public class LoginActivity extends AppCompatActivity {
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
     }
+
     public void openRegistro(View view) {
-        Intent intent= new Intent(this, RegisterActivity.class);
+         intent= new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 
     public void openPrincipal(View view) {
-           Intent intent= new Intent(this, MainActivity.class);
+           intent= new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-
     public void comprobarDatos(View view) {
         //Aqui se recogerian los datos con la base de datos y comprobaria
-
-
 
         openPrincipal(view); //en caso afirmativo abrimos home
     }
