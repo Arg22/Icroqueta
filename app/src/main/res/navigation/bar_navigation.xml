@@ -6,8 +6,10 @@
     app:startDestination="@+id/nav_home"
     tools:ignore="UnusedNavigation">
 
+    <!--Esta es nuestra ventana que sale en el centro de Main-->
     <fragment
-        android:id="@+id/nav_items"
-    />
+        android:id="@+id/nav_home"
+        android:name="com.example.icroqueta.ui.HomeFragment"
+        tools:layout="@layout/fragment_home" />
 
 </navigation>
