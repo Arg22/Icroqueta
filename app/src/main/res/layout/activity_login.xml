@@ -12,14 +12,14 @@
         android:id="@+id/imageView2"
         android:layout_width="170dp"
         android:layout_height="170dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/logo_descripcion"
         app:layout_constraintBottom_toTopOf="@+id/user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/logo"
-        android:contentDescription="@string/logo_descripcion" />
+        app:srcCompat="@drawable/logo" />
 
     <EditText
         android:id="@+id/user"
@@ -27,19 +27,55 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="35dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/usuario"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/password"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/contrasena"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/preguntaContrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user" />
+
+
+    <TextView
+        android:id="@+id/preguntaContrasena"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:clickable="true"
+        android:onClick="pedirContrasena"
+        android:text="¿Ha olvidado su contraseña?"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/entrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
         android:id="@+id/entrar"
@@ -50,14 +86,14 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_rounded"
         android:onClick="comprobarDatos"
         android:text="@string/entrar"
         app:layout_constraintBottom_toTopOf="@+id/registro"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/preguntaContrasena" />
 
     <Button
         android:id="@+id/registro"
@@ -65,36 +101,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openRegistro"
         android:text="@string/registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrar" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="@string/contrasena"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/entrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user"
-        android:autofillHints="" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

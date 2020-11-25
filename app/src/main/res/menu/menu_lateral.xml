@@ -8,7 +8,15 @@
 
         >
         <menu>
-
+            <item
+                android:title="@string/lactosa"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="@string/gluten"
+                app:actionLayout="@layout/widget_check" />
+            <item
+                android:title="@string/vegana"
+                app:actionLayout="@layout/widget_check" />
             <item
                 android:title="Pollo"
                 app:actionLayout="@layout/widget_check" />

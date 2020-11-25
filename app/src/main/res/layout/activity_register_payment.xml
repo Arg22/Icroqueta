@@ -128,7 +128,7 @@
         android:ems="10"
         android:hint="@string/contrasena"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/radioSex"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioSex" />
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
         android:id="@+id/atraspago"
@@ -174,48 +174,6 @@
 
 
 
-    <RadioGroup
-        android:id="@+id/radioSex"
-        android:layout_width="230dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/pagar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/password"
-        tools:ignore="MissingConstraints">
 
-
-        <RadioButton
-            android:id="@+id/hombre"
-            android:layout_width="107dp"
-            android:layout_height="45dp"
-            android:text="@string/hombre"
-            android:textSize="18sp"
-
-            app:layout_constraintEnd_toStartOf="@+id/mujer"
-
-            app:layout_constraintTop_toBottomOf="@+id/password" />
-
-        <RadioButton
-            android:id="@+id/mujer"
-            android:layout_width="94dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginRight="32dp"
-
-            android:text="@string/mujer"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/hombre"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/hombre" />
-
-    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

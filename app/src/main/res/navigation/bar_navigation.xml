@@ -9,7 +9,6 @@
     <!--Esta es nuestra ventana que sale en el centro de Main-->
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.icroqueta.ui.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/bar_content_main" />
 
 </navigation>

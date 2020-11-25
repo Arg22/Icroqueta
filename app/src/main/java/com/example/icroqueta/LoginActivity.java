@@ -31,4 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
         openPrincipal(view); //en caso afirmativo abrimos home
     }
+
+    public void pedirContrasena(View view) {
+        //Aqui se pide la contraseña
+    }
 }
