@@ -142,44 +142,29 @@
 
     <RadioButton
         android:id="@+id/lactosa"
-        android:layout_width="104dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
+        android:layout_width="131dp"
+        android:layout_height="46dp"
         android:text="@string/lactosa"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/vegana"
-        app:layout_constraintStart_toEndOf="@+id/vegana"
-        app:layout_constraintTop_toTopOf="@+id/vegana" />
-
-    <RadioButton
-        android:id="@+id/vegana"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:text="@string/vegana"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/preferencias"
-        app:layout_constraintStart_toEndOf="@+id/preferencias"
         app:layout_constraintTop_toTopOf="@+id/preferencias"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:layout_editor_absoluteX="126dp" />
 
     <RadioButton
         android:id="@+id/gluten"
-        android:layout_width="85dp"
-        android:layout_height="44dp"
+        android:layout_width="111dp"
+        android:layout_height="45dp"
         android:layout_marginStart="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="@string/gluten"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/lactosa"
+        app:layout_constraintBottom_toTopOf="@+id/lactosa"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/lactosa"
-        app:layout_constraintTop_toTopOf="@+id/lactosa" />
+        app:layout_constraintTop_toBottomOf="@+id/lactosa" />
 
     <Button
         android:id="@+id/registrarse"

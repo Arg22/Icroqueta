@@ -22,9 +22,11 @@
     <string name="preferencias">Opcional</string>
     <string name="usuario">Usuario</string>
     <string name="ver_carro">Ver carro</string>
-    <string name="vegana">Vegano</string>
+    <string name="vegetarian">Vegetariano</string>
     <string name="openToolbar">Se abre el menu lateral</string>
     <string name="closeToolbar">Se cierra el menu lateral</string>
     <string name="telefono">Tlf: 950 22 22 22</string>
+    <string name="email">icroqueta@gmail.com</string>
+    <string name="producto">producto</string>
 
 </resources>

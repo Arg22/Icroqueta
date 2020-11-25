@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 .setDrawerLayout(drawer)
                 .build();
 
-//Esto es para que aparezca el icono
+//Esto es para que aparezca el icono del menu de la izquierda
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openToolbar, R.string.closeToolbar);
         drawer.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);

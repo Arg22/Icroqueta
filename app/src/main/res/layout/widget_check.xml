@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:checked="false"
         tools:ignore="MissingConstraints" />
-            <!--LOS METODOS ONCLIK-->
+
+            <!--BBDD: LOS METODOS ONCLIK-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

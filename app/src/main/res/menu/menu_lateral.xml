@@ -15,7 +15,7 @@
                 android:title="@string/gluten"
                 app:actionLayout="@layout/widget_check" />
             <item
-                android:title="@string/vegana"
+                android:title="@string/vegetarian"
                 app:actionLayout="@layout/widget_check" />
             <item
                 android:title="Pollo"
@@ -28,12 +28,6 @@
                 app:actionLayout="@layout/widget_check" />
             <item
                 android:title="Terneta"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Gluten Free"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Sin lactosa"
                 app:actionLayout="@layout/widget_check" />
 
         </menu>
