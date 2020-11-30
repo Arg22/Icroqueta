@@ -50,7 +50,6 @@
         tools:text="18,99€/ud" />
 
     <TextView
-        android:id="@+id/producto_desc"
         android:layout_width="378dp"
         android:layout_height="82dp"
         android:layout_marginStart="16dp"
@@ -110,18 +109,15 @@
         android:contentDescription="@string/descripcion_boton_mas" />
 
     <Button
-        android:id="@+id/btn_agregar"
         android:layout_width="157dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/producto_cantidad_row"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="agregarCarrito"
-        android:text="Añadir al carrito"
+        android:text="@string/anadir_boton_producto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

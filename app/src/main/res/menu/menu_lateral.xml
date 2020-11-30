@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground">
-    <item android:title="Ingredientes">
+    <item android:title="@string/ingredientes">
         <menu>
-            <group android:id="@+id/menu_alergenos">
+            <group>
                 <item
                     android:title="@string/lactosa"
                     app:actionLayout="@layout/widget_check" />
@@ -16,7 +16,7 @@
                     app:actionLayout="@layout/widget_check" />
             </group>
 
-            <group android:id="@+id/menu_carnes">
+            <group>
                 <item
                     android:title="@string/ingrediente_pollo"
                     app:actionLayout="@layout/widget_check" />
@@ -28,7 +28,7 @@
                     app:actionLayout="@layout/widget_check" />
             </group>
 
-            <group android:id="@+id/menu_pescados">
+            <group>
                 <item
                     android:title="@string/ingrediente_salmon"
                     app:actionLayout="@layout/widget_check" />
@@ -37,13 +37,13 @@
                     app:actionLayout="@layout/widget_check" />
             </group>
 
-            <group android:id="@+id/menu_lacteos">
+            <group>
                 <item
                     android:title="@string/ingrediente_queso"
                     app:actionLayout="@layout/widget_check" />
             </group>
 
-            <group android:id="@+id/menu_vegetalesLengumbres">
+            <group>
                 <item
                     android:title="@string/ingrediente_brocoli"
                     app:actionLayout="@layout/widget_check" />
@@ -61,7 +61,7 @@
                     app:actionLayout="@layout/widget_check" />
             </group>
 
-            <group android:id="@+id/menu_dulces">
+            <group>
                 <item
                     android:title="@string/ingrediente_chocolate"
                     app:actionLayout="@layout/widget_check" />

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_home"
-    tools:ignore="UnusedNavigation">
+    tools:ignore="UnusedNavigation"
+    tools:keep="@navigation/bar_navigation">
 
     <!--Esta es nuestra ventana que sale en el centro de Main asociada al layout-->
     <fragment

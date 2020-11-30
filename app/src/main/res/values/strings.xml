@@ -37,12 +37,12 @@
     <string name="menu_reparto">Reparto</string>
     <string name="nombre">Nombre</string>
     <string name="openToolbar">Se abre el menu lateral</string>
-    <string name="preferencias">Opcional</string>
     <string name="producto">Producto</string>
     <string name="registrarse">Registrarse</string>
-    <string name="telefono">Teléfono</string>
     <string name="ver_carro">Ver carro</string>
     <string name="descripcion_boton_menos">Botón para quitar una unidad de croqueta</string>
     <string name="descripcion_boton_mas">Botón para añadir una unidad de croqueta</string>
+    <string name="anadir_boton_producto">Añadir al carrito</string>
+    <string name="ingredientes">Ingredientes</string>
 
 </resources>

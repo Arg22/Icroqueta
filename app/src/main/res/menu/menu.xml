@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/panelCart"
         android:icon="@drawable/im_cart"
         android:title="@string/carrito"
         app:showAsAction="ifRoom">
@@ -19,14 +18,13 @@
     </item>
 
     <item
-        android:id="@+id/panelUser"
         android:icon="@drawable/im_user"
         android:title="@string/menu_opciones"
         app:showAsAction="ifRoom">
         <menu>
 
             <!--Solo se activa si tienes pedidos-->
-            <group android:id="@+id/menu_usuario">
+            <group>
                 <item
                     android:id="@+id/myHistory"
                     android:title="@string/menu_mi_historial" />
@@ -36,13 +34,13 @@
             </group>
 
             <!--Solo se activa si eres repartidor-->
-            <group android:id="@+id/menu_repartidor">
+            <group>
                 <item
                     android:id="@+id/myDeliver"
                     android:title="@string/menu_reparto" />
             </group>
 
-            <group android:id="@+id/menu_opciones">
+            <group>
                 <item
                     android:id="@+id/myOptions"
                     android:title="@string/menu_opciones" />
