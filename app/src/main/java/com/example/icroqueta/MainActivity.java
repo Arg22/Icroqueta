@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -17,12 +18,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MainActivity extends MenuBar {
     private AppBarConfiguration mAppBarConfiguration;
     private  DrawerLayout drawer;
     private TextView cantidad;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +35,6 @@ public class MainActivity extends MenuBar {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -43,7 +45,7 @@ public class MainActivity extends MenuBar {
                 .setDrawerLayout(drawer)
                 .build();
 
-//Esto es para que aparezca el icono del menu de la izquierda
+        //Esto es para que aparezca el icono del menu de la izquierda
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openToolbar, R.string.closeToolbar);
         drawer.addDrawerListener(toggle);
         toggle.setDrawerIndicatorEnabled(true);
@@ -54,12 +56,15 @@ public class MainActivity extends MenuBar {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-
+        CroquetasRecyclerViewAdapter adapter =new CroquetasRecyclerViewAdapter();
+        RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
+        croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        croquetasRecyclerView.setAdapter(adapter);
 
 
     }
 
-
+//Todo hacer todo's
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,34 +84,7 @@ public class MainActivity extends MenuBar {
 
 
 
-    public void restarCantidadMenu(View view) {
-        //Obtiene el valor del TextView
-        cantidad = findViewById(R.id.producto_cantidad_row);
-        String valor = cantidad.getText().toString();
-        //Se convierte  Integer
-        int aux = Integer.parseInt(valor);
-        //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
-        if (aux == 0){
-            cantidad.setText(""+0);
-        }else {
-            cantidad.setText("" + (aux - 1));
-        }
 
-
-        ///////////////Modificar al carrito/////////////
-    }
-
-    public void sumarCantidadMenu(View view) {
-        //Obtiene el valor del TextView
-        cantidad = findViewById(R.id.producto_cantidad_row);
-        String valor = cantidad.getText().toString();
-        //Se convierte  Integer
-        int aux = Integer.parseInt(valor);
-        cantidad.setText(""+(aux+1));
-
-
-        ///////////////Modificar al carrito//////////////
-    }
 
 
 

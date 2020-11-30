@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -38,18 +37,17 @@
         app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row" />
 
 
-    <Button
+    <ImageButton
+
         android:id="@+id/btn_menos_row"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginBottom="16dp"
         android:layout_toStartOf="@+id/btn_mas_row"
         android:layout_toLeftOf="@+id/btn_mas_row"
-        android:background="@drawable/button_rounded"
-        android:onClick="restarCantidadMenu"
-        android:text="-"
-        android:textAllCaps="false"
-        android:textSize="24sp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_remove_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/producto_cantidad_row" />
 
@@ -57,7 +55,7 @@
     <TextView
         android:id="@+id/producto_cantidad_row"
         android:layout_width="40dp"
-        android:layout_height="30dp"
+        android:layout_height="35dp"
         android:layout_centerInParent="true"
         android:layout_marginBottom="16dp"
         android:ems="10"
@@ -69,21 +67,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_mas_row" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_mas_row"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignTop="@+id/producto_cantidad_row"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/button_rounded"
-        android:onClick="sumarCantidadMenu"
-        android:text="+"
-        android:textStyle="bold"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_add_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
