@@ -6,7 +6,7 @@
     app:startDestination="@+id/nav_home"
     tools:ignore="UnusedNavigation">
 
-    <!--Esta es nuestra ventana que sale en el centro de Main-->
+    <!--Esta es nuestra ventana que sale en el centro de Main asociada al layout-->
     <fragment
         android:id="@+id/nav_home"
         tools:layout="@layout/bar_content_main" />
