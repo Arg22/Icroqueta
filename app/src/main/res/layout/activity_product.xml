@@ -28,16 +28,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/producto_imagen"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="Nombre"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/producto_imagen" />
+        app:layout_constraintTop_toBottomOf="@+id/producto_imagen"
+        tools:text="Nombre" />
 
     <TextView
         android:id="@+id/producto_precio_row"
@@ -45,12 +43,11 @@
         android:layout_height="42dp"
         android:layout_below="@+id/producto_nombre_row"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:gravity="center_vertical|right"
-        android:text="18,99€/ud"
-        android:textSize="16dp"
+        android:gravity="center_vertical|end"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row" />
+        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row"
+        tools:text="18,99€/ud" />
 
     <TextView
         android:id="@+id/producto_desc"
@@ -61,28 +58,27 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Descripcion"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/producto_precio_row" />
+        app:layout_constraintTop_toBottomOf="@+id/producto_precio_row"
+        tools:text="Descripcion" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_menos"
         android:layout_width="50dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginBottom="50dp"
         android:layout_toStartOf="@+id/btn_mas_row"
-        android:layout_toLeftOf="@+id/btn_mas_row"
-        android:background="@drawable/button_rounded"
+        android:background="@null"
         android:onClick="restarCantidad"
-        android:text="-"
-        android:textAllCaps="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_remove_circle"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/descripcion_boton_menos" />
 
     <TextView
         android:id="@+id/producto_cantidad_row"
@@ -92,26 +88,26 @@
         android:layout_marginBottom="50dp"
         android:ems="10"
         android:gravity="center_vertical|center_horizontal"
-        android:inputType="number"
-        android:text="0"
+        tools:text="0"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_menos" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_mas_row"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignTop="@+id/producto_cantidad_row"
         android:layout_marginBottom="50dp"
-        android:background="@drawable/button_rounded"
+        android:background="@null"
         android:onClick="sumarCantidad"
-        android:text="+"
-        android:textStyle="bold"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_add_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/producto_cantidad_row" />
+        app:layout_constraintStart_toEndOf="@+id/producto_cantidad_row"
+        android:contentDescription="@string/descripcion_boton_mas" />
 
     <Button
         android:id="@+id/btn_agregar"

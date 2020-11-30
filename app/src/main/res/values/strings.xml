@@ -42,6 +42,7 @@
     <string name="registrarse">Registrarse</string>
     <string name="telefono">Teléfono</string>
     <string name="ver_carro">Ver carro</string>
-
+    <string name="descripcion_boton_menos">Botón para quitar una unidad de croqueta</string>
+    <string name="descripcion_boton_mas">Botón para añadir una unidad de croqueta</string>
 
 </resources>

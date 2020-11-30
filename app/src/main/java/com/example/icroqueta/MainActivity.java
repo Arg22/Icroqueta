@@ -4,11 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -24,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends MenuBar {
     private AppBarConfiguration mAppBarConfiguration;
-    private  DrawerLayout drawer;
     private TextView cantidad;
 
 
@@ -36,13 +33,13 @@ public class MainActivity extends MenuBar {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build();
 
         //Esto es para que aparezca el icono del menu de la izquierda

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class ProductActivity extends MenuBar {
     private TextView cantidad;
     @Override
@@ -11,7 +13,15 @@ public class ProductActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         cantidad = findViewById(R.id.producto_cantidad_row);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
+
 
     public void restarCantidad(View view) {
         //Obtiene el valor del TextView

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MenuBar" ></activity>
+        <activity android:name=".MenuBar" />
         <activity android:name=".DeliverActivity" />
         <activity android:name=".ActiveProductActivity" />
         <activity android:name=".HistoryActivity" />

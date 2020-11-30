@@ -14,5 +14,7 @@
         android:text="@string/menu_reparto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="346dp" />
+        tools:layout_editor_absoluteY="346dp"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
