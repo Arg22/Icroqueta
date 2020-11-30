@@ -15,14 +15,14 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/logo_descripcion"
-        app:layout_constraintBottom_toTopOf="@+id/user"
+        app:layout_constraintBottom_toTopOf="@+id/correo_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/user"
+        android:id="@+id/correo_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -32,16 +32,16 @@
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/usuario"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toTopOf="@+id/preguntaContrasena"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user" />
+        app:layout_constraintTop_toBottomOf="@+id/correo_login" />
 
 
     <TextView
@@ -69,13 +69,13 @@
         android:layout_marginRight="32dp"
         android:clickable="true"
         android:onClick="pedirContrasena"
-        android:text="¿Ha olvidado su contraseña?"
+        android:text="@string/login_texto_pass"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/entrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
     <Button
         android:id="@+id/entrar"

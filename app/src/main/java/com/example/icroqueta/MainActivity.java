@@ -1,14 +1,14 @@
 package com.example.icroqueta;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -22,11 +22,13 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private  DrawerLayout drawer;
+    private TextView cantidad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
+
+
     }
 
 
@@ -69,4 +76,45 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+
+
+
+    public void restarCantidadMenu(View view) {
+        //Obtiene el valor del TextView
+        cantidad = findViewById(R.id.producto_cantidad_row);
+        String valor = cantidad.getText().toString();
+        //Se convierte  Integer
+        int aux = Integer.parseInt(valor);
+        //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
+        if (aux == 0){
+            cantidad.setText(""+0);
+        }else {
+            cantidad.setText("" + (aux - 1));
+        }
+
+
+        ///////////////Modificar al carrito/////////////
+    }
+
+    public void sumarCantidadMenu(View view) {
+        //Obtiene el valor del TextView
+        cantidad = findViewById(R.id.producto_cantidad_row);
+        String valor = cantidad.getText().toString();
+        //Se convierte  Integer
+        int aux = Integer.parseInt(valor);
+        cantidad.setText(""+(aux+1));
+
+
+        ///////////////Modificar al carrito//////////////
+    }
+
+
+
+    public void abrirProducto(View view) {
+        Intent intent = new Intent(this, ProductActivity.class);
+        startActivity(intent);
+
+
+        ///////////////Modificar al carrito//////////////
+    }
 }

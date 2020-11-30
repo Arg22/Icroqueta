@@ -7,7 +7,7 @@
     android:layout_marginBottom="4dp"
     card_view:cardCornerRadius="8dp">
 
-<!--La tarjetas donde van a ir los productos-->
+<!--La tarjetas donde van a ir cada producto en el main y en el resumen-->
 
     <LinearLayout
         android:id="@+id/characterRow"
@@ -22,15 +22,9 @@
             android:layout_height="100dp"
             android:contentDescription="@string/producto" />
 
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="8dp" />
+        <include layout="@layout/producto_descripcion_fragment" />
+
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -10,40 +10,47 @@
         <menu>
             <item
                 android:id="@+id/myCart"
-                android:title="@string/ver_carro"/>
+                android:title="@string/ver_carro" />
             <item
                 android:id="@+id/myEndPurchase"
-                android:title="@string/finalizar_compra"/>
+                android:title="@string/finalizar_compra" />
             <!--Solo se activa si tienes compra-->
         </menu>
     </item>
 
-<item
-    android:id="@+id/panelUser"
-    android:icon="@drawable/im_user"
-    android:title="@string/usuario"
-    app:showAsAction="ifRoom">
-    <menu>
-        <item
-            android:id="@+id/myAccount"
-            android:title="@string/mi_cuenta"/>
-        <item
-            android:id="@+id/myOptions"
-            android:title="@string/opciones"/>
-        <item
-            android:id="@+id/myHistory"
-            android:title="@string/mi_historial"/>
-        <item
-            android:id="@+id/myActiveProduct"
-            android:title="@string/pedidos_activos"/>
-        <!--Solo se activa si tienes pedidos-->
-        <item
-            android:id="@+id/myDeliver"
-            android:title="@string/reparto"/>
-        <!--Solo se activa si eres repartidor-->
-        <item
-            android:id="@+id/myClose"
-            android:title="@string/cerrar_sesi_n"/>
-    </menu>
-</item>
+    <item
+        android:id="@+id/panelUser"
+        android:icon="@drawable/im_user"
+        android:title="@string/menu_opciones"
+        app:showAsAction="ifRoom">
+        <menu>
+
+            <!--Solo se activa si tienes pedidos-->
+            <group android:id="@+id/menu_usuario">
+                <item
+                    android:id="@+id/myHistory"
+                    android:title="@string/menu_mi_historial" />
+                <item
+                    android:id="@+id/myActiveProduct"
+                    android:title="@string/menu_pedidos_activos" />
+            </group>
+
+            <!--Solo se activa si eres repartidor-->
+            <group android:id="@+id/menu_repartidor">
+                <item
+                    android:id="@+id/myDeliver"
+                    android:title="@string/menu_reparto" />
+            </group>
+
+            <group android:id="@+id/menu_opciones">
+                <item
+                    android:id="@+id/myOptions"
+                    android:title="@string/menu_opciones" />
+            </group>
+
+            <item
+                android:id="@+id/myClose"
+                android:title="@string/menu_cerrarsession" />
+        </menu>
+    </item>
 </menu>

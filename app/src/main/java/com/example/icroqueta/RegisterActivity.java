@@ -11,33 +11,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText cumpleaños;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        cumpleaños= findViewById(R.id.cumpleaños);
 
-        cumpleaños.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try {
-                    if ((start == 1 || start == 4) && (s.toString().charAt(s.length() - 2) != '/')) {
-                        cumpleaños.setText(s + "/");
-                        cumpleaños.setSelection(cumpleaños.getText().length());
-                    }
-                }catch(StringIndexOutOfBoundsException e){}
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
     }
 
 

@@ -1,34 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorBackground">
-    <item
-        android:title="Ingredientes"
-
-        >
+    <item android:title="Ingredientes">
         <menu>
-            <item
-                android:title="@string/lactosa"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="@string/gluten"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="@string/vegetarian"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Pollo"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Salmón"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Queso chedar"
-                app:actionLayout="@layout/widget_check" />
-            <item
-                android:title="Terneta"
-                app:actionLayout="@layout/widget_check" />
+            <group android:id="@+id/menu_alergenos">
+                <item
+                    android:title="@string/lactosa"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/gluten"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_vegetariano"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
+            <group android:id="@+id/menu_carnes">
+                <item
+                    android:title="@string/ingrediente_pollo"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_cerdo"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_ternera"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
+            <group android:id="@+id/menu_pescados">
+                <item
+                    android:title="@string/ingrediente_salmon"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_bacalao"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
+            <group android:id="@+id/menu_lacteos">
+                <item
+                    android:title="@string/ingrediente_queso"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
+            <group android:id="@+id/menu_vegetalesLengumbres">
+                <item
+                    android:title="@string/ingrediente_brocoli"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_acelgas"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_quinoa"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_garbanzos"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_patata"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
+            <group android:id="@+id/menu_dulces">
+                <item
+                    android:title="@string/ingrediente_chocolate"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_fresa"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_naranja"
+                    app:actionLayout="@layout/widget_check" />
+                <item
+                    android:title="@string/ingrediente_vainilla"
+                    app:actionLayout="@layout/widget_check" />
+            </group>
+
 
         </menu>
     </item>

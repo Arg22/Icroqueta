@@ -33,6 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void pedirContrasena(View view) {
-        //Aqui se pide la contraseña
+        //Aqui se pide la contraseña de recuperacion
     }
 }
