@@ -7,7 +7,7 @@
     android:layout_marginBottom="4dp"
     card_view:cardCornerRadius="8dp">
 
-<!--La tarjetas donde van a ir cada producto en el main y en el resumen-->
+    <!--La tarjetas donde van a ir cada producto en el main y en el resumen-->
 
     <LinearLayout
         android:id="@+id/croquetaRow"
@@ -18,6 +18,7 @@
         android:focusable="true">
 
         <ImageView
+            android:id="@+id/croquetaImagen"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="@string/producto" />

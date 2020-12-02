@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         public final ImageButton mas;
         public final TextView cantidad;
         public final LinearLayout fila;
+        public ImageView foto;
 
         public MyViewHolder(View v) {
             super(v);
@@ -30,9 +32,12 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             mas = v.findViewById(R.id.btn_mas_row);
             cantidad = v.findViewById(R.id.producto_cantidad_row);
             fila = v.findViewById(R.id.croquetaRow);
+            foto= v.findViewById(R.id.croquetaImagen);
         }
 
         public void bind() {
+            //todo actualizar esta informacion a la base de datos
+            foto.setImageResource(R.drawable.logo);
             nombre.setText("patata");
             precio.setText("777777");
             menos.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +53,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     } else {
                         cantidad.setText(String.valueOf(aux - 1));
                     }
-
                 }
             });
             mas.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +73,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     v.getContext().startActivity(intent);
                     //todo:mandar id croquetas a shoppingCart + cantidad
-
                 }
             });
         }

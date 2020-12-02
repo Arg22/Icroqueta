@@ -4,25 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterPaymentActivity"
-    android:background="@color/colorBackground">
+    android:background="@color/colorBackground"
+    tools:context=".RegisterPaymentActivity">
 
 
     <EditText
-        android:id="@+id/nombre"
+        android:id="@+id/telefono"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/nombre"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/apellido"
+        android:hint="Teléfono"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/direccion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,69 +28,84 @@
         tools:targetApi="lollipop" />
 
     <EditText
-        android:id="@+id/apellido"
+        android:id="@+id/direccion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/apellidos"
+        android:hint="Dirección"
         android:inputType="textPersonName"
-
+        app:layout_constraintBottom_toTopOf="@+id/tarjeta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        app:layout_constraintTop_toBottomOf="@+id/telefono"
         tools:targetApi="lollipop" />
 
-
-
     <EditText
-        android:id="@+id/correo"
+        android:id="@+id/tarjeta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/correo"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/correo_login"
+        android:hint="Tarjeta"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/caducidad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccion"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/caducidad"
+        android:layout_width="175dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="32dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="F.caducidad mm/aa"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/checkBox2"
+        app:layout_constraintEnd_toStartOf="@+id/CVC"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tarjeta"
         tools:targetApi="lollipop" />
 
 
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="231dp"
+        android:layout_height="31dp"
+        android:checked="false"
+        android:text="Recordar estos datos"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/pagar"
+        app:layout_constraintTop_toBottomOf="@+id/caducidad"
+        tools:layout_editor_absoluteX="32dp" />
 
     <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/CVC"
+        android:layout_width="144dp"
+        android:layout_height="39dp"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/contrasena"
-        android:inputType="textPassword"
-
+        android:hint="CVC"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/caducidad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo_login"
+        app:layout_constraintStart_toEndOf="@+id/caducidad"
+        app:layout_constraintTop_toTopOf="@+id/caducidad"
         tools:targetApi="lollipop" />
 
     <Button
@@ -100,10 +113,8 @@
         android:layout_width="347dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:background="@drawable/button_rounded"
         android:onClick="ValidadrPago"
         android:text="Pagar"
@@ -111,17 +122,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
 
     <Button
         android:id="@+id/atraspago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openBack"
@@ -131,9 +139,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pagar" />
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

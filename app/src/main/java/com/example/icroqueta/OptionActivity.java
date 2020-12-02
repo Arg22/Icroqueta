@@ -21,4 +21,6 @@ public class OptionActivity extends MenuBar {
     }
 
     //todo: añadir la accion de actualizar datos o borrar cuenta
+
+    //todo: guardar boton de compra de recordar contraseña y cambiar en opciones
 }

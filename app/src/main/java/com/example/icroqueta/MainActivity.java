@@ -52,16 +52,14 @@ public class MainActivity extends MenuBar {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
-        CroquetasRecyclerViewAdapter adapter =new CroquetasRecyclerViewAdapter();
+        //Para visualizar el Recicle view en esta Vista
+        CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter();
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
 
-
     }
 
-//Todo hacer todo's
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -79,17 +77,6 @@ public class MainActivity extends MenuBar {
     }
 
 
+    //todo poner funcionalidad al menu lateral y que reaccione con la base de datos
 
-
-
-
-
-
-    public void abrirProducto(View view) {
-        Intent intent = new Intent(this, ProductActivity.class);
-        startActivity(intent);
-
-
-        ///////////////Modificar al carrito//////////////
-    }
 }

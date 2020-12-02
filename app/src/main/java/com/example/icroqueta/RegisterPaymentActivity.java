@@ -22,6 +22,7 @@ public class RegisterPaymentActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
+    //todo: checkbox enviar informacion a las propiedades
 
     public void ValidadrPago(View view) {
         //Validamos el pago// popup de exito y volver a home
