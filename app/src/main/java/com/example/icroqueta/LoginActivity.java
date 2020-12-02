@@ -22,17 +22,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void openPrincipal(View view) {
-           intent= new Intent(this, MainActivity.class);
+        intent= new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
     public void comprobarDatos(View view) {
-        //Aqui se recogerian los datos con la base de datos y comprobaria
-
+        //todo: comprobar datos y en caso afirmativo abrir Home
         openPrincipal(view); //en caso afirmativo abrimos home
     }
 
     public void pedirContrasena(View view) {
-        //Aqui se pide la contraseña de recuperacion
+        //todo: pedir contraseña usuario
     }
 }

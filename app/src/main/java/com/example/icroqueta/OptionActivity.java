@@ -19,4 +19,6 @@ public class OptionActivity extends MenuBar {
         onBackPressed();
         return super.onSupportNavigateUp();
     }
+
+    //todo: añadir la accion de actualizar datos o borrar cuenta
 }

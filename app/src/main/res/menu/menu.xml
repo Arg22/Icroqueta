@@ -10,10 +10,6 @@
             <item
                 android:id="@+id/myCart"
                 android:title="@string/ver_carro" />
-            <item
-                android:id="@+id/myEndPurchase"
-                android:title="@string/finalizar_compra" />
-            <!--Solo se activa si tienes compra-->
         </menu>
     </item>
 

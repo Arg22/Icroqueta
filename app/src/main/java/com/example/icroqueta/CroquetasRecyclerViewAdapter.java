@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<CroquetasRecyclerViewAdapter.MyViewHolder> {
     private String[] mDataset;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         public final TextView nombre;
         public final TextView precio;
         public final ImageButton menos;
@@ -41,7 +38,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             menos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: metodo menos en view
                     //Obtiene el valor del TextView
                     String valor = cantidad.getText().toString();
                     //Se convierte  Integer
@@ -58,7 +54,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             mas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //todo: metodo mas en view
                     //Obtiene el valor del TextView
                     String valor = cantidad.getText().toString();
                     //Se convierte  Integer
@@ -73,7 +68,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
 
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     v.getContext().startActivity(intent);
-                    //todo:mandar id croquetas
+                    //todo:mandar id croquetas a shoppingCart + cantidad
 
                 }
             });

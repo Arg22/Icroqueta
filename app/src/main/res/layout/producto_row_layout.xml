@@ -18,14 +18,11 @@
         android:focusable="true">
 
         <ImageView
-
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:contentDescription="@string/producto" />
 
         <include layout="@layout/producto_descripcion_fragment" />
-
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

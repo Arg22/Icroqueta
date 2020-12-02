@@ -29,10 +29,10 @@ public class ProductActivity extends MenuBar {
         //Se convierte  Integer
         int aux = Integer.parseInt(valor);
         //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
-        if (aux == 0){
-            cantidad.setText(""+0);
-        }else {
-            cantidad.setText("" + (aux - 1));
+        if (aux == 0) {
+            cantidad.setText("0");
+        } else {
+            cantidad.setText(String.valueOf(aux - 1));
         }
     }
 
@@ -41,11 +41,11 @@ public class ProductActivity extends MenuBar {
         String valor = cantidad.getText().toString();
         //Se convierte  Integer
         int aux = Integer.parseInt(valor);
-        cantidad.setText(""+(aux+1));
+        cantidad.setText(String.valueOf(aux + 1));
     }
 
     public void agregarCarrito(View view) {
-
+        //todo:mandar id croquetas a shoppingCart y cantidad
         //Aqui se pasaria a la bd la cantidad
         //y el precio * cantidad
     }

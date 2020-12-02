@@ -77,10 +77,6 @@ public class MenuBar extends AppCompatActivity {
                 intent = new Intent(this, ShoppingCarActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.myEndPurchase: //cambiar
-                intent = new Intent(this, ProductSummaryActivity.class);
-                startActivity(intent);
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

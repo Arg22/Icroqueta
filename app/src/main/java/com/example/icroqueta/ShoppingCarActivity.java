@@ -13,7 +13,8 @@ public class ShoppingCarActivity extends MenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_shopping_car);
-
+        //todo recicle view con los productos con una cantidad >0
+        //todo mostrar el total de todo el precio
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 
@@ -23,9 +24,9 @@ public class ShoppingCarActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
-
-    public void openResumen(View view) {
-        intent= new Intent(this, ProductSummaryActivity.class);
+    public void openPagar(View view) {
+        //Comprobar los datos de registro si no los tiene se habre register
+          intent= new Intent(this, RegisterPaymentActivity.class);
         startActivity(intent);
     }
 }
