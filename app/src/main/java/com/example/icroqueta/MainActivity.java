@@ -10,6 +10,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.icroqueta.database.DBSource;
+import com.example.icroqueta.database.entidades.Producto;
+import com.example.icroqueta.presentador.MainPresenter;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -18,6 +21,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 
 public class MainActivity extends MenuBar {
@@ -52,6 +57,10 @@ public class MainActivity extends MenuBar {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+
+        //todo enviar prodcutos al constructor
+        MainPresenter mp = new MainPresenter();
+        List<Producto>  productos=mp.leerProductos(this);
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter();
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
