@@ -9,22 +9,18 @@
 
 
     <EditText
-        android:id="@+id/nombre"
+        android:id="@+id/correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
         android:layout_marginEnd="32dp"
-        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/nombre"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/apellido"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/contrasena"
+        app:layout_constraintTop_toBottomOf="@+id/nif"
+        tools:layout_editor_absoluteX="0dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -38,15 +34,61 @@
         android:ems="10"
         android:hint="@string/apellidos"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/correo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nif"
         app:layout_constraintTop_toBottomOf="@+id/nombre"
+        tools:layout_editor_absoluteX="0dp"
+        tools:targetApi="lollipop" />
+
+    <Button
+        android:id="@+id/registrarse"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/button_rounded"
+        android:onClick="comprobarDatos"
+        android:text="@string/registrarse"
+        app:layout_constraintBottom_toTopOf="@+id/atras"
+        app:layout_constraintTop_toBottomOf="@+id/contrasena"
+        tools:layout_editor_absoluteX="31dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/atras"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/button_rounded_border"
+        android:onClick="openBack"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/atr_s"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registrarse"
+        tools:layout_editor_absoluteX="31dp"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="32dp"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/apellido"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
 
     <EditText
-        android:id="@+id/correo"
+        android:id="@+id/nif"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -54,66 +96,26 @@
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-        android:hint="@string/correo"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/contrasena"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
+        android:hint="@string/nif"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/correo"
         app:layout_constraintTop_toBottomOf="@+id/apellido"
+        tools:layout_editor_absoluteX="0dp"
         tools:targetApi="lollipop" />
 
     <EditText
         android:id="@+id/contrasena"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
-
-
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:hint="@string/contrasena"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/registrarse"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo" />
-
-
-    <Button
-        android:id="@+id/registrarse"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/button_rounded"
-        android:onClick="comprobarDatos"
-        android:text="@string/registrarse"
-        app:layout_constraintBottom_toTopOf="@+id/atras"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
-
-    <Button
-        android:id="@+id/atras"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/button_rounded_border"
-        android:onClick="openBack"
-        android:text="@string/atr_s"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registrarse" />
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

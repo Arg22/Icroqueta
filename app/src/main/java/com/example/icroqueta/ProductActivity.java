@@ -2,14 +2,27 @@ package com.example.icroqueta;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.database.entidades.Producto;
+
+import java.util.List;
 import java.util.Objects;
 
 public class ProductActivity extends MenuBar {
-    private TextView cantidad;
+
     private int id_producto;
+    private  TextView nombre;
+    private  TextView precio;
+    private  TextView descripcion;
+    private TextView cantidad;
+    public ImageView foto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +33,23 @@ public class ProductActivity extends MenuBar {
         //Carga la id del producto pulsado en el Adapter
         Bundle extras = getIntent().getExtras();
         id_producto = extras.getInt("ID_PRODUCTO");
+
+        //Recogemos el producto
+        DBHelper mp = new DBHelper();
+        Producto producto =mp.findProducto(this,id_producto);
+        nombre = findViewById(R.id.producto_nombre_row);
+        precio = findViewById(R.id.producto_precio_row);
+        descripcion = findViewById(R.id.producto_descripcion_row);
+        cantidad = findViewById(R.id.producto_cantidad_row);        //todo enviar linea para mirar la cantidad
+        foto = findViewById(R.id.producto_imagen);
+
+        //Cargamos los datos del producto y comprobamos si está en el carrito
+        Glide.with(this)
+                .load(producto.getImagen())
+                .into(foto);
+        nombre.setText(producto.getNombre());
+        descripcion.setText(producto.getDescripcion());
+        precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }

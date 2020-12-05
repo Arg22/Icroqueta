@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 /*Aquí va lo referente al menú superior para añadirlo a cualquier Activity
  */
@@ -26,19 +27,11 @@ public class MenuBar extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
-
-        /*Back key
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
-        /*Aqui hay que poner un if segun el rol
+        //Esto es para que el usuario no vea la pantalla de repartos
+       if(LoginActivity.usuario.isRol()==0){
         MenuItem item = menu.findItem(R.id.myDeliver);
-        item.setVisible(false);*/
-
-             /*Aqui hay que poner segun carrit
-
-               MenuItem item = menu.findItem(R.id.myEndPurchase);
-        item.setVisible(false);*/
-
+        item.setVisible(false);
+        }
         return true;
     }
 

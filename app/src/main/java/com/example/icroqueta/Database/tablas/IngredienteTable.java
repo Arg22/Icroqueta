@@ -50,14 +50,15 @@ public class IngredienteTable {
         Ingrediente i7 = new Ingrediente("Leche condensada", 1, 0, 1);
         Ingrediente i8 = new Ingrediente("Queso sin lactosa", 1, 0, 1);
         Ingrediente i9 = new Ingrediente("Harina sin gluten", 1, 1, 0);
+        Ingrediente i10 = new Ingrediente("Tofu", 1, 0, 0);
         Ingrediente i11 = new Ingrediente("Harina de trigo", 1, 0, 0);
         Ingrediente i12 = new Ingrediente("Quinoa", 1, 0, 0);
         Ingrediente i13 = new Ingrediente("Patata", 1, 0, 0);
         Ingrediente i14 = new Ingrediente("Fresas", 1, 0, 0);
-        Ingrediente i15 = new Ingrediente("Nueces", 1, 0, 0);
+        Ingrediente i15 = new Ingrediente("Acelgas", 1, 0, 0);
         Ingrediente i16 = new Ingrediente("Chocolate", 1, 0, 0);
         Ingrediente i17 = new Ingrediente("Vainilla", 1, 0, 0);
-        Ingrediente i18 = new Ingrediente("Leche sin lactosa", 1, 0, 0);
+        Ingrediente i18 = new Ingrediente("Oreo", 1, 1, 1);
 
         db.insert(TABLE_NAME, null, i1 .mapearAContenValues());
         db.insert(TABLE_NAME, null, i2 .mapearAContenValues());
@@ -68,6 +69,7 @@ public class IngredienteTable {
         db.insert(TABLE_NAME, null, i7 .mapearAContenValues());
         db.insert(TABLE_NAME, null, i8 .mapearAContenValues());
         db.insert(TABLE_NAME, null, i9 .mapearAContenValues());
+        db.insert(TABLE_NAME, null, i10.mapearAContenValues());
         db.insert(TABLE_NAME, null, i11.mapearAContenValues());
         db.insert(TABLE_NAME, null, i12.mapearAContenValues());
         db.insert(TABLE_NAME, null, i13.mapearAContenValues());
@@ -76,6 +78,7 @@ public class IngredienteTable {
         db.insert(TABLE_NAME, null, i16.mapearAContenValues());
         db.insert(TABLE_NAME, null, i17.mapearAContenValues());
         db.insert(TABLE_NAME, null, i18.mapearAContenValues());
+
     }
 
 }

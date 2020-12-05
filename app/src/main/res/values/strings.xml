@@ -44,5 +44,6 @@
     <string name="descripcion_boton_mas">Botón para añadir una unidad de croqueta</string>
     <string name="anadir_boton_producto">Añadir al carrito</string>
     <string name="ingredientes">Ingredientes</string>
+    <string name="nif">Nif</string>
 
 </resources>

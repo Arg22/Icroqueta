@@ -2,12 +2,12 @@ package com.example.icroqueta;
 
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.icroqueta.database.entidades.Persona;
 import com.example.icroqueta.database.entidades.Producto;
 import com.example.icroqueta.database.DBHelper;
 import com.google.android.material.navigation.NavigationView;
@@ -40,6 +40,7 @@ public class MainActivity extends MenuBar {
                 .setOpenableLayout(drawer)
                 .build();
 
+        //TODO menu segun rol
         //Esto es para que aparezca el icono del menu de la izquierda
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openToolbar, R.string.closeToolbar);
         drawer.addDrawerListener(toggle);
@@ -80,4 +81,5 @@ public class MainActivity extends MenuBar {
 
     //todo poner funcionalidad al menu lateral y que reaccione con la base de datos
 
+    //todo boton para atras
 }

@@ -43,7 +43,7 @@ public class ProductoTable {
     public static void insertIniciales(SQLiteDatabase db) {
         Producto p1 = new Producto("Jamon y queso", "Croquetas con delicioso jamón dulce y queso curado.", 1.05, 100, 0, "https://saltandoladieta.com/wp-content/uploads/2019/02/croquetas-caseras-jamon-receta-deliciosa.jpg");
         Producto p2 = new Producto("Jamon y queso sin gluten", "Croquetas con delicioso jamón dulce y queso curado, pero con menos gluten... Más bien nada de él.", 1.05, 100, 0, "https://www.hogarmania.com/archivos/201801/croquetas-jamon-detalle-1280x720x80xX.jpg");
-        Producto p3 = new Producto("Pollo asado", "Deliciosas croquetas de pollo con ajo.", 1.10, 10, 0, "https://www.divinacocina.es/wp-content/uploads/croquetas-de-salmon.jpg");
+        Producto p3 = new Producto("Pollo asado", "Deliciosas croquetas de pollo asado en el microondas.", 1.10, 10, 0, "https://sevilla.abc.es/gurme/wp-content/uploads/sites/24/2010/07/1797_croquetaspollo_1280125295.jpg");
         Producto p4 = new Producto("Tofu sabor pollo", "Son croquetas de pollo, pero le decimos a la gente que es de tofu para que las compren, vaya pringados.", 1.10, 100, 0, "https://vod-hogarmania.atresmedia.com/cocinatis/images/images01/2020/01/16/5e206222fa7dec0001ed750d/1239x697.jpg");
         Producto p5  = new Producto("Bacalao", "Bacalao recién comprado de la lonja de turquia.", 1.85, 100, 0, "https://t2.rg.ltmcdn.com/es/images/8/0/3/croquetas_de_bacalao_caseras_59308_600_square.jpg");
         Producto p6  = new Producto("Salmón ahumado", "Rico salmón cocinado a la piedra", 1.75, 10, 0, "https://www.divinacocina.es/wp-content/uploads/croquetas-de-salmon.jpg");

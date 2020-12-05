@@ -9,13 +9,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.icroqueta.database.DBHelper;
-
+import com.example.icroqueta.database.entidades.Persona;
 
 public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
     private EditText contrasena;
-
+    public static Persona  usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,23 +27,17 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openPrincipal(View view) {
-        intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
     public void comprobarDatos(View view) {
-        //todo: comprobar datos y en caso afirmativo abrir Home
         contrasena = findViewById(R.id.password_login);
         correo = findViewById(R.id.correo_login);
-
-
         if (contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
-            switch (db.findUsuario(this, correo.getText().toString(), contrasena.getText().toString())) {
+            int idPersona = db.findPersonaLogin(this, correo.getText().toString(), contrasena.getText().toString());
+            switch (idPersona) {
                 case -1:
                     Toast.makeText(getApplicationContext(),
                             "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
@@ -53,16 +47,17 @@ public class LoginActivity extends AppCompatActivity {
                             "Correo no registrado", Toast.LENGTH_SHORT).show();
                     break;
                 default:
-                    openPrincipal(view); //en caso afirmativo abrimos home
-                    //todo enviar id y rol
+                    intent = new Intent(this, MainActivity.class);
+                    usuario= db.findPersonaId(this,idPersona);
+                    startActivity(intent);
                     break;
             }
-
         }
-
     }
 
     public void pedirContrasena(View view) {
         //todo: pedir contraseña usuario
+        Toast.makeText(getApplicationContext(),
+                "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
     }
 }

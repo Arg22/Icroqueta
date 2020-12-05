@@ -32,6 +32,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         public final TextView cantidad;
         public final LinearLayout fila;
         public ImageView foto;
+        public int idProducto;
 
 
         /**
@@ -48,6 +49,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             cantidad = v.findViewById(R.id.producto_cantidad_row);
             fila = v.findViewById(R.id.croquetaRow);
             foto = v.findViewById(R.id.croquetaImagen);
+
         }
 
         /**
@@ -56,10 +58,13 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
          * @param producto nuestro objeto
          */
         public void bind(final Producto producto) {
-
+            idProducto = producto.getIdProducto();
 
             Glide.with(itemView.getContext())
                     .load(producto.getImagen())
+                    .placeholder(R.drawable.logo)//En el caso de que no pueda cargar la imagen
+                    .override(300, 300)
+                    .centerCrop()
                     .into(foto);
             nombre.setText(producto.getNombre());
             precio.setText(producto.getPrecioUd() + "€/ud");
@@ -117,8 +122,8 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
      * Une la Recicle view con la posición hasta que llegue
      * y va a enlazando los nuevos
      *
-     *@param position la posicion actual en la lista
-     * @param holder mi clase de RecicleView
+     * @param position la posicion actual en la lista
+     * @param holder   mi clase de RecicleView
      */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
@@ -129,7 +134,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
     /**
      * Une la Recicle view con la posición hasta que llegue
      * y va a enlazando los nuevos
-     *
      */
     @Override
     public int getItemCount() {

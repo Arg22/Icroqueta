@@ -14,6 +14,7 @@ import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.tablas.PersonaTable;
 
 public class RegisterActivity extends AppCompatActivity {
+    private EditText nif;
     private EditText nombre;
     private EditText apellido;
     private EditText contrasena;
@@ -32,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void comprobarDatos(View view) {
+        nif = findViewById(R.id.nif);
         nombre = findViewById(R.id.nombre);
         apellido = findViewById(R.id.apellido);
         contrasena = findViewById(R.id.contrasena);
@@ -39,12 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         //comprueba datos y en caso afirmativo abre el Login
-        if (nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
+        if (nif.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
-            if (!(db.addUsuario(this, nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString(), contrasena.getText().toString()))) {
+            if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString(), contrasena.getText().toString()))) {
                 Toast.makeText(getApplicationContext(),
                         "El correo ya está registrado", Toast.LENGTH_SHORT).show();
             } else {
