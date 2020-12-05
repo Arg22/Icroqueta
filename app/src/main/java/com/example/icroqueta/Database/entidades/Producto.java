@@ -104,7 +104,7 @@ public class Producto implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
-        values.put(ProductoTable.ID_PRODCUTO, idProducto);
+        values.put(ProductoTable.ID_PRODUCTO, idProducto);
         values.put(ProductoTable.NOMBRE, nombre);
         values.put(ProductoTable.DESCRIPCION, descripcion);
         values.put(ProductoTable.PRECIO_UD, precioUd);
@@ -122,7 +122,7 @@ public class Producto implements java.io.Serializable {
      * @return un objeto producto.
      */
     public Producto loadProductoFromCursor(Cursor cursor) {
-        int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.ID_PRODCUTO));
+        int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.ID_PRODUCTO));
         String nombre = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.NOMBRE));
         String descripcion = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.DESCRIPCION));
         double precioUd = cursor.getDouble(cursor.getColumnIndexOrThrow(ProductoTable.PRECIO_UD));

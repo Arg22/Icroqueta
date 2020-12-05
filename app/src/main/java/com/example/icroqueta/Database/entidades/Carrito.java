@@ -1,54 +1,104 @@
 package com.example.icroqueta.database.entidades;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.example.icroqueta.database.tablas.CarritoTable;
+
 public class Carrito  implements java.io.Serializable {
 
-
-     private Integer idCarrito;
-     private Persona persona;
-     private Producto producto;
-     private int cantidad;
+    private Integer idCarrito;
+    private int idPedido;
+    private int idProducto;
+    private int cantidad;
 
     public Carrito() {
     }
 
-    public Carrito(Persona persona, Producto producto, int cantidad) {
-       this.persona = persona;
-       this.producto = producto;
-       this.cantidad = cantidad;
+    public Carrito(int idPedido, int idProducto, int cantidad) {
+        this.idPedido = idPedido;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
     }
-   
+
+    public Carrito(Integer idCarrito, int idPedido, int idProducto, int cantidad) {
+        this.idCarrito = idCarrito;
+        this.idPedido = idPedido;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+    }
+
     public Integer getIdCarrito() {
-        return this.idCarrito;
+        return idCarrito;
     }
-    
+
     public void setIdCarrito(Integer idCarrito) {
         this.idCarrito = idCarrito;
     }
-    public Persona getPersona() {
-        return this.persona;
+
+    public int getIdPedido() {
+        return idPedido;
     }
-    
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+
+    public void setIdPedido(int idPedido) {
+        this.idPedido = idPedido;
     }
-    public Producto getProducto() {
-        return this.producto;
+
+    public int getIdProducto() {
+        return idProducto;
     }
-    
-    public void setProducto(Producto producto) {
-        this.producto = producto;
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
+
     public int getCantidad() {
-        return this.cantidad;
+        return cantidad;
     }
-    
+
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
 
+    /**
+     * Mapear sirve para meter valores y crear un mapa
+     * mete en cada columna de la tabla, el dato del objeto
+     * (escribe la informacion de la tabla).
+     *
+     * @return values es el mapa de los productos.
+     */
+    public ContentValues mapearAContenValues() {
+        ContentValues values = new ContentValues();
+        values.put(CarritoTable.ID_CARRITO, idCarrito);
+        values.put(CarritoTable.ID_PEDIDO, idPedido);
+        values.put(CarritoTable.ID_PRODUCTO, idProducto);
+        values.put(CarritoTable.CANTIDAD, cantidad);
 
+
+        return values;
+    }
+
+    /**
+     * Esto sirve para leer de la base de datos y mete los valores
+     * en el objeto (lee la informacion de la tabla).
+     *
+     * @param cursor es lo que se lee de la base de datos.
+     * @return un objeto Carrito.
+     */
+    public Carrito loadPedidoaFromCursor(Cursor cursor) {
+
+        int idCarrito = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_CARRITO));
+        int idPedido = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PEDIDO));
+        int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PRODUCTO));
+        int cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
+
+        this.idCarrito = idCarrito;
+        this.idPedido = idPedido;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+
+        return this;
+    }
 
 }
-
-

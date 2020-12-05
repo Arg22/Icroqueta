@@ -6,7 +6,7 @@ import com.example.icroqueta.database.entidades.Persona;
 
 public class TelefonoTable {
     public static final String TABLE_NAME = "telefono";
-    public static final String ID_TELEFONO = "nif";
+    public static final String ID_TELEFONO = "id_telefono";
     public static final String NUMERO = "numero";
 
 

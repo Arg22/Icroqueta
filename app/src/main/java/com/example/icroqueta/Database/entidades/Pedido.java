@@ -5,14 +5,14 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.PedidoTable;
 
-public class Pedido  implements java.io.Serializable {
+public class Pedido implements java.io.Serializable {
 
 
-     private Integer idPedido;
-     private Integer idPersona;
-     private String fechaPedido;
-     private String estado;
-     private double importe;
+    private Integer idPedido;
+    private Integer idPersona;
+    private String fechaPedido;
+    private String estado;
+    private double importe;
 
     public Pedido() {
     }
@@ -32,40 +32,42 @@ public class Pedido  implements java.io.Serializable {
         this.importe = importe;
     }
 
+    public Integer getIdPersona() {
+        return idPersona;
+    }
 
-   
+    public void setIdPersona(Integer idPersona) {
+        this.idPersona = idPersona;
+    }
+
     public Integer getIdPedido() {
         return this.idPedido;
     }
-    
+
     public void setIdPedido(Integer idPedido) {
         this.idPedido = idPedido;
     }
-    public Integer getPersona() {
-        return this.idPersona;
-    }
-    
-    public void setPersona(Integer persona) {
-        this.idPersona = idPersona;
-    }
+
     public String getFechaPedido() {
         return this.fechaPedido;
     }
-    
+
     public void setFechaPedido(String fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
+
     public String getEstado() {
         return this.estado;
     }
-    
+
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
     public double getImporte() {
         return this.importe;
     }
-    
+
     public void setImporte(double importe) {
         this.importe = importe;
     }

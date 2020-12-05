@@ -1,18 +1,31 @@
 package com.example.icroqueta.database.entidades;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
+import com.example.icroqueta.database.tablas.IngredienteTable;
+
 public class Ingrediente  implements java.io.Serializable {
 
 
      private Integer idIngrediente;
      private String nombre;
-     private boolean vegetariano;
-     private boolean gluten;
-     private boolean lactosa;
+     private int vegetariano;
+     private int gluten;
+     private int lactosa;
 
     public Ingrediente() {
     }
 
-    public Ingrediente(String nombre, boolean vegetariano, boolean gluten, boolean lactosa) {
+    public Ingrediente(Integer idIngrediente, String nombre, int vegetariano, int gluten, int lactosa) {
+        this.idIngrediente = idIngrediente;
+        this.nombre = nombre;
+        this.vegetariano = vegetariano;
+        this.gluten = gluten;
+        this.lactosa = lactosa;
+    }
+
+    public Ingrediente(String nombre, int vegetariano, int gluten, int lactosa) {
        this.nombre = nombre;
        this.vegetariano = vegetariano;
        this.gluten = gluten;
@@ -33,29 +46,70 @@ public class Ingrediente  implements java.io.Serializable {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    public boolean isVegetariano() {
+    public int isVegetariano() {
         return this.vegetariano;
     }
     
-    public void setVegetariano(boolean vegetariano) {
+    public void setVegetariano(int vegetariano) {
         this.vegetariano = vegetariano;
     }
-    public boolean isGluten() {
+    public int isGluten() {
         return this.gluten;
     }
     
-    public void setGluten(boolean gluten) {
+    public void setGluten(int gluten) {
         this.gluten = gluten;
     }
-    public boolean isLactosa() {
+    public int isLactosa() {
         return this.lactosa;
     }
     
-    public void setLactosa(boolean lactosa) {
+    public void setLactosa(int lactosa) {
         this.lactosa = lactosa;
     }
 
+    /**
+     * Mapear sirve para meter valores y crear un mapa
+     * mete en cada columna de la tabla, el dato del objeto
+     * (escribe la informacion de la tabla).
+     *
+     * @return values es el mapa de los productos.
+     */
+    public ContentValues mapearAContenValues() {
+        ContentValues values = new ContentValues();
 
+        values.put(IngredienteTable.ID_INGREDIENTE, idIngrediente);
+        values.put(IngredienteTable.NOMBRE, nombre);
+        values.put(IngredienteTable.VEGETARIANO, vegetariano);
+        values.put(IngredienteTable.GLUTEN, gluten);
+        values.put(IngredienteTable.LACTOSA, lactosa);
+        return values;
+    }
+
+
+    /**
+     * Esto sirve para leer de la base de datos y mete los valores
+     * en el objeto (lee la informacion de la tabla).
+     *
+     * @param cursor es lo que se lee de la base de datos.
+     * @return un objeto ingrediente.
+     */
+    public Ingrediente loadIngredienteFromCursor(Cursor cursor) {
+
+        int idIngrediente = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.ID_INGREDIENTE));
+        String nombre = cursor.getString(cursor.getColumnIndexOrThrow(IngredienteTable.NOMBRE));
+        int vegetariano = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.VEGETARIANO));
+        int gluten = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.GLUTEN));
+        int lactosa = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.LACTOSA));
+
+        this.idIngrediente = idIngrediente;
+        this.nombre = nombre;
+        this.vegetariano = vegetariano;
+        this.gluten = gluten;
+        this.lactosa = lactosa;
+
+        return this;
+    }
 
 
 }

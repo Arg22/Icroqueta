@@ -1,20 +1,13 @@
 package com.example.icroqueta.database;
 
-import android.app.Person;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 
-import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.entidades.*;
 import com.example.icroqueta.database.tablas.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class DBHelper {
 
