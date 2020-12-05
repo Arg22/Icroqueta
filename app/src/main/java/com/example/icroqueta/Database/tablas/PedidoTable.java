@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class PedidoTable {
     public static final String TABLE_NAME = "pedido";
-    public static final String ID_PEDIDO = "id_persona";
+    public static final String ID_PEDIDO = "id_pedido";
     public static final String ID_PERSONA = "id_persona";
     public static final String FECHA_PEDIDO = "fecha_pedido";
     public static final String ESTADO = "estado";

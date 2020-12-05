@@ -74,7 +74,6 @@ public class Carrito  implements java.io.Serializable {
         values.put(CarritoTable.ID_PRODUCTO, idProducto);
         values.put(CarritoTable.CANTIDAD, cantidad);
 
-
         return values;
     }
 

@@ -141,10 +141,10 @@ public class DBHelper {
      * @param idPersona  el id del usuario
      * @param cantidad   la cantidad del producto
      */
-    public void addCarrito(Context context, int idProducto, int idPersona, int cantidad) {
+    public void addCarrito(Context context, int idPersona, int idProducto, int cantidad) {
         DBSource db = new DBSource(context);
-        Carrito linea = new Carrito(idProducto, idPersona, cantidad);
-        db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
+        Carrito linea = new Carrito(idPersona, idProducto, cantidad);
+        db.getWritableDatabase().insert(CarritoTable.TABLE_NAME, null, linea.mapearAContenValues());
     }
 
     /**
@@ -155,24 +155,13 @@ public class DBHelper {
      * @param idPersona  el id del usuario
      * @return true si existe, false si no existe en la bd
      */
-    public boolean existCarritoProducto(Context context, int idProducto, int idPersona) {
-        try {
-            String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-            String[] whereArgs = {idPersona + "", idProducto + ""};
-            DBSource db = new DBSource(context);
-            Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-            List<Persona> lista = new ArrayList<>();
-            while (cursor.moveToNext()) {
-                lista.add(new Persona().loadPersonaFromCursor(cursor));
-            }
-            if (lista.isEmpty()) {
-                return false;
-            } else {
-                return true;
-            }
-        }catch(SQLiteException se){
-            return false;
-        }
+    public boolean existCarritoProducto(Context context, int idPersona, int idProducto) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {idPersona + "", idProducto + ""};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        return cursor.getCount() != 0;
+
     }
 
     /**
@@ -189,6 +178,19 @@ public class DBHelper {
     }
 
     /**
+     * Metodo para borrar todos los registros del carro
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     */
+    public void deleteCarritoProducto(Context context, int idPersona, int idProducto) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
+        DBSource db = new DBSource(context);
+        db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
+    }
+
+    /**
      * Metodo para actualizar el carro por si hay una nueva cantidad
      *
      * @param context    el contexto de la actividad
@@ -196,9 +198,9 @@ public class DBHelper {
      * @param idPersona  el id del usuario
      * @param cantidad   la cantidad del producto
      */
-    public void updateCarrito(Context context, int idProducto, int idPersona, int cantidad) {
+    public void updateCarrito(Context context, int idPersona, int idProducto, int cantidad) {
         String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {idPersona + ""};
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
         DBSource db = new DBSource(context);
         Carrito c = new Carrito(idPersona, idProducto, cantidad);
         db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
@@ -213,9 +215,9 @@ public class DBHelper {
      */
     public List<Carrito> findCarritoProducto(Context context, int idPersona) {
         String where = CarritoTable.ID_PERSONA + "=?";
-        String[] whereArgs = {idPersona + ""};
+        String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(PersonaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Carrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
             lista.add(new Carrito().loadCarritoFromCursor(cursor));

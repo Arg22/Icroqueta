@@ -29,9 +29,9 @@ public class MenuBar extends AppCompatActivity {
 
 
         //Esto es para que el usuario no vea la pantalla de repartos
-       if(LoginActivity.usuario.isRol()==0){
-        MenuItem item = menu.findItem(R.id.myDeliver);
-        item.setVisible(false);
+        if (LoginActivity.usuario.isRol() == 0) {
+            MenuItem item = menu.findItem(R.id.myDeliver);
+            item.setVisible(false);
         }
         return true;
     }
@@ -65,6 +65,7 @@ public class MenuBar extends AppCompatActivity {
                 break;
             case R.id.myClose:
                 intent = new Intent(this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             case R.id.myCart:

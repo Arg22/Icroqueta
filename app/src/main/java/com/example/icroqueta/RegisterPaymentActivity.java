@@ -18,7 +18,9 @@ public class RegisterPaymentActivity extends MenuBar {
 
     @Override
     public boolean onSupportNavigateUp() { //Accion botón retroceder
-        onBackPressed();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         return super.onSupportNavigateUp();
     }
 
@@ -30,7 +32,7 @@ public class RegisterPaymentActivity extends MenuBar {
         //todo: enviar datos bd = crear pedido activo
         openBack(view);
     }
-
+    //todo pading xml
     public void openBack(View view) {
         intent= new Intent(this, MainActivity.class);
         startActivity(intent);
