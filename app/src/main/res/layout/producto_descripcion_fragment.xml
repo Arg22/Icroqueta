@@ -28,7 +28,7 @@
         android:layout_height="42dp"
         android:layout_below="@+id/producto_nombre_row"
         android:layout_marginStart="16dp"
-        android:gravity="center_vertical|end"
+        android:gravity="center_vertical|top"
         tools:text="18,99€/ud"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"

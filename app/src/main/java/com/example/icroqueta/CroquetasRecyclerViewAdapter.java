@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,7 +21,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
     private List<Producto> productos;
 
     public CroquetasRecyclerViewAdapter(List<Producto> productos) {
-        this.productos=productos;
+        this.productos = productos;
     }
 
 
@@ -33,6 +34,12 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         public final LinearLayout fila;
         public ImageView foto;
 
+
+        /**
+         * Inicializamos todos los parametros que van a ser reutilizados
+         *
+         * @param v la view de la activity
+         */
         public MyViewHolder(View v) {
             super(v);
             nombre = v.findViewById(R.id.producto_nombre_row);
@@ -41,17 +48,22 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             mas = v.findViewById(R.id.btn_mas_row);
             cantidad = v.findViewById(R.id.producto_cantidad_row);
             fila = v.findViewById(R.id.croquetaRow);
-            foto= v.findViewById(R.id.croquetaImagen);
+            foto = v.findViewById(R.id.croquetaImagen);
         }
 
+        /**
+         * Metodo que se va a ir actualizando a cada elemento nuevo que se le envie
+         *
+         * @param v la view de la activity
+         */
         public void bind(final Producto producto) {
-            //todo actualizar esta informacion a la base de datos
+
 
             Glide.with(itemView.getContext())
                     .load(producto.getImagen())
                     .into(foto);
             nombre.setText(producto.getNombre());
-            precio.setText(producto.getPrecioUd()+"€/ud");
+            precio.setText(producto.getPrecioUd() + "€/ud");
             menos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,14 +98,13 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
-
+                    //todo actualizar esta informacion a la base de datos
                 }
             });
         }
     }
 
 
-    // Create new views (invoked by the layout manager)
     @Override
     public CroquetasRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                                         int viewType) {
@@ -103,16 +114,24 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         return new MyViewHolder(v);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
+    /**
+     * Une la Recicle view con la posición hasta que llegue
+     * y va a enlazando los nuevos
+     *
+     *@param position la posicion actual en la lista
+     * @param holder mi clase de RecicleView
+     */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
         holder.bind(productos.get(position));
 
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /**
+     * Une la Recicle view con la posición hasta que llegue
+     * y va a enlazando los nuevos
+     *
+     */
     @Override
     public int getItemCount() {
         return productos.size();

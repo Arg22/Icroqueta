@@ -21,12 +21,6 @@ public class ProductActivity extends MenuBar {
         Bundle extras = getIntent().getExtras();
         id_producto = extras.getInt("ID_PRODUCTO");
 
-
-        Toast toast1 = Toast.makeText(getApplicationContext(),
-                id_producto+"", Toast.LENGTH_SHORT);
-        toast1.show();
-
-
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 

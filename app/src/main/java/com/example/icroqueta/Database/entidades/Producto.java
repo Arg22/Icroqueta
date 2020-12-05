@@ -88,10 +88,19 @@ public class Producto implements java.io.Serializable {
         this.descuento = descuento;
     }
 
-    /**Mapear sirve para obtener un mapeado de los productos relacionados
-     * con la tabla productos y sus valores
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    /**Mapear sirve para meter valores y crear un mapa
+     * mete en cada columna de la tabla, el dato del objeto
+     *(escribe la informacion de la tabla).
      *
-     * @return values es el mapa de los productos
+     * @return values es el mapa de los productos.
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
@@ -107,10 +116,10 @@ public class Producto implements java.io.Serializable {
     }
 
     /**Esto sirve para leer de la base de datos y mete los valores
-     * en el producto
+     * en el objeto (lee la informacion de la tabla).
      *
-     * @param cursor es lo que se lee de la base de datos
-     * @return un objeto producto
+     * @param cursor es lo que se lee de la base de datos.
+     * @return un objeto producto.
      */
     public Producto loadProductoFromCursor(Cursor cursor) {
         int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.ID_PRODCUTO));

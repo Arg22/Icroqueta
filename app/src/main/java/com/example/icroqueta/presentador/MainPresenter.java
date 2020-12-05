@@ -31,8 +31,6 @@ public class MainPresenter {
         cursor.close();
         return lista;
     }
-
-
 }
 
 
