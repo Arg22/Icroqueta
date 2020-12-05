@@ -21,10 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-
 public class MainActivity extends MenuBar {
     private AppBarConfiguration mAppBarConfiguration;
-    private TextView cantidad;
 
 
     @Override
@@ -37,8 +35,6 @@ public class MainActivity extends MenuBar {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home)
                 .setOpenableLayout(drawer)
@@ -58,6 +54,7 @@ public class MainActivity extends MenuBar {
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper mp = new DBHelper();
         List<Producto>  productos=mp.leerProductos(this);
+
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
@@ -69,7 +66,6 @@ public class MainActivity extends MenuBar {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }

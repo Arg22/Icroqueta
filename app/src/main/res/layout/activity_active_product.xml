@@ -7,12 +7,15 @@
     android:background="@color/colorBackground"
     tools:context=".ActiveProductActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_pedidos_activos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--Aqui van los pedidos Activos-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/carritoRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="4dp"
+        tools:ignore="MissingConstraints" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

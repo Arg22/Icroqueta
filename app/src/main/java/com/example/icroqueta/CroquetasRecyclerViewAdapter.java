@@ -98,7 +98,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
-                    //todo actualizar esta informacion a la base de datos
+                    //todo actualizar esta informacion a la base de datos en linea
                 }
             });
         }

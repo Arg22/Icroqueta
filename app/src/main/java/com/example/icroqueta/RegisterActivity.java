@@ -38,24 +38,19 @@ public class RegisterActivity extends AppCompatActivity {
         correo = findViewById(R.id.correo);
 
 
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Rellene los campos vacios", Toast.LENGTH_SHORT);
-
-        //todo: comprobar datos y en caso afirmativo ir al Login
-        if (nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() ||contrasena.getText().toString().isEmpty() ||correo.getText().toString().isEmpty()){
-            toast.show();
-          }else{
+        //comprueba datos y en caso afirmativo abre el Login
+        if (nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
+            Toast.makeText(getApplicationContext(),
+                    "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
+        } else {
             DBHelper db = new DBHelper();
-            if(!(db.addUsuario(this,nombre.getText().toString(), apellido.getText().toString(),correo.getText().toString(),contrasena.getText().toString()))){
-                Toast toast2 = Toast.makeText(getApplicationContext(),
-                        "El correo ya está registrado", Toast.LENGTH_SHORT);
-                toast2.show();
-            }else{
+            if (!(db.addUsuario(this, nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString(), contrasena.getText().toString()))) {
+                Toast.makeText(getApplicationContext(),
+                        "El correo ya está registrado", Toast.LENGTH_SHORT).show();
+            } else {
                 openLogin(view); //en caso afirmativo abrimos home
             }
-
         }
-
     }
 
 
