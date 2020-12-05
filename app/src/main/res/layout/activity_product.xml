@@ -70,7 +70,6 @@
         android:layout_marginBottom="50dp"
         android:layout_toStartOf="@+id/btn_mas_row"
         android:background="@null"
-        android:onClick="restarCantidad"
         android:scaleType="fitXY"
         android:src="@drawable/ic_remove_circle"
         android:textSize="24sp"

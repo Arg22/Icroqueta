@@ -25,8 +25,8 @@ public class ShoppingCarActivity extends MenuBar {
 
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
-        DBHelper mp = new DBHelper();
-        List<Producto> productos=mp.leerProductos(this);
+        DBHelper db = new DBHelper();
+        List<Producto> productos=db.findAllCaritos(this,LoginActivity.usuario.getIdPersona());
         //todo recicle view con los productos con una cantidad >0
         //todo mostrar el total de todo el precio
         //Para visualizar el Recicle view en esta Vista

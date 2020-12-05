@@ -8,22 +8,22 @@ import com.example.icroqueta.database.tablas.CarritoTable;
 public class Carrito  implements java.io.Serializable {
 
     private Integer idCarrito;
-    private int idPedido;
+    private int idPersona;
     private int idProducto;
     private int cantidad;
 
     public Carrito() {
     }
 
-    public Carrito(int idPedido, int idProducto, int cantidad) {
-        this.idPedido = idPedido;
+    public Carrito(int idPersona, int idProducto, int cantidad) {
+        this.idPersona = idPersona;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
     }
 
-    public Carrito(Integer idCarrito, int idPedido, int idProducto, int cantidad) {
+    public Carrito(Integer idCarrito, int idPersona, int idProducto, int cantidad) {
         this.idCarrito = idCarrito;
-        this.idPedido = idPedido;
+        this.idPersona = idPersona;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
     }
@@ -36,12 +36,12 @@ public class Carrito  implements java.io.Serializable {
         this.idCarrito = idCarrito;
     }
 
-    public int getIdPedido() {
-        return idPedido;
+    public int getIdPersona() {
+        return idPersona;
     }
 
-    public void setIdPedido(int idPedido) {
-        this.idPedido = idPedido;
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public int getIdProducto() {
@@ -60,7 +60,6 @@ public class Carrito  implements java.io.Serializable {
         this.cantidad = cantidad;
     }
 
-
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
@@ -71,7 +70,7 @@ public class Carrito  implements java.io.Serializable {
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
         values.put(CarritoTable.ID_CARRITO, idCarrito);
-        values.put(CarritoTable.ID_PEDIDO, idPedido);
+        values.put(CarritoTable.ID_PERSONA, idPersona);
         values.put(CarritoTable.ID_PRODUCTO, idProducto);
         values.put(CarritoTable.CANTIDAD, cantidad);
 
@@ -86,15 +85,15 @@ public class Carrito  implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto Carrito.
      */
-    public Carrito loadPedidoaFromCursor(Cursor cursor) {
+    public Carrito loadCarritoFromCursor(Cursor cursor) {
 
         int idCarrito = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_CARRITO));
-        int idPedido = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PEDIDO));
+        int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PERSONA));
         int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PRODUCTO));
         int cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
 
         this.idCarrito = idCarrito;
-        this.idPedido = idPedido;
+        this.idPersona = idPersona;
         this.idProducto = idProducto;
         this.cantidad = cantidad;
 

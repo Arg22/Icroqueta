@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Producto;
 
 import java.util.List;
@@ -59,6 +60,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
          */
         public void bind(final Producto producto) {
             idProducto = producto.getIdProducto();
+            DBHelper db = new DBHelper();
 
             Glide.with(itemView.getContext())
                     .load(producto.getImagen())
@@ -68,9 +70,11 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     .into(foto);
             nombre.setText(producto.getNombre());
             precio.setText(producto.getPrecioUd() + "€/ud");
+            cantidad.setText("0");
             menos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DBHelper db = new DBHelper();
                     //Obtiene el valor del TextView
                     String valor = cantidad.getText().toString();
                     //Se convierte  Integer
@@ -78,36 +82,52 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
                     if (aux == 0) {
                         cantidad.setText("0");
+                        //Si tuviesemos este elemento en el carrito, entonces lo borramos
+                        if (db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
+                            db.deleteCarrito(itemView.getContext(),LoginActivity.usuario.getIdPersona());
+                        }
                     } else {
                         cantidad.setText(String.valueOf(aux - 1));
+                        //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+                        if (!db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
+                            db.addCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                        }else{
+                            db.updateCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                        }
                     }
                 }
             });
             mas.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    DBHelper db = new DBHelper();
                     //Obtiene el valor del TextView
                     String valor = cantidad.getText().toString();
                     //Se convierte  Integer
                     int aux = Integer.parseInt(valor);
                     cantidad.setText(String.valueOf(aux + 1));
+                    //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+                    if (!db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
+                        db.addCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                    }else{
+                        db.updateCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                    }
                 }
             });
-            cantidad.setText("0");
+
             fila.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     //Envia id a la actividad ProductActivity
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
-                    //todo actualizar esta informacion a la base de datos en linea
+                    //todo actualizar esta informacion a la base de datos en carrito
+                    //Añadimo al carrito si la cantidad es más de 0
                 }
             });
         }
     }
-
 
     @Override
     public CroquetasRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
@@ -128,7 +148,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.bind(productos.get(position));
-
     }
 
     /**

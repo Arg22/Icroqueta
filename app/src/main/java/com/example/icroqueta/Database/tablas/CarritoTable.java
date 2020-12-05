@@ -2,10 +2,12 @@ package com.example.icroqueta.database.tablas;
 
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.icroqueta.database.entidades.Persona;
+
 public class CarritoTable {
     public static final String TABLE_NAME = "carrito";
     public static final String ID_CARRITO = "id_carrito";
-    public static final String ID_PEDIDO = "id_pedido";
+    public static final String ID_PERSONA= "id_persona";
     public static final String ID_PRODUCTO = "id_producto";
     public static final String CANTIDAD= "cantidad";
 
@@ -14,10 +16,10 @@ public class CarritoTable {
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID_CARRITO + " INTEGER PRIMARY KEY," +
                     ID_PRODUCTO + " INTEGER," +
-                    ID_PEDIDO + " INTEGER," +
+                    ID_PERSONA + " INTEGER," +
                     CANTIDAD + " INTEGER," +
                     " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ")," +
-                    " FOREIGN KEY (" + ID_PEDIDO + ") REFERENCES " + PedidoTable.TABLE_NAME + "(" + PedidoTable.ID_PEDIDO + "));";
+                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + "));";
 
 
     private static final String SQL_DELETE_ENTRIES =

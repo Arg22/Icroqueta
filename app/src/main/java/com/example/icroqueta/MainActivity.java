@@ -40,7 +40,7 @@ public class MainActivity extends MenuBar {
                 .setOpenableLayout(drawer)
                 .build();
 
-        //TODO menu segun rol
+        //TODO arreglar menu rol que no aparece desde el main
         //Esto es para que aparezca el icono del menu de la izquierda
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openToolbar, R.string.closeToolbar);
         drawer.addDrawerListener(toggle);
@@ -54,7 +54,7 @@ public class MainActivity extends MenuBar {
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper mp = new DBHelper();
-        List<Producto>  productos=mp.leerProductos(this);
+        List<Producto>  productos=mp.findAllProductos(this);
 
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
