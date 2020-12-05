@@ -46,9 +46,22 @@ public class ProductoTable {
         Producto p = new Producto("Jamon y queso", "Croquetas con delicioso jamón dulce y queso curado", 1.05, 100, 0, "https://i.ytimg.com/vi/HyAPon0ISvc/maxresdefault.jpg");
         Producto p2 = new Producto("Vainilla y cholate", "Croquetas dulces con leche condensada", 2.45, 50, 0, "https://canalcocina.es/medias/_cache/zoom-f46025d0bc49437cc3227d0ef9381d15-920-518.jpg");
         Producto p3 = new Producto("Salmón ahumado", "Rico salmón cocinado a la piedra", 1.75, 10, 0, "https://www.divinacocina.es/wp-content/uploads/croquetas-de-salmon.jpg");
+        Producto p4 = new Producto("Jamon y queso", "Croquetas con delicioso jamón dulce y queso curado", 1.05, 100, 0, "https://i.ytimg.com/vi/HyAPon0ISvc/maxresdefault.jpg");
+        Producto p5 = new Producto("Vainilla y cholate", "Croquetas dulces con leche condensada", 2.45, 50, 0, "https://canalcocina.es/medias/_cache/zoom-f46025d0bc49437cc3227d0ef9381d15-920-518.jpg");
+        Producto p6 = new Producto("Salmón ahumado", "Rico salmón cocinado a la piedra", 1.75, 10, 0, "https://www.divinacocina.es/wp-content/uploads/croquetas-de-salmon.jpg");
+        Producto p7 = new Producto("Jamon y queso", "Croquetas con delicioso jamón dulce y queso curado", 1.05, 100, 0, "https://i.ytimg.com/vi/HyAPon0ISvc/maxresdefault.jpg");
+        Producto p8 = new Producto("Vainilla y cholate", "Croquetas dulces con leche condensada", 2.45, 50, 0, "https://canalcocina.es/medias/_cache/zoom-f46025d0bc49437cc3227d0ef9381d15-920-518.jpg");
+        Producto p9 = new Producto("Salmón ahumado", "Rico salmón cocinado a la piedra", 1.75, 10, 0, "https://www.divinacocina.es/wp-content/uploads/croquetas-de-salmon.jpg");
+
 
         db.insert(TABLE_NAME, null, p.mapearAContenValues());
         db.insert(TABLE_NAME, null, p2.mapearAContenValues());
         db.insert(TABLE_NAME, null, p3.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p4.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p5.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p6.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p7.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p8.mapearAContenValues());
+        db.insert(TABLE_NAME, null, p9.mapearAContenValues());
     }
 }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -110,7 +109,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                                                                         int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.producto_row_layout, parent, false);
+                .inflate(R.layout.producto_layout, parent, false);
         return new MyViewHolder(v);
     }
 

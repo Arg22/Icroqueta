@@ -45,9 +45,6 @@ public class Linea  implements java.io.Serializable {
         this.cantidad = cantidad;
     }
 
-
-
-
 }
 
 

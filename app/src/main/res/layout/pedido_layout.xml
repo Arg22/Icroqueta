@@ -7,23 +7,16 @@
     android:layout_marginBottom="4dp"
     card_view:cardCornerRadius="8dp">
 
-    <!--La tarjetas donde van a ir cada producto en el main y en el resumen-->
-
+    <!--La tarjetas donde van a ir archivado el pedido-->
     <LinearLayout
-        android:id="@+id/listaRow"
+        android:id="@+id/pedidoRow"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:background="@android:color/white"
         android:clickable="true"
         android:focusable="true">
 
-        <ImageView
-            android:id="@+id/listaImagen"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/producto" />
-
-        <include layout="@layout/producto_lista_pedido_fragment" />
+        <include layout="@layout/pedido_fragment" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
