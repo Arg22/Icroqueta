@@ -80,19 +80,18 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     //Se convierte  Integer
                     int aux = Integer.parseInt(valor);
                     //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
-                    if (aux == 0) {
+                    if (aux == 1) {
                         cantidad.setText("0");
                         //Si tuviesemos este elemento en el carrito, entonces lo borramos
-                        if (db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
-                            db.deleteCarrito(itemView.getContext(),LoginActivity.usuario.getIdPersona());
-                        }
-                    } else {
+                        db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
+
+                    } else if (aux > 1) {
                         cantidad.setText(String.valueOf(aux - 1));
                         //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                        if (!db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
-                            db.addCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
-                        }else{
-                            db.updateCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                        if (!db.existCarritoProducto(itemView.getContext(),LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                            db.addCarrito(itemView.getContext(),  LoginActivity.usuario.getIdPersona(), producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+                        } else {
+                            db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(),producto.getIdProducto(),  Integer.parseInt(cantidad.getText().toString()));
                         }
                     }
                 }
@@ -107,10 +106,10 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     int aux = Integer.parseInt(valor);
                     cantidad.setText(String.valueOf(aux + 1));
                     //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                    if (!db.existCarritoProducto(itemView.getContext(),producto.getIdProducto(),LoginActivity.usuario.getIdPersona() )){
-                        db.addCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
-                    }else{
-                        db.updateCarrito(itemView.getContext(), producto.getIdProducto(), LoginActivity.usuario.getIdPersona(), Integer.parseInt(cantidad.getText().toString()));
+                    if (!db.existCarritoProducto(itemView.getContext(),  LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                        db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(),  producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+                    } else {
+                        db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                     }
                 }
             });
@@ -122,8 +121,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
-                    //todo actualizar esta informacion a la base de datos en carrito
-                    //Añadimo al carrito si la cantidad es más de 0
                 }
             });
         }

@@ -40,7 +40,7 @@ public class MainActivity extends MenuBar {
                 .setOpenableLayout(drawer)
                 .build();
 
-        //TODO arreglar menu rol que no aparece desde el main
+
         //Esto es para que aparezca el icono del menu de la izquierda
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openToolbar, R.string.closeToolbar);
         drawer.addDrawerListener(toggle);
@@ -65,11 +65,7 @@ public class MainActivity extends MenuBar {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
+
 
     //Al hacer click en el icono sale el menú lateral
     @Override

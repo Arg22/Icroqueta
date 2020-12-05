@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
     private EditText contrasena;
-    public static Persona  usuario;
+    public static Persona  usuario;     //todo persona pasar a todos lados
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

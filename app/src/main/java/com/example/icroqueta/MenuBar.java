@@ -27,6 +27,7 @@ public class MenuBar extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
 
+
         //Esto es para que el usuario no vea la pantalla de repartos
        if(LoginActivity.usuario.isRol()==0){
         MenuItem item = menu.findItem(R.id.myDeliver);
