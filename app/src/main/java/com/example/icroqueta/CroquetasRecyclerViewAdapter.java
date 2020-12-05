@@ -54,7 +54,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         /**
          * Metodo que se va a ir actualizando a cada elemento nuevo que se le envie
          *
-         * @param v la view de la activity
+         * @param producto nuestro objeto
          */
         public void bind(final Producto producto) {
 
