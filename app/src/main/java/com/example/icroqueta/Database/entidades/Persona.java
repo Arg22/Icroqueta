@@ -2,7 +2,9 @@ package com.example.icroqueta.database.entidades;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
+import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.tablas.PersonaTable;
 
 public class Persona implements java.io.Serializable {
@@ -105,6 +107,7 @@ public class Persona implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
+
         values.put(PersonaTable.ID_PERSONA, idPersona);
         values.put(PersonaTable.NIF, nif);
         values.put(PersonaTable.NOMBRE, nombre);
@@ -124,7 +127,7 @@ public class Persona implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto persona.
      */
-    public Persona loadProductoFromCursor(Cursor cursor) {
+    public Persona loadPersonaFromCursor(Cursor cursor) {
         int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.ID_PERSONA));
         String nif = cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.NIF));
         String nombre = cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.NOMBRE));
@@ -143,6 +146,7 @@ public class Persona implements java.io.Serializable {
 
         return this;
     }
+
 }
 
 

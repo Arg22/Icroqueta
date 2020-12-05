@@ -6,20 +6,24 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.icroqueta.database.entidades.Persona;
+import com.example.icroqueta.database.tablas.PersonaTable;
 import com.example.icroqueta.database.tablas.ProductoTable;
 
 public class DBSource extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "croqueta.db";
-
+    public SQLiteDatabase db;
     public DBSource(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        this.db=db; //todo preguntar por esto
         ProductoTable.onCreate(db);
+        PersonaTable.onCreate(db);
     }
 
     /**
@@ -32,6 +36,7 @@ public class DBSource extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         ProductoTable.onDrop(db);
+        PersonaTable.onDrop(db);
         onCreate(db);
     }
 
@@ -46,7 +51,9 @@ public class DBSource extends SQLiteOpenHelper {
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         ProductoTable.onDrop(db);
+        PersonaTable.onDrop(db);
         onCreate(db);
     }
+
 
 }

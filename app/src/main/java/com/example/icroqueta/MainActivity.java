@@ -1,18 +1,15 @@
 package com.example.icroqueta;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.entidades.Producto;
-import com.example.icroqueta.presentador.MainPresenter;
+import com.example.icroqueta.database.DBHelper;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -58,8 +55,8 @@ public class MainActivity extends MenuBar {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        //todo enviar prodcutos al constructor
-        MainPresenter mp = new MainPresenter();
+        //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
+        DBHelper mp = new DBHelper();
         List<Producto>  productos=mp.leerProductos(this);
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
@@ -84,7 +81,6 @@ public class MainActivity extends MenuBar {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
 
     //todo poner funcionalidad al menu lateral y que reaccione con la base de datos
 

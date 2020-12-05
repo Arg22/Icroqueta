@@ -1,9 +1,11 @@
 package com.example.icroqueta.database.tablas;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.entidades.Persona;
 import com.example.icroqueta.database.entidades.Producto;
 
@@ -23,7 +25,7 @@ public class PersonaTable {
                     NIF + " TEXT," +
                     NOMBRE + " TEXT, " +
                     APELLIDOS + " TEXT," +
-                    CORREO + " TEXT," +
+                    CORREO + " TEXT UNIQUE," +
                     CONTRASENA + " TEXT," +
                     ROL + " INTEGER)";
 
@@ -51,6 +53,5 @@ public class PersonaTable {
         db.insert(TABLE_NAME, null, p.mapearAContenValues());
         db.insert(TABLE_NAME, null, p2.mapearAContenValues());
     }
-
 
 }

@@ -1,18 +1,22 @@
-package com.example.icroqueta.presentador;
+package com.example.icroqueta.database;
 
+import android.app.Person;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteConstraintException;
+import android.database.sqlite.SQLiteException;
 
 import com.example.icroqueta.database.DBSource;
-import com.example.icroqueta.database.entidades.Producto;
-import com.example.icroqueta.database.tablas.ProductoTable;
+import com.example.icroqueta.database.entidades.*;
+import com.example.icroqueta.database.tablas.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class MainPresenter {
+public class DBHelper {
 
 
     /**Este método sirve para hacer un Select All de los productos
@@ -31,6 +35,16 @@ public class MainPresenter {
         cursor.close();
         return lista;
     }
+
+    public boolean addUsuario(Context context, String nombre, String apellido, String correo, String pass){
+        DBSource db = new DBSource(context);
+        Persona usuario = new Persona( null, nombre , apellido, correo, pass, 0);
+
+           long prueba= db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
+
+        return prueba!=-1;
+    }
+
 }
 
 
