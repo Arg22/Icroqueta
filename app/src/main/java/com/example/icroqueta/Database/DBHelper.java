@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
+import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.entidades.*;
 import com.example.icroqueta.database.tablas.*;
 
@@ -12,6 +13,26 @@ import java.util.List;
 
 public class DBHelper {
 
+//todo comentar mejor
+    /**
+     * Este método sirve para hacer un Select All de los productos
+     * y los mete en una lista
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los productos
+     */
+    public List<ProductoCarrito> findAllProductos(Context context,int idPersona) {
+        DBSource db = new DBSource(context);
+        String[] whereArgs = {String.valueOf(idPersona)};
+        String query="SELECT a.*, b.cantidad FROM "+ProductoTable.TABLE_NAME+" a LEFT JOIN "+CarritoTable.TABLE_NAME+" b ON a."+ProductoTable.ID_PRODUCTO+"=b."+CarritoTable.ID_PRODUCTO;
+        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        List<ProductoCarrito> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
+        }
+        cursor.close();
+        return lista;
+    }
 
     /**
      * Este método sirve para hacer un Select All de los productos
@@ -20,12 +41,13 @@ public class DBHelper {
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public List<Producto> findAllProductos(Context context) {
+    public List<ProductoCarrito> findProductosEnCarrito(Context context,int idPersona) {
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, null, null, null, null, null);
-        List<Producto> lista = new ArrayList<>();
+        String[] whereArgs = {String.valueOf(idPersona)};
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM "+ProductoTable.TABLE_NAME+" a INNER JOIN "+CarritoTable.TABLE_NAME+" b ON a."+ProductoTable.ID_PRODUCTO+"=b."+CarritoTable.ID_PRODUCTO+" WHERE b."+CarritoTable.ID_PERSONA+"=?", whereArgs);
+        List<ProductoCarrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
-            lista.add(new Producto().loadProductoFromCursor(cursor));
+            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
         }
         cursor.close();
         return lista;

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.entidades.Producto;
+import com.example.icroqueta.database.DTO.ProductoCarrito;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +26,7 @@ public class ShoppingCarActivity extends MenuBar {
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper db = new DBHelper();
-        List<Producto> productos=db.findAllCaritos(this,LoginActivity.usuario.getIdPersona());
+        List<ProductoCarrito> productos=db.findProductosEnCarrito(this,LoginActivity.usuario.getIdPersona());
         //todo recicle view con los productos con una cantidad >0
         //todo mostrar el total de todo el precio
         //Para visualizar el Recicle view en esta Vista
