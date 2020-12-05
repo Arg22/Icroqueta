@@ -1,4 +1,10 @@
 package com.example.icroqueta.database.entidades;
+
+import android.content.ContentValues;
+
+import com.example.icroqueta.database.tablas.PedidoTable;
+import com.example.icroqueta.database.tablas.PersonaTable;
+
 public class Linea  implements java.io.Serializable {
 
 
@@ -44,6 +50,7 @@ public class Linea  implements java.io.Serializable {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
 
 }
 
