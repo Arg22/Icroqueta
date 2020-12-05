@@ -11,8 +11,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.icroqueta.database.entidades.Producto;
+
+import java.util.List;
+
 public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<CroquetasRecyclerViewAdapter.MyViewHolder> {
-    private String[] mDataset;
+    private List<Producto> productos;
+
+    public CroquetasRecyclerViewAdapter(List<Producto> productos) {
+        this.productos=productos;
+    }
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -35,11 +44,14 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             foto= v.findViewById(R.id.croquetaImagen);
         }
 
-        public void bind() {
+        public void bind(final Producto producto) {
             //todo actualizar esta informacion a la base de datos
-            foto.setImageResource(R.drawable.logo);
-            nombre.setText("patata");
-            precio.setText("777777");
+
+            Glide.with(itemView.getContext())
+                    .load(producto.getImagen())
+                    .into(foto);
+            nombre.setText(producto.getNombre());
+            precio.setText(producto.getPrecioUd()+"€/ud");
             menos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -70,9 +82,11 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                 @Override
                 public void onClick(View v) {
 
+                    //Envia id a la actividad ProductActivity
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
+                    intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
-                    //todo:mandar id croquetas a shoppingCart + cantidad
+
                 }
             });
         }
@@ -94,15 +108,14 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.bind();
+        holder.bind(productos.get(position));
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        //todo:aqui iria la cantidad de elementos de la bd
-        return 10;
+        return productos.size();
     }
 }
 

@@ -3,16 +3,30 @@ package com.example.icroqueta;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Objects;
 
 public class ProductActivity extends MenuBar {
     private TextView cantidad;
+    private int id_producto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         cantidad = findViewById(R.id.producto_cantidad_row);
+
+        //Carga la id del producto pulsado en el Adapter
+        Bundle extras = getIntent().getExtras();
+        id_producto = extras.getInt("ID_PRODUCTO");
+
+
+        Toast toast1 = Toast.makeText(getApplicationContext(),
+                id_producto+"", Toast.LENGTH_SHORT);
+        toast1.show();
+
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 

@@ -62,7 +62,7 @@ public class MainActivity extends MenuBar {
         MainPresenter mp = new MainPresenter();
         List<Producto>  productos=mp.leerProductos(this);
         //Para visualizar el Recicle view en esta Vista
-        CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter();
+        CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
