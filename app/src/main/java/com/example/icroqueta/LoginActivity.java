@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 //todo pading loging
     public void pedirContrasena(View view) {
-        //todo: pedir contraseña usuario
+        //todo Futuro -pedir contraseña usuario
         Toast.makeText(getApplicationContext(),
                 "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
     }

@@ -2,6 +2,7 @@ package com.example.icroqueta.database.DTO;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.widget.Toast;
 
 import com.example.icroqueta.database.entidades.Producto;
 import com.example.icroqueta.database.tablas.CarritoTable;
@@ -9,24 +10,23 @@ import com.example.icroqueta.database.tablas.ProductoTable;
 
 public class ProductoCarrito extends Producto {
     private int cantidad;
+    private int idPersona;
 
     public ProductoCarrito() {
     }
 
-    public ProductoCarrito(Integer idProducto, String nombre, String descripcion, double precioUd, int stock, double descuento, String imagen, int cantidad) {
-        super(idProducto, nombre, descripcion, precioUd, stock, descuento, imagen);
-        this.cantidad = cantidad;
-    }
-
-    public ProductoCarrito(String nombre, String descripcion, double precioUd, int stock, double descuento, String imagen, int cantidad) {
-        super(nombre, descripcion, precioUd, stock, descuento, imagen);
-
-        this.cantidad = cantidad;
-    }
 
 
     public int getCantidad() {
         return cantidad;
+    }
+
+    public int getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(int idPersona) {
+        this.idPersona = idPersona;
     }
 
     public void setCantidad(int cantidad) {
@@ -49,6 +49,7 @@ public class ProductoCarrito extends Producto {
         double descuento = cursor.getDouble(cursor.getColumnIndexOrThrow(ProductoTable.DESCUENTO));
         String imagen = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.IMAGEN));
         int cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
+        int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PERSONA));
 
         setIdProducto(idProducto);
         setNombre(nombre);
@@ -59,7 +60,7 @@ public class ProductoCarrito extends Producto {
         setImagen(imagen);
 
         this.cantidad = cantidad;
-
+        this.idPersona=idPersona;
         return this;
     }
 

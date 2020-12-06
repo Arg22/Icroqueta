@@ -14,18 +14,40 @@ import java.util.List;
 public class DBHelper {
 
 //todo comentar mejor
+
     /**
-     * Este método sirve para hacer un Select All de los productos
+     * Este método sirve para hacer un Select All de los productos que esten o no en un carrito
      * y los mete en una lista
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public List<ProductoCarrito> findAllProductos(Context context,int idPersona) {
+    public List<ProductoCarrito> findAllProductos(Context context, int idPersona) {
+        DBSource db = new DBSource(context);
+        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
+        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        List<ProductoCarrito> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
+            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
+                lista.add(pc);
+            }
+        }
+        cursor.close();
+        return lista;
+    }
+
+    /**
+     * Este método sirve para hacer un Select All de los productos que estan solo en los carritos
+     * y los mete en una lista
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los productos
+     */
+    public List<ProductoCarrito> findProductosEnCarrito(Context context, int idPersona) {
         DBSource db = new DBSource(context);
         String[] whereArgs = {String.valueOf(idPersona)};
-        String query="SELECT a.*, b.cantidad FROM "+ProductoTable.TABLE_NAME+" a LEFT JOIN "+CarritoTable.TABLE_NAME+" b ON a."+ProductoTable.ID_PRODUCTO+"=b."+CarritoTable.ID_PRODUCTO;
-        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM " + ProductoTable.TABLE_NAME + " a INNER JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO + " WHERE b." + CarritoTable.ID_PERSONA + "=?", whereArgs);
         List<ProductoCarrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
             lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
@@ -34,24 +56,22 @@ public class DBHelper {
         return lista;
     }
 
+    //todo arreglar esto
     /**
-     * Este método sirve para hacer un Select All de los productos
+     * Este método sirve para consultar la cantidad del carrito de un usuario
      * y los mete en una lista
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public List<ProductoCarrito> findProductosEnCarrito(Context context,int idPersona) {
+    public ProductoCarrito findOneProductoCarrito(Context context, int idPersona, int idProducto) {
         DBSource db = new DBSource(context);
-        String[] whereArgs = {String.valueOf(idPersona)};
-        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM "+ProductoTable.TABLE_NAME+" a INNER JOIN "+CarritoTable.TABLE_NAME+" b ON a."+ProductoTable.ID_PRODUCTO+"=b."+CarritoTable.ID_PRODUCTO+" WHERE b."+CarritoTable.ID_PERSONA+"=?", whereArgs);
-        List<ProductoCarrito> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
-        }
-        cursor.close();
-        return lista;
+        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO+" Where a."+ ProductoTable.ID_PRODUCTO + "="+idProducto ;
+        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
+        return pc;
     }
+
 
     /**
      * Metodo para obtener un unico producto por su id
@@ -228,46 +248,26 @@ public class DBHelper {
         db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
     }
 
-    /**
-     * Metodo para comprobar sacar todos los carritos
-     *
-     * @param context   el contexto de la actividad
-     * @param idPersona el id del usuario
-     * @return devuelve la lista de los carritos del usuario
-     */
-    public List<Carrito> findCarritoProducto(Context context, int idPersona) {
-        String where = CarritoTable.ID_PERSONA + "=?";
-        String[] whereArgs = {String.valueOf(idPersona)};
-        DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-        List<Carrito> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            lista.add(new Carrito().loadCarritoFromCursor(cursor));
-        }
-        cursor.close();
-        return lista;
-    }
+
 
     /**
-     * Metodo para obtener todos los productos en el carrito de un usuario
+     *Listamos todos los productos que tiene un usuario
      *
-     * @param context   el contexto de la actividad
-     * @param idPersona el id del usuario
-     * @return devuelve la lista de los productos del carrito
+     * @param context el contexto de la actividad
+     * @return la lista de los productos
      */
-    public List<Producto> findAllCaritos(Context context, int idPersona) {
-        List<Carrito> listaCarro = findCarritoProducto(context, idPersona);
-        List<Producto> lista = new ArrayList<>();
-        String where = ProductoTable.ID_PRODUCTO + "=?";
+    public List<Pedido> findPedidosUsuario(Context context, int idPersona) {
         DBSource db = new DBSource(context);
-        for (Carrito c : listaCarro) {
-            String[] whereArgs = {c.getIdProducto() + ""};
-            Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-            while (cursor.moveToNext()) {
-                lista.add(new Producto().loadProductoFromCursor(cursor));
+        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
+        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        List<Pedido> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Pedido pc = new Pedido().loadPedidoaFromCursor(cursor);
+            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
+                lista.add(pc);
             }
-            cursor.close();
         }
+        cursor.close();
         return lista;
     }
 }

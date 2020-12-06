@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.entidades.Producto;
 
 import java.util.List;
@@ -34,23 +35,27 @@ public class ProductActivity extends MenuBar {
         //Carga la id del producto pulsado en el Adapter
         Bundle extras = getIntent().getExtras();
         id_producto = extras.getInt("ID_PRODUCTO");
+        DBHelper db = new DBHelper();
 
         //Recogemos el producto
-        DBHelper mp = new DBHelper();
-        Producto producto =mp.findProducto(this,id_producto);
+
+
         nombre = findViewById(R.id.producto_nombre_row);
         precio = findViewById(R.id.producto_precio_row);
         descripcion = findViewById(R.id.producto_descripcion_row);
         cantidad = findViewById(R.id.producto_cantidad_row);        //todo enviar linea para mirar la cantidad
         foto = findViewById(R.id.producto_imagen);
 
+
+        ProductoCarrito pc= db.findOneProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
         //Cargamos los datos del producto y comprobamos si está en el carrito
         Glide.with(this)
-                .load(producto.getImagen())
+                .load(pc.getImagen())
                 .into(foto);
-        nombre.setText(producto.getNombre());
-        descripcion.setText(producto.getDescripcion());
-        precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
+        nombre.setText(pc.getNombre());
+        descripcion.setText(pc.getDescripcion());
+        precio.setText(String.format("%s€/ud", pc.getPrecioUd()));
+        cantidad.setText(String.valueOf(pc.getCantidad()));
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
@@ -90,4 +95,6 @@ public class ProductActivity extends MenuBar {
         //Aqui se pasaria a la bd la cantidad
         //y el precio * cantidad
     }
+
+    //todo Futuro - Scroll en la descripcion
 }
