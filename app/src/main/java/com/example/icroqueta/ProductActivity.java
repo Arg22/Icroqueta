@@ -46,16 +46,17 @@ public class ProductActivity extends MenuBar {
         cantidad = findViewById(R.id.producto_cantidad_row);
         foto = findViewById(R.id.producto_imagen);
 
-
         producto= db.findOneProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
-        //Cargamos los datos del producto y comprobamos si está en el carrito
-        Glide.with(this)
-                .load(producto.getImagen())
-                .into(foto);
-        nombre.setText(producto.getNombre());
-        descripcion.setText(producto.getDescripcion());
-        precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
-        cantidad.setText(String.valueOf(producto.getCantidad()));
+        if(producto!=null){
+            //Cargamos los datos del producto y comprobamos si está en el carrito
+            Glide.with(this)
+                    .load(producto.getImagen())
+                    .into(foto);
+            nombre.setText(producto.getNombre());
+            descripcion.setText(producto.getDescripcion());
+            precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
+            cantidad.setText(String.valueOf(producto.getCantidad()));
+        }
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
