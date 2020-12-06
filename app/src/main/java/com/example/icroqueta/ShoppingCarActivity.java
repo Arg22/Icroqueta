@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -50,8 +51,12 @@ public class ShoppingCarActivity extends MenuBar {
 
     public void openPagar(View view) {
         //Comprobar los datos de registro si no los tiene se habre register
-          intent= new Intent(this, RegisterPaymentActivity.class);
-        startActivity(intent);
+        DBHelper db = new DBHelper();
+        if(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona())!=0) {
+            intent = new Intent(this, RegisterPaymentActivity.class);
+            startActivity(intent);
+        }else{
+            Toast.makeText(this,"No tiene nada en su carrito",Toast.LENGTH_SHORT).show();
+        }
     }
-
 }

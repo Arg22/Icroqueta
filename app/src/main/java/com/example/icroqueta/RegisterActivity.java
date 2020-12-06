@@ -32,13 +32,13 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //todo Futuro - proceso de datos
     public void comprobarDatos(View view) {
         nif = findViewById(R.id.nif);
         nombre = findViewById(R.id.nombre);
         apellido = findViewById(R.id.apellido);
         contrasena = findViewById(R.id.contrasena);
         correo = findViewById(R.id.correo);
-
 
         //comprueba datos y en caso afirmativo abre el Login
         if (nif.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {

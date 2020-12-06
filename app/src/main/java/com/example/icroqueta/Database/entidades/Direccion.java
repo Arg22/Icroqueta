@@ -10,27 +10,24 @@ public class Direccion implements java.io.Serializable {
 
     private Integer idDireccion;
     private String calle;
-    private String ciudad;
-    private String provincia;
+    private String localidad;
     private String codigoPostal;
     private String coordenada;
 
     public Direccion() {
     }
 
-    public Direccion(String calle, String ciudad, String provincia, String codigoPostal, String coordenada) {
+    public Direccion(String calle, String localidad, String codigoPostal, String coordenada) {
         this.calle = calle;
-        this.ciudad = ciudad;
-        this.provincia = provincia;
+        this.localidad = localidad;
         this.codigoPostal = codigoPostal;
         this.coordenada = coordenada;
     }
 
-    public Direccion(Integer idDireccion, String calle, String ciudad, String provincia, String codigoPostal, String coordenada) {
+    public Direccion(Integer idDireccion, String calle, String localidad, String codigoPostal, String coordenada) {
         this.idDireccion = idDireccion;
         this.calle = calle;
-        this.ciudad = ciudad;
-        this.provincia = provincia;
+        this.localidad = localidad;
         this.codigoPostal = codigoPostal;
         this.coordenada = coordenada;
     }
@@ -51,20 +48,12 @@ public class Direccion implements java.io.Serializable {
         this.calle = calle;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getLocalidad() {
+        return localidad;
     }
 
-    public void setCiudad(String ciudad) {
-        this.ciudad = ciudad;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
     }
 
     public String getCodigoPostal() {
@@ -94,8 +83,7 @@ public class Direccion implements java.io.Serializable {
         ContentValues values = new ContentValues();
         values.put(DireccionTable.ID_DIRECCION, idDireccion);
         values.put(DireccionTable.CALLE, calle);
-        values.put(DireccionTable.CIUDAD, ciudad);
-        values.put(DireccionTable.PROVINCIA, provincia);
+        values.put(DireccionTable.LOCALIDAD, localidad);
         values.put(DireccionTable.CODIGO_POSTAL, codigoPostal);
         values.put(DireccionTable.COORDENADA, coordenada);
 
@@ -113,15 +101,13 @@ public class Direccion implements java.io.Serializable {
 
         int idDireccion = cursor.getInt(cursor.getColumnIndexOrThrow(DireccionTable.ID_DIRECCION));
         String calle = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CALLE));
-        String ciudad = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CIUDAD));
-        String provincia = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.PROVINCIA));
+        String localidad = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.LOCALIDAD));
         String codigoPostal = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CODIGO_POSTAL));
         String coordenada = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.COORDENADA));
 
         this.idDireccion = idDireccion;
         this.calle = calle;
-        this.ciudad = ciudad;
-        this.provincia = provincia;
+        this.localidad = localidad;
         this.codigoPostal = codigoPostal;
         this.coordenada = coordenada;
 

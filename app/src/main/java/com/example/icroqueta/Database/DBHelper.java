@@ -24,7 +24,7 @@ public class DBHelper {
      */
     public List<ProductoCarrito> findAllProductos(Context context, int idPersona) {
         DBSource db = new DBSource(context);
-        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
+        String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
         Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
         List<ProductoCarrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
@@ -56,22 +56,53 @@ public class DBHelper {
         return lista;
     }
 
-    //todo arreglar esto
     /**
-     * Este método sirve para consultar la cantidad del carrito de un usuario
-     * y los mete en una lista
+     * Método para calcular la suma del precio total, para ello primero saca la cantidad y la multiplica por su precio
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los productos
+     */
+    public double sumProductosEnCarrito(Context context, int idPersona) {
+        String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
+        DBSource db = new DBSource(context);
+        double total = 0;
+        double precio = 0;
+        int cantidad = 0;
+        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
+        while (cursor.moveToNext()) {
+            ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
+            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
+                precio = cursor.getDouble(cursor.getColumnIndex(ProductoTable.PRECIO_UD));// get final total
+                cantidad = cursor.getInt(cursor.getColumnIndex(CarritoTable.CANTIDAD));// get final total
+                total += (precio * cantidad);
+            }
+        }
+
+        return Math.floor(total * 100) / 100;
+    }
+
+
+    /**
+     * Este método sirve para enviarle la cantidad de un determinado producto
+     * para que se muestre en la pantalla del producto
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
     public ProductoCarrito findOneProductoCarrito(Context context, int idPersona, int idProducto) {
         DBSource db = new DBSource(context);
-        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO+" Where a."+ ProductoTable.ID_PRODUCTO + "="+idProducto ;
+        String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
         Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
-        ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
-        return pc;
+        List<ProductoCarrito> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
+            if ((pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) && pc.getIdProducto() == idProducto) {
+                lista.add(pc);
+            }
+        }
+        cursor.close();
+        return lista.get(0);
     }
-
 
     /**
      * Metodo para obtener un unico producto por su id
@@ -161,19 +192,6 @@ public class DBHelper {
         return lista.get(0);
     }
 
-    /**
-     * Metodo para escrribir una linea del producto al realizar le pedido
-     *
-     * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
-     * @param idPedido   el id del pedido
-     * @param cantidad   la cantidad del producto
-     */
-    public void addLinea(Context context, int idProducto, int idPedido, int cantidad) {
-        DBSource db = new DBSource(context);
-        Linea linea = new Linea(idProducto, idPedido, cantidad);
-        db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
-    }
 
     /**
      * Metodo para añadir un producto al carrito para guardarlo cuando cierre la app
@@ -249,9 +267,8 @@ public class DBHelper {
     }
 
 
-
     /**
-     *Listamos todos los productos que tiene un usuario
+     * Listamos todos los pedidos que tiene un usuario
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
@@ -269,6 +286,40 @@ public class DBHelper {
         }
         cursor.close();
         return lista;
+    }
+
+
+    /**
+     * Metodo para escrribir una linea del producto al realizar le pedido
+     *
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param idPedido   el id del pedido
+     * @param cantidad   la cantidad del producto
+     */
+    public void addLinea(Context context, int idProducto, int idPedido, int cantidad) {
+        DBSource db = new DBSource(context);
+        Linea linea = new Linea(idProducto, idPedido, cantidad);
+        db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
+    }
+
+
+    /**
+     * Metodo para añadir un registro a la base de datos Pedido
+     *
+     * @param context  el contexto de la actividad
+     * @param nif      la id de la persona
+     * @param nombre   el nombre de la persona
+     * @param apellido el apellido de la persona
+     * @param correo   el correo de la persona
+     * @param pass     la contraseña de la persona
+     * @return true si se ha añadido bien y false si ha habido un problema
+     */
+    public boolean addPedido(Context context, String nif, String nombre, String apellido, String correo, String pass) {
+        DBSource db = new DBSource(context);
+        Persona usuario = new Persona(nif, nombre, apellido, correo, pass, 0);
+        long prueba = db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
+        return prueba != -1;
     }
 }
 

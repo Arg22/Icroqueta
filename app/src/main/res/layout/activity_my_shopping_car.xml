@@ -21,14 +21,15 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_margin="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical"
             android:textSize="24sp"
+            android:layout_weight="1"
             android:textStyle="bold"
             android:text="Total:"/>
 
@@ -36,14 +37,15 @@
             android:id="@+id/carritoTotal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textSize="24sp"
             android:layout_weight="1"
             android:gravity="center_vertical"
             tools:text="18,25€"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:onClick="openPagar"
+            android:layout_weight="1"
             android:text="Pagar"
             android:background="@drawable/button_rounded_border"
              />

@@ -5,140 +5,145 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:padding="32dp"
     tools:context=".RegisterPaymentActivity">
 
-
     <EditText
-        android:id="@+id/telefono"
+        android:id="@+id/telefonoPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Teléfono"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/direccion"
+        app:layout_constraintBottom_toTopOf="@+id/direccionPago"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
 
     <EditText
-        android:id="@+id/direccion"
+        android:id="@+id/direccionPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Dirección"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/tarjeta"
+        app:layout_constraintBottom_toTopOf="@+id/localidadlPago"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/telefono"
+        app:layout_constraintTop_toBottomOf="@+id/telefonoPago"
         tools:targetApi="lollipop" />
 
     <EditText
-        android:id="@+id/tarjeta"
+        android:id="@+id/localidadlPago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Localidad"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tarjetaPago"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccionPago"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/cPostalPago"
+        android:layout_width="158dp"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Código Postal"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/localidadlPago"
+        app:layout_constraintTop_toTopOf="@+id/localidadlPago"
+        tools:targetApi="lollipop" />
+
+
+    <EditText
+        android:id="@+id/tarjetaPago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="Tarjeta"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/caducidad"
+        app:layout_constraintBottom_toTopOf="@+id/fechaTarjetaPago"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccion"
+        app:layout_constraintTop_toBottomOf="@+id/localidadlPago"
         tools:targetApi="lollipop" />
 
     <EditText
-        android:id="@+id/caducidad"
-        android:layout_width="175dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="32dp"
+        android:id="@+id/fechaTarjetaPago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="F.caducidad mm/aa"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/checkBox2"
-        app:layout_constraintEnd_toStartOf="@+id/CVC"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:ems="8"
+        android:hint="mm/aa"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/RecordarDatosPago"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tarjeta"
+        app:layout_constraintTop_toBottomOf="@+id/tarjetaPago"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/cvcPago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="CVC"
+        android:inputType="numberPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/fechaTarjetaPago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fechaTarjetaPago"
+        app:layout_constraintTop_toTopOf="@+id/fechaTarjetaPago"
         tools:targetApi="lollipop" />
 
 
     <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="231dp"
-        android:layout_height="31dp"
+        android:id="@+id/RecordarDatosPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:checked="false"
         android:text="Recordar estos datos"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/pagar"
-        app:layout_constraintTop_toBottomOf="@+id/caducidad"
-        tools:layout_editor_absoluteX="32dp" />
-
-    <EditText
-        android:id="@+id/CVC"
-        android:layout_width="144dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:autofillHints=""
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="CVC"
-        android:inputType="numberPassword"
-        app:layout_constraintBottom_toBottomOf="@+id/caducidad"
+        app:layout_constraintBottom_toTopOf="@+id/pagarPago"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/caducidad"
-        app:layout_constraintTop_toTopOf="@+id/caducidad"
-        tools:targetApi="lollipop" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fechaTarjetaPago" />
 
     <Button
-        android:id="@+id/pagar"
-        android:layout_width="347dp"
+        android:id="@+id/pagarPago"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="32dp"
         android:background="@drawable/button_rounded"
-        android:onClick="ValidadrPago"
+        android:onClick="comprobarDatos"
         android:text="Pagar"
         app:layout_constraintBottom_toTopOf="@+id/atraspago"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/RecordarDatosPago" />
 
     <Button
         android:id="@+id/atraspago"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openBack"
         android:text="@string/atr_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pagar" />
+        app:layout_constraintTop_toBottomOf="@+id/pagarPago" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

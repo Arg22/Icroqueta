@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:padding="32dp"
     tools:context=".LoginActivity">
 
 
@@ -13,10 +14,10 @@
         android:layout_width="170dp"
         android:layout_height="170dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
         android:contentDescription="@string/logo_descripcion"
         app:layout_constraintBottom_toTopOf="@+id/correo_login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
@@ -25,10 +26,6 @@
         android:id="@+id/correo_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
@@ -36,6 +33,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -44,10 +42,6 @@
         android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
@@ -55,6 +49,7 @@
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/preguntaContrasena"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/correo_login" />
 
@@ -63,53 +58,43 @@
         android:id="@+id/preguntaContrasena"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:clickable="true"
+        android:focusable="true"
         android:onClick="pedirContrasena"
         android:text="@string/login_texto_pass"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/entrar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_login"
-        android:focusable="true" />
+        app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
     <Button
         android:id="@+id/entrar"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/button_rounded"
         android:onClick="comprobarDatos"
         android:text="@string/entrar"
         app:layout_constraintBottom_toTopOf="@+id/registro"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/preguntaContrasena" />
 
     <Button
         android:id="@+id/registro"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openRegistro"
         android:text="@string/registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
