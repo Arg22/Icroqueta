@@ -85,9 +85,8 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
             }
 
             //Si venimos desde el la vista del repartidor podremos dar por entregado el pedido
-            if (itemView.getContext() instanceof HistoryActivity) {
-
-
+            if (itemView.getContext() instanceof DeliverActivity) {
+                estado.setText("Sin entregar");
                 boton.setText("Entregado");
                 boton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -95,8 +94,8 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
                         DBHelper db = new DBHelper();
                         db.updatePedido(itemView.getContext(),pedidos.getIdPedido(),pedidos.getIdPersona(),pedidos.getFechaPedido(),"Entregado",pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_LONG).show();
-                        ActiveProductActivity a = (ActiveProductActivity) itemView.getContext();
-                        a.refrescar();
+                        DeliverActivity d = (DeliverActivity) itemView.getContext();
+                        d.refrescar();
                     }
                 });
             }

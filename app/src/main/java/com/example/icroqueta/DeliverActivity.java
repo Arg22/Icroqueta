@@ -26,7 +26,7 @@ public class DeliverActivity extends MenuBar {
 
         //Esto le envia al ActiveRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
-        List<Pedido> pedidos=db.allPedidosActivosUsuario(this,LoginActivity.usuario.getIdPersona());
+        List<Pedido> pedidos=db.allPedidosActivos(this);
 
         if(pedidos.size()==0){
             Toast.makeText(this, "No tienes pedidos activos", Toast.LENGTH_SHORT).show();
@@ -34,7 +34,7 @@ public class DeliverActivity extends MenuBar {
 
         //Para visualizar el Recicle view en esta Vista
         PedidoRecyclerViewAdapter adapter = new PedidoRecyclerViewAdapter(pedidos);
-        RecyclerView activeRecyclerView = findViewById(R.id.activeRecyclerView);
+        RecyclerView activeRecyclerView = findViewById(R.id.deliverRecyclerView);
         activeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         activeRecyclerView.setAdapter(adapter);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
@@ -46,5 +46,10 @@ public class DeliverActivity extends MenuBar {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         return super.onSupportNavigateUp();
+    }
+
+    public void refrescar() {
+        finish();
+        startActivity(getIntent());
     }
 }
