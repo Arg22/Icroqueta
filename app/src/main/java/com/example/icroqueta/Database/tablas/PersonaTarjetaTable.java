@@ -14,8 +14,8 @@ public class PersonaTarjetaTable {
                     ID_PERSONA_TARJETA + " INTEGER PRIMARY KEY," +
                     ID_PERSONA + " INTEGER," +
                     ID_TARJETA + " INTEGER, " +
-                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")," +
-                    " FOREIGN KEY (" + ID_TARJETA + ") REFERENCES " + TarjetaTable.TABLE_NAME + "(" + TarjetaTable.ID_TARJETA + "));";
+                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")ON DELETE CASCADE," +
+                    " FOREIGN KEY (" + ID_TARJETA + ") REFERENCES " + TarjetaTable.TABLE_NAME + "(" + TarjetaTable.ID_TARJETA + ")ON DELETE CASCADE);";
 
 
     private static final String SQL_DELETE_ENTRIES =

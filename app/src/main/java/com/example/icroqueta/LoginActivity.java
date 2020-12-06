@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
     private EditText contrasena;
-    public static Persona  usuario;     //todo Futuro - optimizar la manera de enviar esta informacion a las demas activties
+    public static Persona  usuario;   //todo Futuro - optimizar la manera de enviar esta informacion a las demas activties
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

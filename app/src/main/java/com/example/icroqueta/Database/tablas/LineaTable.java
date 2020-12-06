@@ -17,8 +17,8 @@ public class LineaTable {
                     ID_PRODUCTO + " INTEGER," +
                     ID_PEDIDO + " INTEGER," +
                     CANTIDAD + " INTEGER," +
-                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ")," +
-                    " FOREIGN KEY (" + ID_PEDIDO + ") REFERENCES " + PedidoTable.TABLE_NAME + "(" + PedidoTable.ID_PEDIDO + "));";
+                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ")ON DELETE CASCADE," +
+                    " FOREIGN KEY (" + ID_PEDIDO + ") REFERENCES " + PedidoTable.TABLE_NAME + "(" + PedidoTable.ID_PEDIDO + ")ON DELETE CASCADE);";
 
 
     private static final String SQL_DELETE_ENTRIES =

@@ -17,8 +17,8 @@ public class IngredienteProductoTable {
                     ID_INGREDIENTE_PRODUCTO + " INTEGER PRIMARY KEY," +
                     ID_INGREDIENTE + " INTEGER," +
                     ID_PRODUCTO + " INTEGER, " +
-                    " FOREIGN KEY (" + ID_INGREDIENTE + ") REFERENCES " + IngredienteTable.TABLE_NAME + "(" + IngredienteTable.ID_INGREDIENTE + ")," +
-                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + "));";
+                    " FOREIGN KEY (" + ID_INGREDIENTE + ") REFERENCES " + IngredienteTable.TABLE_NAME + "(" + IngredienteTable.ID_INGREDIENTE + ")ON DELETE CASCADE," +
+                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ")ON DELETE CASCADE);";
 
 
     private static final String SQL_DELETE_ENTRIES =

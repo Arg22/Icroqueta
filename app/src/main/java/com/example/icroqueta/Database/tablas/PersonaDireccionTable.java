@@ -14,8 +14,8 @@ public class PersonaDireccionTable {
                     ID_PERSONA_Direccion + " INTEGER PRIMARY KEY," +
                     ID_PERSONA + " INTEGER," +
                     ID_DIRECCION + " INTEGER, " +
-                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")," +
-                    " FOREIGN KEY (" + ID_DIRECCION + ") REFERENCES " + DireccionTable.TABLE_NAME + "(" + DireccionTable.ID_DIRECCION + "));";
+                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")ON DELETE CASCADE," +
+                    " FOREIGN KEY (" + ID_DIRECCION + ") REFERENCES " + DireccionTable.TABLE_NAME + "(" + DireccionTable.ID_DIRECCION + ")ON DELETE CASCADE);";
 
 
     private static final String SQL_DELETE_ENTRIES =

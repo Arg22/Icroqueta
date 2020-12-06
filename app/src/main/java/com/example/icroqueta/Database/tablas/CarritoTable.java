@@ -18,8 +18,8 @@ public class CarritoTable {
                     ID_PRODUCTO + " INTEGER," +
                     ID_PERSONA + " INTEGER," +
                     CANTIDAD + " INTEGER," +
-                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ")," +
-                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + "));";
+                    " FOREIGN KEY (" + ID_PRODUCTO + ") REFERENCES " + ProductoTable.TABLE_NAME + "(" + ProductoTable.ID_PRODUCTO + ") ON DELETE CASCADE," +
+                    " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")ON DELETE CASCADE);";
 
 
     private static final String SQL_DELETE_ENTRIES =
