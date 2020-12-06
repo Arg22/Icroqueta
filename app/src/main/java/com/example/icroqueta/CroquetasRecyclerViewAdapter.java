@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.DTO.ProductoCarrito;
-import com.example.icroqueta.database.entidades.Producto;
 
 import java.util.List;
 
@@ -48,7 +47,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
             cantidad = v.findViewById(R.id.producto_cantidad_row);
             fila = v.findViewById(R.id.croquetaRow);
             foto = v.findViewById(R.id.croquetaImagen);
-
         }
 
         /**
@@ -65,7 +63,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     .into(foto);
             nombre.setText(producto.getNombre());
             precio.setText(producto.getPrecioUd() + "€/ud");
-
             cantidad.setText(String.valueOf(producto.getCantidad()));
 
             menos.setOnClickListener(new View.OnClickListener() {

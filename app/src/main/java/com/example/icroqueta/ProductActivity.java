@@ -25,7 +25,7 @@ public class ProductActivity extends MenuBar {
     private  TextView descripcion;
     private TextView cantidad;
     public ImageView foto;
-
+ private ProductoCarrito producto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +43,19 @@ public class ProductActivity extends MenuBar {
         nombre = findViewById(R.id.producto_nombre_row);
         precio = findViewById(R.id.producto_precio_row);
         descripcion = findViewById(R.id.producto_descripcion_row);
-        cantidad = findViewById(R.id.producto_cantidad_row);        //todo enviar linea para mirar la cantidad
+        cantidad = findViewById(R.id.producto_cantidad_row);
         foto = findViewById(R.id.producto_imagen);
 
 
-        ProductoCarrito pc= db.findOneProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
+        producto= db.findOneProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
         //Cargamos los datos del producto y comprobamos si está en el carrito
         Glide.with(this)
-                .load(pc.getImagen())
+                .load(producto.getImagen())
                 .into(foto);
-        nombre.setText(pc.getNombre());
-        descripcion.setText(pc.getDescripcion());
-        precio.setText(String.format("%s€/ud", pc.getPrecioUd()));
-        cantidad.setText(String.valueOf(pc.getCantidad()));
+        nombre.setText(producto.getNombre());
+        descripcion.setText(producto.getDescripcion());
+        precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
+        cantidad.setText(String.valueOf(producto.getCantidad()));
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
@@ -70,30 +70,45 @@ public class ProductActivity extends MenuBar {
 
 
     public void restarCantidad(View view) {
+        DBHelper db = new DBHelper();
         //Obtiene el valor del TextView
         String valor = cantidad.getText().toString();
         //Se convierte  Integer
         int aux = Integer.parseInt(valor);
         //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
-        if (aux == 0) {
+        if (aux == 1) {
             cantidad.setText("0");
-        } else {
+            //Si tuviesemos este elemento en el carrito, entonces lo borramos
+            db.deleteCarritoProducto(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
+        } else if (aux > 1) {
             cantidad.setText(String.valueOf(aux - 1));
+            //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+            if (!db.existCarritoProducto(this,LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                db.addCarrito(this,  LoginActivity.usuario.getIdPersona(), producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+            } else {
+                db.updateCarrito(this, LoginActivity.usuario.getIdPersona(),producto.getIdProducto(),  Integer.parseInt(cantidad.getText().toString()));
+            }
         }
     }
 
     public void sumarCantidad(View view) {
+        DBHelper db = new DBHelper();
         //Obtiene el valor del TextView
         String valor = cantidad.getText().toString();
         //Se convierte  Integer
         int aux = Integer.parseInt(valor);
         cantidad.setText(String.valueOf(aux + 1));
+        //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+        if (!db.existCarritoProducto(this,  LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+            db.addCarrito(this, LoginActivity.usuario.getIdPersona(),  producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+        } else {
+            db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+        }
     }
 
-    public void agregarCarrito(View view) {
-        //todo:mandar id croquetas a shoppingCart y cantidad
-        //Aqui se pasaria a la bd la cantidad
-        //y el precio * cantidad
+    public void FinalizarCarrito(View view) {
+        Intent  intent = new Intent(this, ShoppingCarActivity.class);
+        startActivity(intent);
     }
 
     //todo Futuro - Scroll en la descripcion

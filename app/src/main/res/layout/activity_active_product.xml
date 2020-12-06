@@ -9,7 +9,7 @@
 
     <!--Aqui van los pedidos Activos-->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/carritoRecyclerView"
+        android:id="@+id/activeRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
