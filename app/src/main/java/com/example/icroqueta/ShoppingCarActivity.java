@@ -35,7 +35,7 @@ public class ShoppingCarActivity extends MenuBar {
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
 
-        //todo Futuro - Que se actualice al pulsar en el recycleView
+        //todo Futuro - Que se actualice el total al pulsar en el fragmento
         //Aqui se mete el total de la cantidad por el precio de los productos
         TextView total=findViewById(R.id.carritoTotal);
         total.setText(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");

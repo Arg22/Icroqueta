@@ -17,8 +17,8 @@ public class DBHelper {
 //todo comentar mejor
 
     /**
-     * Este método sirve para hacer un Select All de los productos que esten o no en un carrito
-     * y los mete en una lista
+     * Este método sirve para recoger todos los productos que estén o no en un carrito
+     * y los mete en una lista y posteriormente porder sacar la cantidad
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
@@ -38,8 +38,10 @@ public class DBHelper {
         return lista;
     }
 
+    //todo error en el carrito entre usuarios
+
     /**
-     * Este método sirve para hacer un Select All de los productos que estan solo en los carritos
+     * Este método sirve para hacer uuna lista de únicamente los productos que estan en el carrito
      * y los mete en una lista
      *
      * @param context el contexto de la actividad
@@ -152,6 +154,7 @@ public class DBHelper {
         String[] whereArgs = {idPersona + ""};
         DBSource db = new DBSource(context);
         db.getWritableDatabase().delete(PersonaTable.TABLE_NAME, where, whereArgs);
+        //todo ver el oncascade
     }
     /**
      * Metodo para el loggin de la aplicacion

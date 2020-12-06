@@ -12,7 +12,7 @@ public class HistoryActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        //todo: Lista de los pedidos arcivados
+        //todo: Lista de los pedidos entregados
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 

@@ -73,7 +73,7 @@ public class RegisterPaymentActivity extends MenuBar {
 
     //todo Futuro - checkbox enviar informacion a las tablas
 
-    //todo Futuro - proceso de datos
+    //todo Futuro - Validacion de datos
     public void comprobarDatos(View view) {
         telefono = findViewById(R.id.telefonoPago);
         direccion = findViewById(R.id.direccionPago);
