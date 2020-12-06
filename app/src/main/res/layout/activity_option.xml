@@ -5,14 +5,190 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
+    android:padding="32dp"
     tools:context=".OptionActivity">
 
-    <TextView
+    <EditText
+        android:id="@+id/nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/nombre"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/apellido"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/apellido"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/apellidos"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/nif"
+        app:layout_constraintTop_toBottomOf="@+id/nombre"
+        tools:layout_editor_absoluteX="16dp"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/nif"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/nif"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/correo"
+        app:layout_constraintTop_toBottomOf="@+id/apellido"
+        tools:layout_editor_absoluteX="16dp"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/correo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/correo"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/contrasena"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nif"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/contrasena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="@string/contrasena"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/telefonoPago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correo"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/telefonoPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Teléfono"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/direccionPago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contrasena"
+        tools:targetApi="lollipop" />
+
+
+    <EditText
+        android:id="@+id/direccionPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Dirección"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/localidadlPago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/telefonoPago"
+        tools:targetApi="lollipop" />
+
+
+    <EditText
+        android:id="@+id/localidadlPago"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menu_opciones"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Localidad"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/tarjetaPago"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccionPago"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/cPostalPago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Código Postal"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/localidadlPago"
+        app:layout_constraintTop_toTopOf="@+id/localidadlPago"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/tarjetaPago"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="10"
+        android:hint="Tarjeta"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/fechaTarjetaPago"
+        app:layout_constraintTop_toBottomOf="@+id/localidadlPago"
+        tools:layout_editor_absoluteX="16dp"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/fechaTarjetaPago"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="mm/aa"
+        android:inputType="date"
+        app:layout_constraintBottom_toTopOf="@+id/guardarOpcion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tarjetaPago"
+        tools:targetApi="lollipop" />
+
+    <Button
+        android:id="@+id/guardarOpcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_rounded"
+        android:onClick="guardarOpcion"
+        android:text="Guardar cambios"
+        app:layout_constraintBottom_toTopOf="@+id/atras"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fechaTarjetaPago" />
+
+    <Button
+        android:id="@+id/atras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_rounded_border"
+        android:onClick="borrarCuenta"
+        android:text="Borrar cuenta"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/guardarOpcion"
+        tools:ignore="MissingConstraints,OnClick" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
