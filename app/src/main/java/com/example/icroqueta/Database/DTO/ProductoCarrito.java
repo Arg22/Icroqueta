@@ -16,7 +16,6 @@ public class ProductoCarrito extends Producto {
     }
 
 
-
     public int getCantidad() {
         return cantidad;
     }
@@ -41,6 +40,7 @@ public class ProductoCarrito extends Producto {
      * @return un objeto producto.
      */
     public ProductoCarrito loadProductoCarritoFromCursor(Cursor cursor) {
+
         int idProducto = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.ID_PRODUCTO));
         String nombre = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.NOMBRE));
         String descripcion = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.DESCRIPCION));
@@ -48,10 +48,14 @@ public class ProductoCarrito extends Producto {
         int stock = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.STOCK));
         double descuento = cursor.getDouble(cursor.getColumnIndexOrThrow(ProductoTable.DESCUENTO));
         String imagen = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.IMAGEN));
-        int cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
-        int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PERSONA));
-
+        if (cursor.getColumnIndex(CarritoTable.CANTIDAD) != -1) {
+            this.cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
+        }
+        if (cursor.getColumnIndex(CarritoTable.ID_PERSONA) != -1) {
+            this.idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PERSONA));
+        }
         setIdProducto(idProducto);
+
         setNombre(nombre);
         setDescripcion(descripcion);
         setPrecioUd(precioUd);
@@ -59,8 +63,9 @@ public class ProductoCarrito extends Producto {
         setDescuento(descuento);
         setImagen(imagen);
 
-        this.cantidad = cantidad;
-        this.idPersona=idPersona;
+
+
+
         return this;
     }
 

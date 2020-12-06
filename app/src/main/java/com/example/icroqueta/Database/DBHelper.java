@@ -24,18 +24,17 @@ public class DBHelper {
      * @return la lista de los productos
      */
     public List<ProductoCarrito> findAllProductos(Context context, int idPersona) {
-        DBSource db = new DBSource(context);
-        String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
-        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
-        List<ProductoCarrito> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
-            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
-                lista.add(pc);
+        List<ProductoCarrito> productos = allProducto(context);
+        List<ProductoCarrito> productosCarrito =findProductosEnCarrito(context,idPersona);
+
+        for(ProductoCarrito p: productos){
+            for(ProductoCarrito c: productosCarrito){
+                if(c.getIdProducto().equals(p.getIdProducto())){
+                    p.setCantidad(c.getCantidad());
+                }
             }
         }
-        cursor.close();
-        return lista;
+        return productos;
     }
 
     //todo error en el carrito entre usuarios
@@ -108,22 +107,19 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para obtener un unico producto por su id
+     * Metodo para obtener todos los productos
      *
      * @param context el contexto de la actividad
-     * @param id      la id del producto para buscarlo
-     * @return le producto con esa id
+     * @return La lista de productos de la bd
      */
-    public Producto findProducto(Context context, int id) {
-        String where = ProductoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {id + ""};
+    public List<ProductoCarrito> allProducto(Context context) {
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-        List<Producto> lista = new ArrayList<>();
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, null, null, null, null, null);
+        List<ProductoCarrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
-            lista.add(new Producto().loadProductoFromCursor(cursor));
+            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
         }
-        return lista.get(0);
+        return lista;
     }
 
     /**
