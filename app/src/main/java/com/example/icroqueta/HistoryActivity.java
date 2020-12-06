@@ -29,7 +29,7 @@ public class HistoryActivity extends MenuBar {
             Toast.makeText(this, "No tienes pedidos archivados", Toast.LENGTH_SHORT).show();
         }
         //Para visualizar el Recicle view en esta Vista
-        PedidoRecyclerViewAdapter adapter = new PedidoRecyclerViewAdapter(pedidos);
+        PedidosRecyclerViewAdapter adapter = new PedidosRecyclerViewAdapter(pedidos);
         RecyclerView activeRecyclerView = findViewById(R.id.historyRecyclerView);
         activeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         activeRecyclerView.setAdapter(adapter);

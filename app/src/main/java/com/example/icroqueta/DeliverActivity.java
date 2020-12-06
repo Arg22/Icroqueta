@@ -19,7 +19,6 @@ public class DeliverActivity extends MenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver);
-        //todo: saldrian los productos activos con un boton de entregado-cancelado
 
         //todo: meter mapa google
 
@@ -33,7 +32,7 @@ public class DeliverActivity extends MenuBar {
         }
 
         //Para visualizar el Recicle view en esta Vista
-        PedidoRecyclerViewAdapter adapter = new PedidoRecyclerViewAdapter(pedidos);
+        PedidosRecyclerViewAdapter adapter = new PedidosRecyclerViewAdapter(pedidos);
         RecyclerView activeRecyclerView = findViewById(R.id.deliverRecyclerView);
         activeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         activeRecyclerView.setAdapter(adapter);

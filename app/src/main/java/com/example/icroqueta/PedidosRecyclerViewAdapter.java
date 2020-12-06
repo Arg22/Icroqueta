@@ -5,23 +5,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Pedido;
 
 import java.util.List;
 
-public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecyclerViewAdapter.MyViewHolder> {
+public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecyclerViewAdapter.MyViewHolder> {
     private List<Pedido> pedidos;
 
-    public PedidoRecyclerViewAdapter(List<Pedido> pedidos) {
+    public PedidosRecyclerViewAdapter(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
 
@@ -59,7 +57,7 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
             //todo incializar boton segun donde estemos
 
             Fecha.setText(pedidos.getFechaPedido());
-            cantidad.setText(String.valueOf(db.sumLineas(itemView.getContext(),pedidos.getIdPedido())));
+            cantidad.setText(String.valueOf(db.allLineasProducto(itemView.getContext(),pedidos.getIdPedido()).size()));
             precio.setText(pedidos.getImporte()+"€");
             estado.setText("Pedido "+pedidos.getEstado());
 
@@ -72,7 +70,7 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
                         db.updatePedido(itemView.getContext(),pedidos.getIdPedido(),pedidos.getIdPersona(),pedidos.getFechaPedido(),"Cancelado",pedidos.getImporte());
-                        Toast.makeText(itemView.getContext(), "Pedido cancelado con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(itemView.getContext(), "Pedido cancelado con éxito", Toast.LENGTH_SHORT).show();
                         ActiveProductActivity a = (ActiveProductActivity) itemView.getContext();
                         a.refrescar();
                     }
@@ -93,7 +91,7 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
                         db.updatePedido(itemView.getContext(),pedidos.getIdPedido(),pedidos.getIdPersona(),pedidos.getFechaPedido(),"Entregado",pedidos.getImporte());
-                        Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_SHORT).show();
                         DeliverActivity d = (DeliverActivity) itemView.getContext();
                         d.refrescar();
                     }
@@ -113,7 +111,7 @@ public class PedidoRecyclerViewAdapter extends RecyclerView.Adapter<PedidoRecycl
     }
 
     @Override
-    public PedidoRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PedidosRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.pedido_layout, parent, false);

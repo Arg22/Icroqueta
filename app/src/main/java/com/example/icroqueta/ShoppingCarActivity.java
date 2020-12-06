@@ -48,7 +48,7 @@ public class ShoppingCarActivity extends MenuBar {
     public void openPagar(View view) {
         //Comprobar los datos de registro si no los tiene se habre register
         DBHelper db = new DBHelper();
-        if(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona())!=0) {
+        if(db.sumPrecioProductosEnCarrito(this, LoginActivity.usuario.getIdPersona())!=0) {
             intent = new Intent(this, RegisterPaymentActivity.class);
             startActivity(intent);
         }else{
@@ -60,6 +60,6 @@ public class ShoppingCarActivity extends MenuBar {
         DBHelper db = new DBHelper();
         //Aqui se mete el total de la cantidad por el precio de los productos
         TextView total=findViewById(R.id.carritoTotal);
-        total.setText(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
+        total.setText(db.sumPrecioProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
     }
 }
