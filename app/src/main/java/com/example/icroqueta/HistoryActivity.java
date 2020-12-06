@@ -34,7 +34,6 @@ public class HistoryActivity extends MenuBar {
         activeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         activeRecyclerView.setAdapter(adapter);
 
-        //todo: Lista de los pedidos entregados
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 
@@ -44,10 +43,6 @@ public class HistoryActivity extends MenuBar {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         return super.onSupportNavigateUp();
-    }
-
-    public void repetirPedido(View view) {
-        //todo volver a comprar este pedido
     }
 
 }

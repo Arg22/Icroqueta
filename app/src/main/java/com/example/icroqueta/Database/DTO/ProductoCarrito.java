@@ -63,10 +63,6 @@ public class ProductoCarrito extends Producto {
         setDescuento(descuento);
         setImagen(imagen);
 
-
-
-
         return this;
     }
-
 }

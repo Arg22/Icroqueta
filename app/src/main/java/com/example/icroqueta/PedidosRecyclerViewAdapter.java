@@ -54,8 +54,6 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
         public void bind(final Pedido pedidos) {
             DBHelper db = new DBHelper();
 
-            //todo incializar boton segun donde estemos
-
             Fecha.setText(pedidos.getFechaPedido());
             cantidad.setText(String.valueOf(db.allLineasProducto(itemView.getContext(),pedidos.getIdPedido()).size()));
             precio.setText(pedidos.getImporte()+"€");

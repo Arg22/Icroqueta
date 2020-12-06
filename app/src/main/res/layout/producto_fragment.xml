@@ -3,36 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/producto_nombre_row"
         android:layout_width="match_parent"
-        android:layout_height="27dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        tools:text="Nombre"
+        android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Nombre" />
 
     <TextView
         android:id="@+id/producto_precio_row"
-        android:layout_width="121dp"
-        android:layout_height="42dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/producto_nombre_row"
-        android:layout_marginStart="16dp"
         android:gravity="center_vertical|top"
-        tools:text="18,99€/ud"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row" />
+        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row"
+        tools:text="18,99€/ud" />
 
 
     <ImageButton
@@ -40,14 +35,13 @@
         android:id="@+id/btn_menos_row"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="16dp"
         android:layout_toStartOf="@+id/btn_mas_row"
         android:background="@null"
+        android:contentDescription="@string/descripcion_boton_menos"
         android:scaleType="fitXY"
         android:src="@drawable/ic_remove_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/producto_cantidad_row"
-        android:contentDescription="@string/descripcion_boton_menos" />
+        app:layout_constraintEnd_toStartOf="@+id/producto_cantidad_row" />
 
 
     <TextView
@@ -55,28 +49,25 @@
         android:layout_width="40dp"
         android:layout_height="35dp"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="16dp"
         android:ems="10"
         android:gravity="center_vertical|center_horizontal"
-        tools:text="0"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_mas_row" />
+        app:layout_constraintEnd_toStartOf="@+id/btn_mas_row"
+        tools:text="0" />
 
     <ImageButton
         android:id="@+id/btn_mas_row"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_alignTop="@+id/producto_cantidad_row"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@null"
+        android:contentDescription="@string/descripcion_boton_mas"
         android:scaleType="fitXY"
         android:src="@drawable/ic_add_circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/descripcion_boton_mas" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
