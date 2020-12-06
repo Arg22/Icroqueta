@@ -69,7 +69,9 @@ public class Carrito  implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
-        values.put(CarritoTable.ID_CARRITO, idCarrito);
+        if(idCarrito!=null) {
+            values.put(CarritoTable.ID_CARRITO, idCarrito);
+        }
         values.put(CarritoTable.ID_PERSONA, idPersona);
         values.put(CarritoTable.ID_PRODUCTO, idProducto);
         values.put(CarritoTable.CANTIDAD, cantidad);

@@ -25,7 +25,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         this.productos = productos;
     }
 
-
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public final TextView nombre;
         public final TextView precio;
@@ -34,8 +33,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         public final TextView cantidad;
         public final LinearLayout fila;
         public ImageView foto;
-        public int idProducto;
-
 
         /**
          * Inicializamos todos los parametros que van a ser reutilizados
@@ -60,9 +57,6 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
          * @param producto nuestro objeto
          */
         public void bind(final ProductoCarrito producto) {
-            idProducto = producto.getIdProducto();
-            DBHelper db = new DBHelper();
-
             Glide.with(itemView.getContext())
                     .load(producto.getImagen())
                     .placeholder(R.drawable.logo)//En el caso de que no pueda cargar la imagen
