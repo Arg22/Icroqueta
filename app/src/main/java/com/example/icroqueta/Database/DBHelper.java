@@ -8,6 +8,7 @@ import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.entidades.*;
 import com.example.icroqueta.database.tablas.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,8 +138,8 @@ public class DBHelper {
     public boolean addPersona(Context context, String nif, String nombre, String apellido, String correo, String pass) {
         DBSource db = new DBSource(context);
         Persona usuario = new Persona(nif, nombre, apellido, correo, pass, 0);
-        long prueba = db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
-        return prueba != -1;
+        long resultado = db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
+        return resultado != -1;
     }
 
     /**
@@ -208,6 +209,22 @@ public class DBHelper {
     }
 
     /**
+     * Metodo para actualizar el carro por si hay una nueva cantidad
+     *
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param idPersona  el id del usuario
+     * @param cantidad   la cantidad del producto
+     */
+    public void updateCarrito(Context context, int idPersona, int idProducto, int cantidad) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
+        DBSource db = new DBSource(context);
+        Carrito c = new Carrito(idPersona, idProducto, cantidad);
+        db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
+    }
+
+    /**
      * Metodo para comprobar si existe un determinado producto en el carrito
      *
      * @param context    el contexto de la actividad
@@ -238,10 +255,11 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para borrar todos los registros del carro
+     * Metodo para borrar solo un producto del carro
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
+     * @param idProducto el id del producto que se quiera borrar
      */
     public void deleteCarritoProducto(Context context, int idPersona, int idProducto) {
         String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
@@ -250,21 +268,6 @@ public class DBHelper {
         db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
     }
 
-    /**
-     * Metodo para actualizar el carro por si hay una nueva cantidad
-     *
-     * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
-     * @param idPersona  el id del usuario
-     * @param cantidad   la cantidad del producto
-     */
-    public void updateCarrito(Context context, int idPersona, int idProducto, int cantidad) {
-        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
-        DBSource db = new DBSource(context);
-        Carrito c = new Carrito(idPersona, idProducto, cantidad);
-        db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
-    }
 
 
     /**
@@ -290,17 +293,23 @@ public class DBHelper {
 
 
     /**
-     * Metodo para escrribir una linea del producto al realizar le pedido
+     * Metodo para volcar todas laos productos que habia en el carrito
      *
      * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
+     * @param idPersona el id del usuario
      * @param idPedido   el id del pedido
-     * @param cantidad   la cantidad del producto
      */
-    public void addLinea(Context context, int idProducto, int idPedido, int cantidad) {
+    public void addLinea(Context context, int idPersona,int idPedido) {
         DBSource db = new DBSource(context);
-        Linea linea = new Linea(idProducto, idPedido, cantidad);
-        db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
+
+
+        //Ahora saco todos los productos del carrito y los paso a Lista
+        List<ProductoCarrito> lista = findProductosEnCarrito(context,idPersona);
+        for(ProductoCarrito pc: lista){
+            Linea linea = new Linea(pc.getIdProducto(), idPedido, pc.getCantidad());
+            db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
+        }
+        deleteCarrito(context, idPersona);
     }
 
 
@@ -308,18 +317,26 @@ public class DBHelper {
      * Metodo para añadir un registro a la base de datos Pedido
      *
      * @param context  el contexto de la actividad
-     * @param nif      la id de la persona
-     * @param nombre   el nombre de la persona
-     * @param apellido el apellido de la persona
-     * @param correo   el correo de la persona
-     * @param pass     la contraseña de la persona
+     * @param idPersona el id del usuario
      * @return true si se ha añadido bien y false si ha habido un problema
      */
-    public boolean addPedido(Context context, String nif, String nombre, String apellido, String correo, String pass) {
+    public boolean addPedido(Context context, int idPersona) {
         DBSource db = new DBSource(context);
-        Persona usuario = new Persona(nif, nombre, apellido, correo, pass, 0);
-        long prueba = db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
-        return prueba != -1;
+        //Esto es para añadir el pedido con la fecha actual
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String fechaPedido = sdf.format(date);
+        Pedido usuario = new Pedido(idPersona,fechaPedido,"Activo",sumProductosEnCarrito(context,idPersona));
+        long resultado = db.getWritableDatabase().insert(PedidoTable.TABLE_NAME, null, usuario.mapearAContenValues());
+        //Aqui sacamos todos los pedidos y cogemos el último
+        Cursor cursor = db.getReadableDatabase().rawQuery("SELECT  * FROM " + PedidoTable.TABLE_NAME, null);
+        if (cursor.moveToLast()) {
+            Pedido pc = new Pedido().loadPedidoaFromCursor(cursor);
+            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
+                addLinea(context,idPersona,pc.getIdPedido());
+            }
+        }
+        return resultado != -1;
     }
 }
 

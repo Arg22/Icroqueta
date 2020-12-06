@@ -76,7 +76,6 @@ public class Linea  implements java.io.Serializable {
         values.put(LineaTable.ID_PRODUCTO, idProducto);
         values.put(LineaTable.CANTIDAD, cantidad);
 
-
         return values;
     }
 

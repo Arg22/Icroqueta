@@ -90,20 +90,21 @@ public class RegisterPaymentActivity extends MenuBar {
             //todo Futuro-Comprueba los datos en la base de datos
 
 
-            validadrPago();
+            validarPago();
         }
     }
 
-    public void validadrPago() {
+    public void validarPago() {
         //Se elimina el carro una vez hecho y se crea las lineas del producto asociado a un pedido
-        //todo: enviar datos bd = crear pedido activo
+        DBHelper db = new DBHelper();
+        if (db.addPedido(this, LoginActivity.usuario.getIdPersona())) {
 
-
-        Toast.makeText(getApplicationContext(), "Pago realizado con éxito", Toast.LENGTH_LONG).show();
-        //Se va automáticamente al activity
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+            Toast.makeText(getApplicationContext(), "Pago realizado con éxito", Toast.LENGTH_LONG).show();
+            //Se va automáticamente al MainActivity
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
     }
 
     public void openBack(View view) {
