@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/colorBackground"
+android:orientation="vertical"
+tools:context=".LineaActivity">
+
+<!--Aqui van las lineas de pedido-->
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/lineaRecyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:paddingTop="4dp" />
+
+<!--Aqui van nuestro resumen-->
+<LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:layout_margin="16dp">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:onClick="repetirPedido"
+        android:layout_weight="1"
+        android:text="Repetir pedido"
+        android:background="@drawable/button_rounded_border"
+        />
+
+</LinearLayout>
+
+</LinearLayout>

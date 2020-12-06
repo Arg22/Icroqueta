@@ -29,7 +29,7 @@
         android:layout_below="@+id/lista_nombre"
         android:layout_marginStart="16dp"
         android:gravity="center_vertical|top"
-        tools:text="Unidades: 5"
+        tools:text="Productos: 5"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lista_nombre" />

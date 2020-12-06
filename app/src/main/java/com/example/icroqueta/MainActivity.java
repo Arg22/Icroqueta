@@ -56,15 +56,14 @@ public class MainActivity extends MenuBar {
 
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
-        DBHelper mp = new DBHelper();
-        List<ProductoCarrito> productos=mp.findAllProductos(this,LoginActivity.usuario.getIdPersona());
+        DBHelper db = new DBHelper();
+        List<ProductoCarrito> productos=db.allProductosCarrito(this,LoginActivity.usuario.getIdPersona());
 
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
-
     }
 
 

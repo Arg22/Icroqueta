@@ -18,14 +18,14 @@ public class DBHelper {
 
     /**
      * Este método sirve para recoger todos los productos que estén o no en un carrito
-     * y los mete en una lista y posteriormente porder sacar la cantidad
+     * y los mete en una lista.
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public List<ProductoCarrito> findAllProductos(Context context, int idPersona) {
+    public List<ProductoCarrito> allProductosCarrito(Context context, int idPersona) {
         List<ProductoCarrito> productos = allProducto(context);
-        List<ProductoCarrito> productosCarrito =findProductosEnCarrito(context,idPersona);
+        List<ProductoCarrito> productosCarrito =findProductosInCarrito(context,idPersona);
 
         for(ProductoCarrito p: productos){
             for(ProductoCarrito c: productosCarrito){
@@ -46,7 +46,7 @@ public class DBHelper {
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public List<ProductoCarrito> findProductosEnCarrito(Context context, int idPersona) {
+    public List<ProductoCarrito> findProductosInCarrito(Context context, int idPersona) {
         DBSource db = new DBSource(context);
         String[] whereArgs = {String.valueOf(idPersona)};
         Cursor cursor = db.getReadableDatabase().rawQuery("SELECT * FROM " + ProductoTable.TABLE_NAME + " a INNER JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO + " WHERE b." + CarritoTable.ID_PERSONA + "=?", whereArgs);
@@ -79,7 +79,6 @@ public class DBHelper {
                 total += (precio * cantidad);
             }
         }
-
         return Math.floor(total * 100) / 100;
     }
 
@@ -91,9 +90,9 @@ public class DBHelper {
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public ProductoCarrito findOneProductoCarrito(Context context, int idPersona, int idProducto) {
+    public ProductoCarrito getProductoCarrito(Context context, int idPersona, int idProducto) {
         DBSource db = new DBSource(context);
-        List<ProductoCarrito> todos = findAllProductos(context, idPersona);
+        List<ProductoCarrito> todos = allProductosCarrito(context, idPersona);
         for(ProductoCarrito pc:todos){
              if ( pc.getIdProducto() == idProducto) {
                 return pc;
@@ -307,10 +306,8 @@ public class DBHelper {
      */
     public void addLinea(Context context, int idPersona,int idPedido) {
         DBSource db = new DBSource(context);
-
-
-        //Ahora saco todos los productos del carrito y los paso a Lista
-        List<ProductoCarrito> lista = findProductosEnCarrito(context,idPersona);
+        //Ahora saca todos los productos del carrito y los pasa a Lista
+        List<ProductoCarrito> lista = findProductosInCarrito(context,idPersona);
         for(ProductoCarrito pc: lista){
             Linea linea = new Linea(pc.getIdProducto(), idPedido, pc.getCantidad());
             db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
@@ -344,6 +341,110 @@ public class DBHelper {
         }
         return resultado != -1;
     }
+
+
+    /**
+     * Metodo sacar una lista de los pedidos en la bd
+     *
+     * @param context  el contexto de la actividad
+     * @return Una lista de todos los pedidos
+     */
+    public List<Pedido> allPedidos(Context context) {
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(PedidoTable.TABLE_NAME, null, null, null, null, null, null);
+        List<Pedido> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Pedido().loadPedidoaFromCursor(cursor));
+        }
+        return lista;
+    }
+
+    /**
+     * Metodo sacar una lista de los pedidos activos
+     *
+     * @param context  el contexto de la actividad
+     * @return Una lista de todos los pedidos
+     */
+    public List<Pedido> allPedidosActivos(Context context) {
+      List<Pedido> allPedidos = allPedidos(context);
+        List<Pedido> pedidosActivos = new ArrayList<>();
+        for(Pedido pd: allPedidos){
+          if(pd.getEstado().equals("Activo")){
+              pedidosActivos.add(pd);
+          }
+      }
+         return pedidosActivos;
+    }
+
+
+    /**
+     * Metodo sacar la lista de pedidos CANCELADOS y ENTREGADOS que tiene un usuario
+     *
+     * @param context  el contexto de la actividad
+     * @param idPersona el id de la persona
+     * @return Una lista de todos los pedidos
+     */
+    public List<Pedido> allPedidosNoActivosUsuario(Context context, int idPersona) {
+        List<Pedido> allPedidos = allPedidos(context);
+        List<Pedido> pedidosCancelados = new ArrayList<>();
+        for(Pedido pd: allPedidos){
+            if((pd.getEstado().equals("Cancelado") || pd.getEstado().equals("Entregado"))&& idPersona==pd.getIdPersona()){
+                pedidosCancelados.add(pd);
+            }
+        }
+        return pedidosCancelados;
+    }
+
+    /**
+     * Metodo sacar la lista de pedidos ACTIVOS que tiene un usuario
+     *
+     * @param context  el contexto de la actividad
+     * @param idPersona el id de la persona
+     * @return Una lista de todos los pedidos
+     */
+    public List<Pedido> allPedidosActivosUsuario(Context context, int idPersona) {
+        List<Pedido> allPedidosActivos = allPedidosActivos(context);
+        List<Pedido> pedidosActivos = new ArrayList<>();
+        for(Pedido pd: allPedidosActivos){
+            if(idPersona==pd.getIdPersona()){
+                pedidosActivos.add(pd);
+            }
+        }
+        return pedidosActivos;
+    }
+
+    /**
+     * Método para calcular cuantas lineas tiene un pedido
+     *
+     * @param context el contexto de la actividad
+     * @param idPedido la id del pedido
+     * @return la lista de los productos
+     */
+    public int sumLineas(Context context, int idPedido) {
+        String where = LineaTable.ID_PEDIDO + "=? ";
+        String[] whereArgs = {String.valueOf(idPedido)};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(LineaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        return cursor.getCount();
+    }
+
+
+    /**
+     * Metodo para actualizar el estado del pedido
+     *
+     * @param context    el contexto de la actividad
+     * @param estado el estado del producto
+     * @param idPersona  el id del usuario
+     * @param idPedido   el id del pedido
+     */
+    public void updatePedido(Context context, Integer idPedido, Integer idPersona, String fechaPedido, String estado, double importe) {
+        String where = PedidoTable.ID_PERSONA + "=? AND " + PedidoTable.ID_PEDIDO + "=?";
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idPedido)};
+        DBSource db = new DBSource(context);
+        Pedido p =new Pedido( idPedido, idPersona, fechaPedido, estado, importe);
+        db.getWritableDatabase().update(PedidoTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
+    }
+
 }
 
 

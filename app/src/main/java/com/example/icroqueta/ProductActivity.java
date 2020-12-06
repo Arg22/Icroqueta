@@ -44,7 +44,7 @@ public class ProductActivity extends MenuBar {
         cantidad = findViewById(R.id.producto_cantidad_row);
         foto = findViewById(R.id.producto_imagen);
 
-        producto= db.findOneProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
+        producto= db.getProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
         if(producto!=null){
             //Cargamos los datos del producto y comprobamos si está en el carrito
             Glide.with(this)

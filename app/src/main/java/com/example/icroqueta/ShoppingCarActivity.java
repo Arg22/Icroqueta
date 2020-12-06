@@ -1,6 +1,5 @@
 package com.example.icroqueta;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,14 +20,14 @@ public class ShoppingCarActivity extends MenuBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_shopping_car);
+        setContentView(R.layout.activity_shopping_car);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
 
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper db = new DBHelper();
-        List<ProductoCarrito> productos=db.findProductosEnCarrito(this,LoginActivity.usuario.getIdPersona());
+        List<ProductoCarrito> productos=db.findProductosInCarrito(this,LoginActivity.usuario.getIdPersona());
         //Para visualizar el Recicle view en esta Vista
         CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.carritoRecyclerView);

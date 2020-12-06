@@ -90,8 +90,9 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                         }
                     }
 
-                    if (itemView.getContext() instanceof ShoppingCarActivity ) {
-                        ShoppingCarActivity a = (ShoppingCarActivity ) itemView.getContext();
+                    //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
+                    if (itemView.getContext() instanceof ShoppingCarActivity) {
+                        ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
                         a.actualizarTotal();
                     }
                 }
@@ -112,8 +113,9 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                         db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                     }
 
-                    if (itemView.getContext() instanceof ShoppingCarActivity ) {
-                        ShoppingCarActivity a = (ShoppingCarActivity ) itemView.getContext();
+                    //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
+                    if (itemView.getContext() instanceof ShoppingCarActivity) {
+                        ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
                         a.actualizarTotal();
                     }
 
@@ -133,8 +135,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
     }
 
     @Override
-    public CroquetasRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                                        int viewType) {
+    public CroquetasRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.producto_layout, parent, false);
