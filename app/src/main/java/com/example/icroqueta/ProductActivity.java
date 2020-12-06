@@ -38,8 +38,6 @@ public class ProductActivity extends MenuBar {
         DBHelper db = new DBHelper();
 
         //Recogemos el producto
-
-
         nombre = findViewById(R.id.producto_nombre_row);
         precio = findViewById(R.id.producto_precio_row);
         descripcion = findViewById(R.id.producto_descripcion_row);

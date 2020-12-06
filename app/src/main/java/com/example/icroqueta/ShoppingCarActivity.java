@@ -34,11 +34,8 @@ public class ShoppingCarActivity extends MenuBar {
         RecyclerView croquetasRecyclerView = findViewById(R.id.carritoRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
+        actualizarTotal();
 
-        //todo Futuro - Que se actualice el total al pulsar en el fragmento
-        //Aqui se mete el total de la cantidad por el precio de los productos
-        TextView total=findViewById(R.id.carritoTotal);
-        total.setText(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
     }
 
     @Override
@@ -58,5 +55,12 @@ public class ShoppingCarActivity extends MenuBar {
         }else{
             Toast.makeText(this,"No tiene nada en su carrito",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void actualizarTotal(){
+        DBHelper db = new DBHelper();
+        //Aqui se mete el total de la cantidad por el precio de los productos
+        TextView total=findViewById(R.id.carritoTotal);
+        total.setText(db.sumProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
     }
 }

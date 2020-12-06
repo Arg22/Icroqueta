@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -82,11 +83,16 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     } else if (aux > 1) {
                         cantidad.setText(String.valueOf(aux - 1));
                         //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                        if (!db.existCarritoProducto(itemView.getContext(),LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-                            db.addCarrito(itemView.getContext(),  LoginActivity.usuario.getIdPersona(), producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+                        if (!db.existCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                            db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                         } else {
-                            db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(),producto.getIdProducto(),  Integer.parseInt(cantidad.getText().toString()));
+                            db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                         }
+                    }
+
+                    if (itemView.getContext() instanceof ShoppingCarActivity ) {
+                        ShoppingCarActivity a = (ShoppingCarActivity ) itemView.getContext();
+                        a.actualizarTotal();
                     }
                 }
             });
@@ -100,11 +106,17 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     int aux = Integer.parseInt(valor);
                     cantidad.setText(String.valueOf(aux + 1));
                     //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                    if (!db.existCarritoProducto(itemView.getContext(),  LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-                        db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(),  producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+                    if (!db.existCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                        db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                     } else {
                         db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                     }
+
+                    if (itemView.getContext() instanceof ShoppingCarActivity ) {
+                        ShoppingCarActivity a = (ShoppingCarActivity ) itemView.getContext();
+                        a.actualizarTotal();
+                    }
+
                 }
             });
 

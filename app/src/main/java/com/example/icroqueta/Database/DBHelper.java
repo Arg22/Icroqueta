@@ -93,17 +93,13 @@ public class DBHelper {
      */
     public ProductoCarrito findOneProductoCarrito(Context context, int idPersona, int idProducto) {
         DBSource db = new DBSource(context);
-        String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
-        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
-        List<ProductoCarrito> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
-            if ((pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) && pc.getIdProducto() == idProducto) {
-                lista.add(pc);
+        List<ProductoCarrito> todos = findAllProductos(context, idPersona);
+        for(ProductoCarrito pc:todos){
+             if ( pc.getIdProducto() == idProducto) {
+                return pc;
             }
         }
-        cursor.close();
-        return lista.get(0);
+        return null;
     }
 
     /**
@@ -150,8 +146,8 @@ public class DBHelper {
         String[] whereArgs = {idPersona + ""};
         DBSource db = new DBSource(context);
         db.getWritableDatabase().delete(PersonaTable.TABLE_NAME, where, whereArgs);
-        //todo ver el oncascade
     }
+
     /**
      * Metodo para el loggin de la aplicacion
      *
