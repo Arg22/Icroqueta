@@ -141,7 +141,18 @@ public class DBHelper {
         long resultado = db.getWritableDatabase().insert(PersonaTable.TABLE_NAME, null, usuario.mapearAContenValues());
         return resultado != -1;
     }
-
+    /**
+     * Metodo para borrar todos los registros del carro
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     */
+    public void deletePersona(Context context, int idPersona) {
+        String where = PersonaTable.ID_PERSONA + "=?";
+        String[] whereArgs = {idPersona + ""};
+        DBSource db = new DBSource(context);
+        db.getWritableDatabase().delete(PersonaTable.TABLE_NAME, where, whereArgs);
+    }
     /**
      * Metodo para el loggin de la aplicacion
      *

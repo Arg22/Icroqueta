@@ -12,22 +12,19 @@ public class Tarjeta  implements java.io.Serializable {
      private Integer idTarjeta;
      private String numero;
      private String fechaCaducidad;
-     private int cvc;
 
     public Tarjeta() {
     }
 
-    public Tarjeta(Integer idTarjeta, String numero, String fechaCaducidad, int cvc) {
+    public Tarjeta(Integer idTarjeta, String numero, String fechaCaducidad) {
         this.idTarjeta = idTarjeta;
         this.numero = numero;
         this.fechaCaducidad = fechaCaducidad;
-        this.cvc = cvc;
     }
 
-    public Tarjeta(String numero, String fechaCaducidad, int cvc) {
+    public Tarjeta(String numero, String fechaCaducidad) {
         this.numero = numero;
         this.fechaCaducidad = fechaCaducidad;
-        this.cvc = cvc;
     }
 
    
@@ -52,13 +49,7 @@ public class Tarjeta  implements java.io.Serializable {
     public void setFechaCaducidad(String fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
     }
-    public int getCvc() {
-        return this.cvc;
-    }
-    
-    public void setCvc(int cvc) {
-        this.cvc = cvc;
-    }
+
 
 
     /**
@@ -72,7 +63,6 @@ public class Tarjeta  implements java.io.Serializable {
         ContentValues values = new ContentValues();
         values.put(TarjetaTable.ID_TARJETA, idTarjeta);
         values.put(TarjetaTable.FECHA_CADUCIDAD, String.valueOf(fechaCaducidad));
-        values.put(TarjetaTable.CVC, cvc);
         values.put(TarjetaTable.NUMERO, numero);
         return values;
     }
@@ -87,13 +77,11 @@ public class Tarjeta  implements java.io.Serializable {
     public Tarjeta loadPedidoaFromCursor(Cursor cursor) {
 
         int idTarjeta = cursor.getInt(cursor.getColumnIndexOrThrow(TarjetaTable.ID_TARJETA));
-        String numero = cursor.getString(cursor.getColumnIndexOrThrow(TarjetaTable.CVC));
         String fechaCaducidad = cursor.getString(cursor.getColumnIndexOrThrow(TarjetaTable.FECHA_CADUCIDAD));
-        int cvc = cursor.getInt(cursor.getColumnIndexOrThrow(TarjetaTable.NUMERO));
+        String numero = cursor.getString(cursor.getColumnIndexOrThrow(TarjetaTable.NUMERO));
         this.idTarjeta = idTarjeta;
         this.numero = numero;
         this.fechaCaducidad = fechaCaducidad;
-        this.cvc = cvc;
         return this;
     }
 

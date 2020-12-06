@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "El correo ya está registrado", Toast.LENGTH_SHORT).show();
             } else {
+                Toast.makeText(this, "Registro completado",Toast.LENGTH_LONG).show();
                 openLogin(view); //en caso afirmativo abrimos home
             }
         }

@@ -7,15 +7,13 @@ public class TarjetaTable {
     public static final String ID_TARJETA = "id_tarjeta";
     public static final String FECHA_CADUCIDAD = "fecha_caducidad";
     public static final String NUMERO = "numero";
-    public static final String CVC = "cvc";
 
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID_TARJETA + " INTEGER PRIMARY KEY," +
                     FECHA_CADUCIDAD + " DATE," +
-                    NUMERO + " TEXT," +
-                    CVC + " INTEGER)";
+                    NUMERO + " TEXT)";
 
 
     private static final String SQL_DELETE_ENTRIES =

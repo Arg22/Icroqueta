@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class OptionActivity extends MenuBar {
     long backPressedTime;
-    private static final long TIME_TO_CLOSE_APP = 2000;
+    private static final long TIME_TO_CLOSE_APP = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,15 @@ public class OptionActivity extends MenuBar {
 
         if (time - backPressedTime > TIME_TO_CLOSE_APP) {
             backPressedTime = time;
-            Toast.makeText(this, "Pulse dos veces para borrar cuenta",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Pulse otra vez para borrar cuenta",Toast.LENGTH_LONG).show();
         } else {
             DBHelper db =new DBHelper();
             db.deletePersona(this,LoginActivity.usuario.getIdPersona());
+            //Y sale al loggin
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+
         }
     }
 }

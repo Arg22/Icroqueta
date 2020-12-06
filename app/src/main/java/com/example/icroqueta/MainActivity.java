@@ -26,7 +26,7 @@ import java.util.List;
 public class MainActivity extends MenuBar {
     private AppBarConfiguration mAppBarConfiguration;
     long backPressedTime;
-    private static final long TIME_TO_CLOSE_APP = 2000;
+    private static final long TIME_TO_CLOSE_APP = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class MainActivity extends MenuBar {
 
         if (time - backPressedTime > TIME_TO_CLOSE_APP) {
              backPressedTime = time;
-            Toast.makeText(this, "¿Quiere salir de la aplicacion?",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pulse otra vez para  salir de la aplicacion",Toast.LENGTH_SHORT).show();
         } else {
            // Toast.makeText(this, "¿Quiere salir de la aplicacion?",Toast.LENGTH_SHORT).cancel();
             super.onBackPressed();
