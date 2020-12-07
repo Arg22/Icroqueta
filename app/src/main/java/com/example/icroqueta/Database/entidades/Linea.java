@@ -86,7 +86,7 @@ public class Linea  implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto Linea.
      */
-    public Linea loadLineaaFromCursor(Cursor cursor) {
+    public Linea loadLineaFromCursor(Cursor cursor) {
 
         int idLinea = cursor.getInt(cursor.getColumnIndexOrThrow(LineaTable.ID_LINEA));
         int idPedido = cursor.getInt(cursor.getColumnIndexOrThrow(LineaTable.ID_PEDIDO));

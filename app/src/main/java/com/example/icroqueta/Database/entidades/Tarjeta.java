@@ -74,7 +74,7 @@ public class Tarjeta  implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto tarjeta.
      */
-    public Tarjeta loadPedidoaFromCursor(Cursor cursor) {
+    public Tarjeta loadTarjetaFromCursor(Cursor cursor) {
 
         int idTarjeta = cursor.getInt(cursor.getColumnIndexOrThrow(TarjetaTable.ID_TARJETA));
         String fechaCaducidad = cursor.getString(cursor.getColumnIndexOrThrow(TarjetaTable.FECHA_CADUCIDAD));

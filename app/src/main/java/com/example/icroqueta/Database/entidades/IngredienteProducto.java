@@ -69,7 +69,7 @@ public class IngredienteProducto {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto IngredienteProducto.
      */
-    public IngredienteProducto loadPedidoaFromCursor(Cursor cursor) {
+    public IngredienteProducto loadIngredienteProductoFromCursor(Cursor cursor) {
 
         int idIngredienteProducto = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteProductoTable.ID_INGREDIENTE_PRODUCTO));
         int idIngrediente = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteProductoTable.ID_INGREDIENTE));

@@ -71,7 +71,7 @@ public class PersonaDireccion  implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto persona_Direccion.
      */
-    public PersonaDireccion loadPedidoaFromCursor(Cursor cursor) {
+    public PersonaDireccion loadPersonaDireccionFromCursor(Cursor cursor) {
 
         int idPersonaDireccion = cursor.getInt(cursor.getColumnIndexOrThrow(PersonaDireccionTable.ID_PERSONA_Direccion));
         int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(PersonaDireccionTable.ID_PERSONA));

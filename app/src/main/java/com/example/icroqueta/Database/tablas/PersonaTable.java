@@ -47,13 +47,11 @@ public class PersonaTable {
      * @param db nuestra base de datos
      */
     public static void insertIniciales(SQLiteDatabase db) {
-        Persona p = new Persona("123456878Q", "Godofredo", "Gofrero", "a", "a", 0);
-        Persona p2 = new Persona("123456878A", "Agata", "LaGata", "b", "b", 1);
-        Persona p3 = new Persona("123456878A", "Agata", "LaGata", "c", "c", 0);
+        Persona p = new Persona("123456878U", "UserTest", "UserTest", "a", "a", 0);
+        Persona p2 = new Persona("123456878R", "Soy el Root", "Root", "b", "b", 1);
 
         db.insert(TABLE_NAME, null, p.mapearAContenValues());
         db.insert(TABLE_NAME, null, p2.mapearAContenValues());
-        db.insert(TABLE_NAME, null, p3.mapearAContenValues());
     }
 
 }

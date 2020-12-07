@@ -4,7 +4,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.icroqueta.database.entidades.IngredienteProducto;
 
-
 public class IngredienteProductoTable {
     public static final String TABLE_NAME = "ingrediente_producto";
     public static final String ID_INGREDIENTE_PRODUCTO = "id_persona_tarjeta";

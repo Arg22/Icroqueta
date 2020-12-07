@@ -97,7 +97,7 @@ public class Direccion implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto Direccion.
      */
-    public Direccion loadPedidoaFromCursor(Cursor cursor) {
+    public Direccion loadDireccionFromCursor(Cursor cursor) {
 
         int idDireccion = cursor.getInt(cursor.getColumnIndexOrThrow(DireccionTable.ID_DIRECCION));
         String calle = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CALLE));

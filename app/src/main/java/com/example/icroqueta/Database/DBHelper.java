@@ -1,5 +1,6 @@
 package com.example.icroqueta.database;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -12,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper {
-
-//todo comentar mejor
 
     //****** Métodos tabla ProductosCarrito ******//
 
@@ -100,7 +99,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para obtener todos los productos de la bd.
+     * Método para obtener todos los productos de la bd.
      *
      * @param context el contexto de la actividad
      * @return La lista de productos de la bd
@@ -115,10 +114,41 @@ public class DBHelper {
         return lista;
     }
 
+    /**
+     * Método para comprobar si existe un determinado producto en el carrito.
+     *
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param idPersona  el id del usuario
+     * @return true si existe, false si no existe en la bd
+     */
+    public boolean existCarritoProducto(Context context, int idPersona, int idProducto) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {idPersona + "", idProducto + ""};
+        DBSource db = new DBSource(context);
+        @SuppressLint("Recycle") Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        return cursor.getCount() != 0;
+    }
+
+    /**
+     * Método para borrar solo un producto del carro.
+     *
+     * @param context    el contexto de la actividad
+     * @param idPersona  el id del usuario
+     * @param idProducto el id del producto que se quiera borrar
+     */
+    public void deleteCarritoProducto(Context context, int idPersona, int idProducto) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
+        DBSource db = new DBSource(context);
+        db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
+    }
+
+
     //****** Métodos tabla Carrito ******//
 
     /**
-     * Metodo para obtener todos los productos del carrito de una persona.
+     * Método para obtener todos los productos del carrito de una persona.
      *
      * @param context el contexto de la actividad
      * @param idPersona el id de la persona
@@ -137,7 +167,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para añadir un producto al carrito para guardarlo cuando cierre la app
+     * Método para añadir un producto al carrito para guardarlo cuando cierre la app
      *
      * @param context    el contexto de la actividad
      * @param idProducto el id del producto
@@ -151,7 +181,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para actualizar el carro por si hay una nueva cantidad
+     * Método para actualizar el carro por si hay una nueva cantidad
      *
      * @param context    el contexto de la actividad
      * @param idProducto el id del producto
@@ -166,11 +196,24 @@ public class DBHelper {
         db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
     }
 
+    /**
+     * Método para borrar todos los registros del carro
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     */
+    public void deleteCarrito(Context context, int idPersona) {
+        String where = CarritoTable.ID_PERSONA + "=?";
+        String[] whereArgs = {idPersona + ""};
+        DBSource db = new DBSource(context);
+        db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
+    }
+
 
     //****** Métodos tabla Producto ******//
 
     /**
-     * Metodo para obtener un producto de la bd por su id.
+     * Método para obtener un producto de la bd por su id.
      *
      * @param context el contexto de la actividad
      * @return un producto
@@ -190,7 +233,7 @@ public class DBHelper {
     //****** Métodos tabla Persona ******//
 
     /**
-     * Metodo para añadir un registro nuevo a la base de datos Persona.
+     * Método para añadir un registro nuevo a la base de datos Persona.
      *
      * @param context  el contexto de la actividad
      * @param nif      la id de la persona
@@ -208,7 +251,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para borrar todos los datos de una persona.
+     * Método para borrar todos los datos de una persona.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
@@ -221,7 +264,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para el loggin de la aplicacion que comprueba si existe ese correo
+     * Método para el loggin de la aplicacion que comprueba si existe ese correo
      * y si existe, si coincide con la contraseña.
      *
      * @param context el contexto de la actividad
@@ -240,21 +283,18 @@ public class DBHelper {
             lista.add(new Persona().loadPersonaFromCursor(cursor));
         }
         if (lista.isEmpty()) {
-            //No se encuentra el correo
-            return 0;
+            return 0;//No se encuentra el correo
         }
         for (Persona p : lista) {
             if (p.getContrasenya().equals(pass)) {
-                //Si encuentra el usuario y coinciden las contraseñas nos devuelve la id
-                return p.getIdPersona();
+                return p.getIdPersona(); //Si encuentra el usuario y coinciden las contraseñas nos devuelve la id
             }
         }
-        //No coincide la contraseña
-        return -1;
+        return -1; //No coincide la contraseña
     }
 
     /**
-     * Metodo para encontrar a un usuario por su id.
+     * Método para encontrar a un usuario por su id.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id por el que vamos a buscarlo
@@ -273,75 +313,10 @@ public class DBHelper {
     }
 
 
-    /**
-     * Metodo para comprobar si existe un determinado producto en el carrito
-     *
-     * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
-     * @param idPersona  el id del usuario
-     * @return true si existe, false si no existe en la bd
-     */
-    public boolean existCarritoProducto(Context context, int idPersona, int idProducto) {
-        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {idPersona + "", idProducto + ""};
-        DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-        return cursor.getCount() != 0;
-
-    }
+    //****** Métodos tabla Linea ******//
 
     /**
-     * Metodo para borrar todos los registros del carro
-     *
-     * @param context   el contexto de la actividad
-     * @param idPersona el id del usuario
-     */
-    public void deleteCarrito(Context context, int idPersona) {
-        String where = CarritoTable.ID_PERSONA + "=?";
-        String[] whereArgs = {idPersona + ""};
-        DBSource db = new DBSource(context);
-        db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
-    }
-
-    /**
-     * Metodo para borrar solo un producto del carro
-     *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param idProducto el id del producto que se quiera borrar
-     */
-    public void deleteCarritoProducto(Context context, int idPersona, int idProducto) {
-        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
-        DBSource db = new DBSource(context);
-        db.getWritableDatabase().delete(CarritoTable.TABLE_NAME, where, whereArgs);
-    }
-
-
-    /**
-     * Listamos todos los pedidos que tiene un usuario
-     *
-     * @param context el contexto de la actividad
-     * @return la lista de los productos
-     */
-    public List<Pedido> findPedidosUsuario(Context context, int idPersona) {
-        DBSource db = new DBSource(context);
-        String query = "SELECT a.*,b.cantidad,b.id_persona FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
-        Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
-        List<Pedido> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            Pedido pc = new Pedido().loadPedidoaFromCursor(cursor);
-            if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
-                lista.add(pc);
-            }
-        }
-        cursor.close();
-        return lista;
-    }
-
-
-    /**
-     * Metodo para volcar todas laos productos que habia en el carrito
+     * Método para volcar todas los productos que había en el carrito en lineas del pedido.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
@@ -359,7 +334,7 @@ public class DBHelper {
     }
 
     /**
-     * Método para calcular cuantas lineas tiene un pedido
+     * Método para calcular cuantas lineas tiene un pedido.
      *
      * @param context  el contexto de la actividad
      * @param idPedido la id del pedido
@@ -372,15 +347,17 @@ public class DBHelper {
         Cursor cursor = db.getReadableDatabase().query(LineaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Linea> lineas = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Linea l = new Linea().loadLineaaFromCursor(cursor);
+            Linea l = new Linea().loadLineaFromCursor(cursor);
             lineas.add(l);
         }
         return lineas;
     }
 
 
+    //****** Métodos tabla Pedido ******//
+
     /**
-     * Metodo para añadir un registro a la base de datos Pedido
+     * Método para añadir un registro a la base de datos Pedido
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
@@ -390,7 +367,7 @@ public class DBHelper {
         DBSource db = new DBSource(context);
         //Esto es para añadir el pedido con la fecha actual
         long date = System.currentTimeMillis();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String fechaPedido = sdf.format(date);
         Pedido usuario = new Pedido(idPersona, fechaPedido, "Activo", totalProductosEnCarrito(context, idPersona));
         long resultado = db.getWritableDatabase().insert(PedidoTable.TABLE_NAME, null, usuario.mapearAContenValues());
@@ -407,7 +384,7 @@ public class DBHelper {
 
 
     /**
-     * Metodo sacar una lista de los pedidos en la bd
+     * Método sacar una lista de los pedidos en la bd.
      *
      * @param context el contexto de la actividad
      * @return Una lista de todos los pedidos
@@ -423,7 +400,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo sacar una lista de los pedidos activos
+     * Método sacar una lista de los pedidos activos.
      *
      * @param context el contexto de la actividad
      * @return Una lista de todos los pedidos
@@ -441,7 +418,7 @@ public class DBHelper {
 
 
     /**
-     * Metodo sacar la lista de pedidos CANCELADOS y ENTREGADOS que tiene un usuario
+     * Método sacar la lista de pedidos CANCELADOS y ENTREGADOS que tiene un usuario.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id de la persona
@@ -459,7 +436,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo sacar la lista de pedidos ACTIVOS que tiene un usuario
+     * Método sacar la lista de pedidos ACTIVOS que tiene un usuario.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id de la persona
@@ -476,9 +453,8 @@ public class DBHelper {
         return pedidosActivos;
     }
 
-
     /**
-     * Metodo para actualizar el estado del pedido
+     * Método para actualizar el estado del pedido.
      *
      * @param context   el contexto de la actividad
      * @param estado    el estado del producto

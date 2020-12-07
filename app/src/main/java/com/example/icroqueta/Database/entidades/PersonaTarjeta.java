@@ -71,7 +71,7 @@ public class PersonaTarjeta  implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto persona_tarjeta.
      */
-    public PersonaTarjeta loadPedidoaFromCursor(Cursor cursor) {
+    public PersonaTarjeta loadPersonaTarjetaFromCursor(Cursor cursor) {
 
         int idPersonaTarjeta = cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTarjetaTable.ID_PERSONA_TARJETA));
         int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTarjetaTable.ID_PERSONA));

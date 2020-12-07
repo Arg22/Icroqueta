@@ -62,7 +62,7 @@ public class Telefono implements java.io.Serializable {
      * @param cursor es lo que se lee de la base de datos.
      * @return un objeto telefono.
      */
-    public Telefono loadPersonaFromCursor(Cursor cursor) {
+    public Telefono loadTelefonoFromCursor(Cursor cursor) {
         int idTelefono = cursor.getInt(cursor.getColumnIndexOrThrow(TelefonoTable.ID_TELEFONO));
         int numero = cursor.getInt(cursor.getColumnIndexOrThrow(TelefonoTable.NUMERO));
 

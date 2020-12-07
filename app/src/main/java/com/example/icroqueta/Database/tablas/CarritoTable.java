@@ -2,8 +2,6 @@ package com.example.icroqueta.database.tablas;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.icroqueta.database.entidades.Persona;
-
 public class CarritoTable {
     public static final String TABLE_NAME = "carrito";
     public static final String ID_CARRITO = "id_carrito";
