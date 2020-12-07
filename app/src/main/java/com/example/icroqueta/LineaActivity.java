@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.icroqueta.adapter.LineRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.entidades.Carrito;
 import com.example.icroqueta.database.entidades.Linea;
 
@@ -36,7 +34,7 @@ public class LineaActivity extends AppCompatActivity {
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
 
         //Para visualizar el Recicle view en esta Vista
-        LineaRecyclerViewAdapter adapter = new LineaRecyclerViewAdapter(lineas);
+        LineRecyclerViewAdapter adapter = new LineRecyclerViewAdapter(lineas);
         RecyclerView lineaRecyclerView = findViewById(R.id.lineaRecyclerView);
         lineaRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         lineaRecyclerView.setAdapter(adapter);
@@ -74,6 +72,7 @@ public class LineaActivity extends AppCompatActivity {
                 }
             }
         }
+        Toast.makeText(this,"Añadido al carro con éxito",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ShoppingCarActivity.class);
         startActivity(intent);
     }

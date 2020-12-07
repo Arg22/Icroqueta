@@ -6,6 +6,10 @@ import com.example.icroqueta.database.entidades.Producto;
 import com.example.icroqueta.database.tablas.CarritoTable;
 import com.example.icroqueta.database.tablas.ProductoTable;
 
+/**
+ * Data Transfer Object:  Para realizar consultas del tipo JOIN con dos tablas con columnas distintas
+ */
+
 public class ProductoCarrito extends Producto {
     private int cantidad;
     private int idPersona;
@@ -46,14 +50,13 @@ public class ProductoCarrito extends Producto {
         int stock = cursor.getInt(cursor.getColumnIndexOrThrow(ProductoTable.STOCK));
         double descuento = cursor.getDouble(cursor.getColumnIndexOrThrow(ProductoTable.DESCUENTO));
         String imagen = cursor.getString(cursor.getColumnIndexOrThrow(ProductoTable.IMAGEN));
-        if (cursor.getColumnIndex(CarritoTable.CANTIDAD) != -1) {
+        if (cursor.getColumnIndex(CarritoTable.CANTIDAD) != -1) { //Para solventar el error de que sea nulo al realizar la query
             this.cantidad = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.CANTIDAD));
         }
-        if (cursor.getColumnIndex(CarritoTable.ID_PERSONA) != -1) {
+        if (cursor.getColumnIndex(CarritoTable.ID_PERSONA) != -1) { //Para solventar el error de que sea nulo al realizar la query
             this.idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(CarritoTable.ID_PERSONA));
         }
         setIdProducto(idProducto);
-
         setNombre(nombre);
         setDescripcion(descripcion);
         setPrecioUd(precioUd);

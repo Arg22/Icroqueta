@@ -15,19 +15,21 @@ public class DBHelper {
 
 //todo comentar mejor
 
+    //****** Métodos tabla ProductosCarrito ******//
+
     /**
-     * Este método sirve para recoger todos los productos que estén o no en un carrito
+     * Este método recoge todos los productos que estén o no en un carrito
      * y los mete en una lista.
      *
      * @param context el contexto de la actividad
-     * @return la lista de los productos
+     * @return la lista de los productos.
      */
     public List<ProductoCarrito> allProductosCarrito(Context context, int idPersona) {
-        List<ProductoCarrito> productos = allProducto(context);
-        List<ProductoCarrito> productosCarrito = findProductosInCarrito(context, idPersona);
+        List<ProductoCarrito> productos = allProducto(context); //Todos los productos
+        List<ProductoCarrito> productosCarrito = findProductosInCarrito(context, idPersona);//Todos los productos que haya en el carrito
         for (ProductoCarrito p : productos) {
             for (ProductoCarrito c : productosCarrito) {
-                if (c.getIdProducto().equals(p.getIdProducto())) {
+                if (c.getIdProducto().equals(p.getIdProducto())) { //Si son el mismo producto se actualiza con la cantidad del carro
                     p.setCantidad(c.getCantidad());
                 }
             }
@@ -36,11 +38,11 @@ public class DBHelper {
     }
 
     /**
-     * Este método sirve para hacer uuna lista de únicamente los productos que estan en el carrito
-     * y los mete en una lista
+     * Este método recoge únicamente los productos que estan en el carrito
+     * y los mete en una lista.
      *
      * @param context el contexto de la actividad
-     * @return la lista de los productos
+     * @return la lista de los productos de un carrito.
      */
     public List<ProductoCarrito> findProductosInCarrito(Context context, int idPersona) {
         DBSource db = new DBSource(context);
@@ -55,39 +57,39 @@ public class DBHelper {
     }
 
     /**
-     * Método para calcular la suma del precio total, para ello primero saca la cantidad y la multiplica por su precio
+     * Método para calcular la suma del precio total,
+     * para ello primero saca la cantidad y la multiplica por su precio.
      *
      * @param context el contexto de la actividad
      * @return la lista de los productos
      */
-    public double sumPrecioProductosEnCarrito(Context context, int idPersona) {
+    public double totalProductosEnCarrito(Context context, int idPersona) {
         String query = "SELECT a.*,b." + CarritoTable.CANTIDAD + ",b." + CarritoTable.ID_PERSONA + " FROM " + ProductoTable.TABLE_NAME + " a LEFT JOIN " + CarritoTable.TABLE_NAME + " b ON a." + ProductoTable.ID_PRODUCTO + "=b." + CarritoTable.ID_PRODUCTO;
         DBSource db = new DBSource(context);
         double total = 0;
-        double precio = 0;
-        int cantidad = 0;
+        double precio;
+        int cantidad;
         Cursor cursor = db.getReadableDatabase().rawQuery(query, null);
         while (cursor.moveToNext()) {
             ProductoCarrito pc = new ProductoCarrito().loadProductoCarritoFromCursor(cursor);
             if (pc.getIdPersona() == idPersona || pc.getIdPersona() == 0) {
-                precio = cursor.getDouble(cursor.getColumnIndex(ProductoTable.PRECIO_UD));// get final total
-                cantidad = cursor.getInt(cursor.getColumnIndex(CarritoTable.CANTIDAD));// get final total
-                total += (precio * cantidad);
+                precio = cursor.getDouble(cursor.getColumnIndex(ProductoTable.PRECIO_UD)); // sacamos el precio
+                cantidad = cursor.getInt(cursor.getColumnIndex(CarritoTable.CANTIDAD)); // sacamos la cantidad
+                total += (precio * cantidad); // lo calculamos al total
             }
         }
         return Math.floor(total * 100) / 100;
     }
 
-
     /**
-     * Este método sirve para enviarle la cantidad de un determinado producto
-     * para que se muestre en la pantalla del producto
+     * Este método sirve para sacar un unico producto de la bd.
      *
      * @param context el contexto de la actividad
-     * @return la lista de los productos
+     * @param idPersona la id del usuario
+     * @param idProducto la id del producto
+     * @return un objeto producto
      */
     public ProductoCarrito getProductoCarrito(Context context, int idPersona, int idProducto) {
-        DBSource db = new DBSource(context);
         List<ProductoCarrito> todos = allProductosCarrito(context, idPersona);
         for (ProductoCarrito pc : todos) {
             if (pc.getIdProducto() == idProducto) {
@@ -96,8 +98,27 @@ public class DBHelper {
         }
         return null;
     }
+
     /**
-     * Metodo para obtener todos los carritos de una persona
+     * Metodo para obtener todos los productos de la bd.
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public List<ProductoCarrito> allProducto(Context context) {
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, null, null, null, null, null);
+        List<ProductoCarrito> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
+        }
+        return lista;
+    }
+
+    //****** Métodos tabla Carrito ******//
+
+    /**
+     * Metodo para obtener todos los productos del carrito de una persona.
      *
      * @param context el contexto de la actividad
      * @param idPersona el id de la persona
@@ -116,26 +137,43 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para obtener todos los productos
+     * Metodo para añadir un producto al carrito para guardarlo cuando cierre la app
      *
-     * @param context el contexto de la actividad
-     * @return La lista de productos de la bd
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param idPersona  el id del usuario
+     * @param cantidad   la cantidad del producto
      */
-    public List<ProductoCarrito> allProducto(Context context) {
+    public void addCarrito(Context context, int idPersona, int idProducto, int cantidad) {
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, null, null, null, null, null);
-        List<ProductoCarrito> lista = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
-        }
-        return lista;
+        Carrito linea = new Carrito(idPersona, idProducto, cantidad);
+        db.getWritableDatabase().insert(CarritoTable.TABLE_NAME, null, linea.mapearAContenValues());
     }
 
     /**
-     * Metodo para obtener un producto por su id
+     * Metodo para actualizar el carro por si hay una nueva cantidad
+     *
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param idPersona  el id del usuario
+     * @param cantidad   la cantidad del producto
+     */
+    public void updateCarrito(Context context, int idPersona, int idProducto, int cantidad) {
+        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
+        DBSource db = new DBSource(context);
+        Carrito c = new Carrito(idPersona, idProducto, cantidad);
+        db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
+    }
+
+
+    //****** Métodos tabla Producto ******//
+
+    /**
+     * Metodo para obtener un producto de la bd por su id.
      *
      * @param context el contexto de la actividad
-     * @return La lista de productos de la bd
+     * @return un producto
      */
     public Producto findProducto(Context context, int idProducto) {
         String where = ProductoTable.ID_PRODUCTO + "=?";
@@ -149,8 +187,10 @@ public class DBHelper {
         return productos.get(0);
     }
 
+    //****** Métodos tabla Persona ******//
+
     /**
-     * Metodo para añadir un registro a la base de datos Persona
+     * Metodo para añadir un registro nuevo a la base de datos Persona.
      *
      * @param context  el contexto de la actividad
      * @param nif      la id de la persona
@@ -168,7 +208,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para borrar todos los registros del carro
+     * Metodo para borrar todos los datos de una persona.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
@@ -181,7 +221,8 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para el loggin de la aplicacion
+     * Metodo para el loggin de la aplicacion que comprueba si existe ese correo
+     * y si existe, si coincide con la contraseña.
      *
      * @param context el contexto de la actividad
      * @param correo  el correo de la persona
@@ -213,7 +254,7 @@ public class DBHelper {
     }
 
     /**
-     * Metodo para encontrar a un usuario por su id
+     * Metodo para encontrar a un usuario por su id.
      *
      * @param context   el contexto de la actividad
      * @param idPersona el id por el que vamos a buscarlo
@@ -231,36 +272,6 @@ public class DBHelper {
         return lista.get(0);
     }
 
-
-    /**
-     * Metodo para añadir un producto al carrito para guardarlo cuando cierre la app
-     *
-     * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
-     * @param idPersona  el id del usuario
-     * @param cantidad   la cantidad del producto
-     */
-    public void addCarrito(Context context, int idPersona, int idProducto, int cantidad) {
-        DBSource db = new DBSource(context);
-        Carrito linea = new Carrito(idPersona, idProducto, cantidad);
-        db.getWritableDatabase().insert(CarritoTable.TABLE_NAME, null, linea.mapearAContenValues());
-    }
-
-    /**
-     * Metodo para actualizar el carro por si hay una nueva cantidad
-     *
-     * @param context    el contexto de la actividad
-     * @param idProducto el id del producto
-     * @param idPersona  el id del usuario
-     * @param cantidad   la cantidad del producto
-     */
-    public void updateCarrito(Context context, int idPersona, int idProducto, int cantidad) {
-        String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idProducto)};
-        DBSource db = new DBSource(context);
-        Carrito c = new Carrito(idPersona, idProducto, cantidad);
-        db.getWritableDatabase().update(CarritoTable.TABLE_NAME, c.mapearAContenValues(), where, whereArgs);
-    }
 
     /**
      * Metodo para comprobar si existe un determinado producto en el carrito
@@ -381,7 +392,7 @@ public class DBHelper {
         long date = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String fechaPedido = sdf.format(date);
-        Pedido usuario = new Pedido(idPersona, fechaPedido, "Activo", sumPrecioProductosEnCarrito(context, idPersona));
+        Pedido usuario = new Pedido(idPersona, fechaPedido, "Activo", totalProductosEnCarrito(context, idPersona));
         long resultado = db.getWritableDatabase().insert(PedidoTable.TABLE_NAME, null, usuario.mapearAContenValues());
         //Aqui sacamos todos los pedidos y cogemos el último
         Cursor cursor = db.getReadableDatabase().rawQuery("SELECT  * FROM " + PedidoTable.TABLE_NAME, null);
