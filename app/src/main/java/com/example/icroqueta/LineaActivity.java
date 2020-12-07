@@ -7,16 +7,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.database.DTO.ProductoCarrito;
+import com.example.icroqueta.database.entidades.Carrito;
 import com.example.icroqueta.database.entidades.Linea;
 
 import java.util.List;
 import java.util.Objects;
 
 public class LineaActivity extends AppCompatActivity {
-
+    int id_pedido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +29,7 @@ public class LineaActivity extends AppCompatActivity {
 
         //Carga la id del producto pulsado en el Adapter
         Bundle extras = getIntent().getExtras();
-        int id_pedido = extras.getInt("ID_PEDIDO");
-
+        id_pedido = extras.getInt("ID_PEDIDO");
 
         DBHelper db = new DBHelper();
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
@@ -48,6 +51,27 @@ public class LineaActivity extends AppCompatActivity {
     }
 
     public void repetirPedido(View view) {
-        //todo: repetir pedido
+        DBHelper db = new DBHelper();
+        List<Linea> lineas = db.allLineasProducto(this, id_pedido);
+        List<Carrito> carrito =db.allCarritoPersona(this, LoginActivity.usuario.getIdPersona());
+//todo arreglar este bucle
+        for(Linea n:lineas){
+            for(Carrito c:carrito){
+                if(n.getIdProducto()==c.getIdProducto()){
+                    db.updateCarrito(this,LoginActivity.usuario.getIdPersona(),n.getIdProducto(),n.getCantidad()+c.getCantidad());
+                }else{
+                    db.addCarrito(this, LoginActivity.usuario.getIdPersona(),n.getIdProducto(),n.getCantidad());
+                }
+            }
+        }
+        Intent intent = new Intent(this, ShoppingCarActivity.class);
+        startActivity(intent);
+    }
+
+    public void ocultarPieDePagina(){
+        LinearLayout pieDePagina=findViewById(R.id.linea_linearLayout);
+        Button boton = findViewById(R.id.linea_boton);
+        pieDePagina.setVisibility(View.INVISIBLE);
+        boton.setVisibility(View.GONE);
     }
 }

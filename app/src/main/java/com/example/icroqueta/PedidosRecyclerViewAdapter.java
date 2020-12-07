@@ -95,7 +95,7 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
                     }
                 });
             }
-
+            //todo que no se borre el boton de la linea cuando soy repartidor
             fila.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

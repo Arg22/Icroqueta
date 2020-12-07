@@ -36,8 +36,6 @@ public class DBHelper {
         return productos;
     }
 
-    //todo error en el carrito entre usuarios
-
     /**
      * Este método sirve para hacer uuna lista de únicamente los productos que estan en el carrito
      * y los mete en una lista
@@ -99,6 +97,24 @@ public class DBHelper {
         }
         return null;
     }
+    /**
+     * Metodo para obtener todos los carritos de una persona
+     *
+     * @param context el contexto de la actividad
+     * @param idPersona el id de la persona
+     * @return La lista de productos de la bd
+     */
+    public List<Carrito> allCarritoPersona (Context context,int idPersona) {
+        String where = CarritoTable.ID_PERSONA + "=?";
+        String[] whereArgs = {String.valueOf(idPersona)};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Carrito> carrito = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            carrito.add(new Carrito().loadCarritoFromCursor(cursor));
+        }
+        return carrito;
+    }
 
     /**
      * Metodo para obtener todos los productos
@@ -126,7 +142,7 @@ public class DBHelper {
         String where = ProductoTable.ID_PRODUCTO + "=?";
         String[] whereArgs = {String.valueOf(idProducto)};
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, null, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Producto> productos = new ArrayList<>();
         while (cursor.moveToNext()) {
             productos.add(new Producto().loadProductoFromCursor(cursor));

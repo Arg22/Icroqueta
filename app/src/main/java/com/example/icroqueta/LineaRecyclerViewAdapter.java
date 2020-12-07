@@ -1,8 +1,10 @@
 package com.example.icroqueta;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,11 +25,14 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
     public LineaRecyclerViewAdapter(List<Linea> lineas) {
         this.lineas = lineas;
     }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public final TextView nombre;
         public final TextView cantidad;
         public final TextView precio;
         public ImageView foto;
+        public final LinearLayout fila;
+
 
         /**
          * Inicializamos todos los parametros que van a ser reutilizados
@@ -40,6 +45,8 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
             cantidad = v.findViewById(R.id.lineaCantidad);
             precio = v.findViewById(R.id.lineaPrecio);
             foto = v.findViewById(R.id.lineaImagen);
+            fila = v.findViewById(R.id.lineaRow);
+
         }
 
         /**
@@ -49,7 +56,7 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
          */
         public void bind(final Linea linea) {
             DBHelper db = new DBHelper();
-            Producto producto=db.findProducto(itemView.getContext(),linea.getIdProducto());
+            Producto producto = db.findProducto(itemView.getContext(), linea.getIdProducto());
 
             Glide.with(itemView.getContext())
                     .load(producto.getImagen())
@@ -60,6 +67,24 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
             nombre.setText(producto.getNombre());
             precio.setText(producto.getPrecioUd() + "€/ud");
             cantidad.setText(String.valueOf(linea.getCantidad()));
+
+            fila.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Envia id a la actividad ProductActivity
+                    Intent intent = new Intent(v.getContext(), ProductActivity.class);
+                    intent.putExtra("ID_PRODUCTO", linea.getIdProducto());
+                    v.getContext().startActivity(intent);
+
+
+                }
+            });
+            //Esto es para comprobar que si somos repartidores no salga el boton de Repetir pedido
+            if (LoginActivity.usuario.isRol()==1) {
+                LineaActivity l = (LineaActivity) itemView.getContext();
+                l.ocultarPieDePagina();
+            }
+
         }
     }
 
@@ -69,7 +94,6 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.linea_pedido_layout, parent, false);
         return new LineaRecyclerViewAdapter.MyViewHolder(v);
     }
-
 
 
     /**

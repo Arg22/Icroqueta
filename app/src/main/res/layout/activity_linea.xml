@@ -24,13 +24,15 @@
         android:layout_margin="16dp"
         android:orientation="horizontal">
 
+        <!--todo mirar este boton -->
         <Button
             android:layout_width="match_parent"
+            android:id="@+id/linea_boton"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_rounded_border"
             android:onClick="repetirPedido"
-            android:text="Repetir pedido" />
+            android:text="Añadir al carro" />
 
     </LinearLayout>
 
