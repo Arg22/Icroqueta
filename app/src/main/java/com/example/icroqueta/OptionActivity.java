@@ -21,8 +21,7 @@ public class OptionActivity extends MenuBar {
     EditText direccion;
     EditText localidad;
     EditText codigoPostal;
-    EditText tarjeta;
-    EditText fechaTarjeta;
+
 
     private static final long TIME_TO_CLOSE_APP = 5000;
 
@@ -73,8 +72,6 @@ public class OptionActivity extends MenuBar {
         direccion = findViewById(R.id.direccionOpciones);
         localidad = findViewById(R.id.localidadOpciones);
         codigoPostal = findViewById(R.id.cPostalOpciones);
-        tarjeta = findViewById(R.id.tarjetaOpciones);
-        fechaTarjeta = findViewById(R.id.fechaTarjetaOpciones);
 
 
         nombre.setText(LoginActivity.usuario.getNombre());

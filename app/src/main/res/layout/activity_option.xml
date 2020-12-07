@@ -18,9 +18,9 @@
         android:hint="@string/nombre"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/apellidoOpciones"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -78,8 +78,7 @@
         app:layout_constraintBottom_toTopOf="@+id/telefonoOpciones"
         app:layout_constraintTop_toBottomOf="@+id/correoOpciones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/telefonoOpciones"
@@ -121,7 +120,7 @@
         android:ems="8"
         android:hint="@string/localidad"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/tarjetaOpciones"
+        app:layout_constraintBottom_toTopOf="@+id/guardarOpcion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/direccionOpciones"
         tools:targetApi="lollipop" />
@@ -140,58 +139,29 @@
         app:layout_constraintTop_toTopOf="@+id/localidadOpciones"
         tools:targetApi="lollipop" />
 
-    <EditText
-        android:id="@+id/tarjetaOpciones"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="10"
-        android:hint="@string/tarjeta"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/fechaTarjetaOpciones"
-        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:targetApi="lollipop" />
-
-    <EditText
-        android:id="@+id/fechaTarjetaOpciones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
-        android:ems="8"
-        android:hint="@string/mm_aa"
-        android:inputType="date"
-        app:layout_constraintBottom_toTopOf="@+id/guardarOpcion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tarjetaOpciones"
-        tools:targetApi="lollipop" />
-
     <Button
         android:id="@+id/guardarOpcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:background="@drawable/button_rounded"
         android:onClick="guardarOpcion"
         android:text="@string/guardar_cambios"
         app:layout_constraintBottom_toTopOf="@+id/borrarUsuario"
-        app:layout_constraintTop_toBottomOf="@+id/fechaTarjetaOpciones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones" />
 
     <Button
         android:id="@+id/borrarUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="borrarCuenta"
         android:text="@string/borrar_cuenta"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guardarOpcion"
-        tools:ignore="MissingConstraints,OnClick" />
+        tools:ignore="MissingConstraints,OnClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
