@@ -1,4 +1,4 @@
-package com.example.icroqueta;
+package com.example.icroqueta.adapter;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +11,11 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.icroqueta.ActiveProductActivity;
+import com.example.icroqueta.DeliverActivity;
+import com.example.icroqueta.HistoryActivity;
+import com.example.icroqueta.LineaActivity;
+import com.example.icroqueta.R;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Pedido;
 

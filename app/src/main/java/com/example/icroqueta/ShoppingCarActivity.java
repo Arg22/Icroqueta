@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.icroqueta.adapter.CroquetasRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.DTO.ProductoCarrito;
 
@@ -61,5 +62,12 @@ public class ShoppingCarActivity extends MenuBar {
         //Aqui se mete el total de la cantidad por el precio de los productos
         TextView total=findViewById(R.id.carritoTotal);
         total.setText(db.sumPrecioProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
+    }
+
+    public void limpiarCarro(View view) {
+        DBHelper db = new DBHelper();
+        db.deleteCarrito(this,LoginActivity.usuario.getIdPersona());
+        finish();
+        startActivity(getIntent());
     }
 }

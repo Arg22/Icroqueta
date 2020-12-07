@@ -1,16 +1,14 @@
 package com.example.icroqueta;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.icroqueta.adapter.CroquetasRecyclerViewAdapter;
 import com.example.icroqueta.database.DTO.ProductoCarrito;
-import com.example.icroqueta.database.entidades.Persona;
-import com.example.icroqueta.database.entidades.Producto;
 import com.example.icroqueta.database.DBHelper;
 import com.google.android.material.navigation.NavigationView;
 

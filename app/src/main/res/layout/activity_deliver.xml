@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:paddingTop="4dp" />
 
-        <!-- todo Aqui van el mapa-->
+        <!-- todo Futuro - Meter mapa en este Linear-->
         <LinearLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
