@@ -4,9 +4,6 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.ProductoTable;
 
-import java.util.HashSet;
-import java.util.Set;
-
 
 public class Producto implements java.io.Serializable {
 

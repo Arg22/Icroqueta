@@ -3,7 +3,6 @@ package com.example.icroqueta.database.tablas;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.icroqueta.database.entidades.Ingrediente;
-import com.example.icroqueta.database.entidades.Persona;
 
 public class IngredienteTable {
     public static final String TABLE_NAME = "ingrediente";

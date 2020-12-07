@@ -39,14 +39,21 @@
     <string name="openToolbar">Se abre el menu lateral</string>
     <string name="producto">Producto</string>
     <string name="registrarse">Registrarse</string>
-    <string name="ver_carro">Ver carro</string>
     <string name="descripcion_boton_menos">Botón para quitar una unidad de croqueta</string>
     <string name="descripcion_boton_mas">Botón para añadir una unidad de croqueta</string>
-    <string name="anadir_boton_producto">Añadir al carrito</string>
     <string name="ingredientes">Ingredientes</string>
     <string name="nif">Nif</string>
     <string name="cancelar_pedido">Cancelar pedido</string>
     <string name="sin_entregar">Sin entregar</string>
     <string name="entregado">Entregado</string>
+    <string name="a_adir_al_carro">Añadir al carro</string>
+    <string name="tel_fono">Teléfono</string>
+    <string name="direcci_n">Dirección</string>
+    <string name="localidad">Localidad</string>
+    <string name="c_digo_postal">Código Postal</string>
+    <string name="tarjeta">Tarjeta</string>
+    <string name="mm_aa">mm/aa</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="borrar_cuenta">Borrar cuenta</string>
 
 </resources>

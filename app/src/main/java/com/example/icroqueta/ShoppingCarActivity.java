@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.DTO.ProductoCarrito;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 
 import java.util.List;
 import java.util.Objects;

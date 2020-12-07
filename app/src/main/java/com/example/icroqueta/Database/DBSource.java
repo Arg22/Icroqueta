@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-import com.example.icroqueta.database.entidades.IngredienteProducto;
-import com.example.icroqueta.database.entidades.Persona;
 import com.example.icroqueta.database.tablas.CarritoTable;
 import com.example.icroqueta.database.tablas.DireccionTable;
 import com.example.icroqueta.database.tablas.IngredienteProductoTable;

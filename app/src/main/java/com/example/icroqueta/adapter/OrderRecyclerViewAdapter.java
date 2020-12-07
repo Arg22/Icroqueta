@@ -79,7 +79,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             precio = v.findViewById(R.id.precioPedido);
             estado = v.findViewById(R.id.estadoPedido);
             fila = v.findViewById(R.id.pedidoRow);
-            boton=(Button)v.findViewById(R.id.botonPedido);
+            boton= v.findViewById(R.id.botonPedido);
         }
 
         /**

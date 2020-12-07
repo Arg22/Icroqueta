@@ -60,7 +60,7 @@ public class LineRecyclerViewAdapter extends RecyclerView.Adapter<LineRecyclerVi
         public final TextView nombre;
         public final TextView cantidad;
         public final TextView precio;
-        public ImageView foto;
+        public final ImageView foto;
         public final LinearLayout fila;
 
 

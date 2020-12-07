@@ -1,4 +1,4 @@
-package com.example.icroqueta.database.DTO;
+package com.example.icroqueta.database.dto;
 
 import android.database.Cursor;
 

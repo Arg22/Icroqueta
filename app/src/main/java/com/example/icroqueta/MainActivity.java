@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
-import com.example.icroqueta.database.DTO.ProductoCarrito;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
 import com.google.android.material.navigation.NavigationView;
 

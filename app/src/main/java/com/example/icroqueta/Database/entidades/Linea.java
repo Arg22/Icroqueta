@@ -3,8 +3,6 @@ package com.example.icroqueta.database.entidades;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.icroqueta.database.tablas.PedidoTable;
-import com.example.icroqueta.database.tablas.PersonaTable;
 import com.example.icroqueta.database.tablas.LineaTable;
 
 public class Linea  implements java.io.Serializable {

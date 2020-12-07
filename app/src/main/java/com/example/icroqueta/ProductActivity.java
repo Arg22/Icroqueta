@@ -3,18 +3,13 @@ package com.example.icroqueta;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.DTO.ProductoCarrito;
-import com.example.icroqueta.database.entidades.Producto;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 
-import java.util.List;
 import java.util.Objects;
 
 public class ProductActivity extends MenuBar {
@@ -85,7 +80,7 @@ public class ProductActivity extends MenuBar {
         } else if (aux > 1) {
             cantidad.setText(String.valueOf(aux - 1));
             //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-            if (!db.existCarritoProducto(this,LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+            if (db.notExistCarritoProducto(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
                 db.addCarrito(this,  LoginActivity.usuario.getIdPersona(), producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
             } else {
                 db.updateCarrito(this, LoginActivity.usuario.getIdPersona(),producto.getIdProducto(),  Integer.parseInt(cantidad.getText().toString()));
@@ -104,7 +99,7 @@ public class ProductActivity extends MenuBar {
         int aux = Integer.parseInt(valor);
         cantidad.setText(String.valueOf(aux + 1));
         //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-        if (!db.existCarritoProducto(this,  LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+        if (db.notExistCarritoProducto(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
             db.addCarrito(this, LoginActivity.usuario.getIdPersona(),  producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
         } else {
             db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));

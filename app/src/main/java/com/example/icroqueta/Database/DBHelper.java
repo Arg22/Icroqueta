@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.example.icroqueta.database.DTO.ProductoCarrito;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.entidades.*;
 import com.example.icroqueta.database.tablas.*;
 
@@ -122,12 +122,12 @@ public class DBHelper {
      * @param idPersona  el id del usuario
      * @return true si existe, false si no existe en la bd
      */
-    public boolean existCarritoProducto(Context context, int idPersona, int idProducto) {
+    public boolean notExistCarritoProducto(Context context, int idPersona, int idProducto) {
         String where = CarritoTable.ID_PERSONA + "=? AND " + CarritoTable.ID_PRODUCTO + "=?";
         String[] whereArgs = {idPersona + "", idProducto + ""};
         DBSource db = new DBSource(context);
         @SuppressLint("Recycle") Cursor cursor = db.getReadableDatabase().query(CarritoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-        return cursor.getCount() != 0;
+        return cursor.getCount() == 0;
     }
 
     /**

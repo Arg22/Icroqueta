@@ -2,10 +2,6 @@ package com.example.icroqueta.database.tablas;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.icroqueta.database.entidades.Persona;
-
-import java.util.Date;
-
 public class PedidoTable {
     public static final String TABLE_NAME = "pedido";
     public static final String ID_PEDIDO = "id_pedido";

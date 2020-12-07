@@ -18,7 +18,7 @@ import com.example.icroqueta.ProductActivity;
 import com.example.icroqueta.R;
 import com.example.icroqueta.ShoppingCarActivity;
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.DTO.ProductoCarrito;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         public final ImageButton mas;
         public final TextView cantidad;
         public final LinearLayout fila;
-        public ImageView foto;
+        public final ImageView foto;
 
         /**
          * Inicializamos en el contructor todos los parametros
@@ -116,7 +116,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                     } else if (aux > 1) {
                         cantidad.setText(String.valueOf(aux - 1));
                         //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                        if (!db.existCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                        if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
                             db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                         } else {
                             db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
@@ -138,7 +138,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                     int aux = Integer.parseInt(valor); //Se convierte  Integer
                     cantidad.setText(String.valueOf(aux + 1));
                     //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                    if (!db.existCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                    if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
                         db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                     } else {
                         db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));

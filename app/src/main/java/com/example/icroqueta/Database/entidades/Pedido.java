@@ -102,7 +102,7 @@ public class Pedido implements java.io.Serializable {
         int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(PedidoTable.ID_PERSONA));
         String fechaPedido = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.FECHA_PEDIDO));
         String estado = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.ESTADO));
-        Double importe = cursor.getDouble(cursor.getColumnIndexOrThrow(PedidoTable.IMPORTE));
+        double importe = cursor.getDouble(cursor.getColumnIndexOrThrow(PedidoTable.IMPORTE));
 
         this.idPedido = idPedido;
         this.idPersona = idPersona;

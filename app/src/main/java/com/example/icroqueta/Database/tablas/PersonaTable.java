@@ -1,13 +1,8 @@
 package com.example.icroqueta.database.tablas;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.icroqueta.database.DBSource;
 import com.example.icroqueta.database.entidades.Persona;
-import com.example.icroqueta.database.entidades.Producto;
 
 public class PersonaTable {
     public static final String TABLE_NAME = "persona";
