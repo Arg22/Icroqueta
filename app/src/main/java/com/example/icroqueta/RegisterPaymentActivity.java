@@ -87,8 +87,8 @@ public class RegisterPaymentActivity extends MenuBar {
         if (telefono.getText().toString().isEmpty() || direccion.getText().toString().isEmpty() || tarjeta.getText().toString().isEmpty() || fecha.getText().toString().isEmpty() || cvc.getText().toString().isEmpty() || localidad.getText().toString().isEmpty() || codigo_postal.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
-            //todo Futuro-Comprueba los datos en la base de datos
 
+            //todo Futuro-Comprueba los datos en la base de datos
 
             validarPago();
         }

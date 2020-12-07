@@ -46,6 +46,10 @@ public class ShoppingCarActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Método para abrir la página de pago
+     * @param view nuestra view
+     */
     public void openPagar(View view) {
         //Comprobar los datos de registro si no los tiene se habre register
         DBHelper db = new DBHelper();
@@ -57,19 +61,27 @@ public class ShoppingCarActivity extends MenuBar {
         }
     }
 
+    /**
+     * Método para que se vaya actualizando el precio total
+     */
     public void actualizarTotal(){
         DBHelper db = new DBHelper();
         //Aqui se mete el total de la cantidad por el precio de los productos
         TextView total=findViewById(R.id.carritoTotal);
-        total.setText(db.totalProductosEnCarrito(this, LoginActivity.usuario.getIdPersona()) +"€");
+        total.setText(String.format("%s€", db.totalProductosEnCarrito(this, LoginActivity.usuario.getIdPersona())));
     }
 
+    /**
+     * Método para limpiar todos los elementos del carro
+     */
     public void limpiarCarro(View view) {
         DBHelper db = new DBHelper();
         db.deleteCarrito(this,LoginActivity.usuario.getIdPersona());
         refrescar();
     }
-
+    /**
+     * Método para refrescar la pantalla
+     */
     public void refrescar(){
         finish();
         startActivity(getIntent());

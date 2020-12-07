@@ -24,12 +24,12 @@ public class LineaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_linea);
-        //Esto le envia al ActiveRecyclerViewAdapter todos pedidos activos
 
         //Carga la id del producto pulsado en el Adapter
         Bundle extras = getIntent().getExtras();
         id_pedido = extras.getInt("ID_PEDIDO");
 
+        //Esto le envia al LineRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
 
@@ -49,6 +49,12 @@ public class LineaActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Método para agregar las lineas de un pedido a nuestro carrito,
+     * si ya tenemos un producto añadido, se sumaran las cantidades.
+     *
+     * @param view nuestra view
+     */
     public void agregarPedido(View view) {
         DBHelper db = new DBHelper();
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
@@ -72,13 +78,21 @@ public class LineaActivity extends AppCompatActivity {
                 }
             }
         }
-        Toast.makeText(this,"Añadido al carro con éxito",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Añadido al carro con éxito", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ShoppingCarActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Método para comprobar si hay algun producto común
+     * entre las lineas de un pedido y el carrito del usuario.
+     *
+     * @param carrito la lista del carrito del usuario
+     * @param lineas  la lista de las lineas de un pedido
+     * @return true si se cumple la premisa
+     */
     public boolean comprobarCarrito(List<Carrito> carrito, List<Linea> lineas) {
-        for(Linea n : lineas) {
+        for (Linea n : lineas) {
             for (Carrito c : carrito) {
                 if (n.getIdProducto() == c.getIdProducto()) {
                     return true;

@@ -25,9 +25,11 @@ public class HistoryActivity extends MenuBar {
         DBHelper db = new DBHelper();
         List<Pedido> pedidos=db.allPedidosNoActivosUsuario(this,LoginActivity.usuario.getIdPersona());
 
+        //Este aviso sale si no hay pedidos activos
         if(pedidos.size()==0){
             Toast.makeText(this, "No tienes pedidos archivados", Toast.LENGTH_SHORT).show();
         }
+
         //Para visualizar el Recicle view en esta Vista
         OrderRecyclerViewAdapter adapter = new OrderRecyclerViewAdapter(pedidos);
         RecyclerView activeRecyclerView = findViewById(R.id.historyRecyclerView);
@@ -44,5 +46,4 @@ public class HistoryActivity extends MenuBar {
         startActivity(intent);
         return super.onSupportNavigateUp();
     }
-
 }

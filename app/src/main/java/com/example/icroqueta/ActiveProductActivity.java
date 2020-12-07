@@ -21,10 +21,11 @@ public class ActiveProductActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_product);
 
-        //Esto le envia al ActiveRecyclerViewAdapter todos pedidos activos
+        //Esto le envia al OrderRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
         List<Pedido> pedidos=db.allPedidosActivosUsuario(this,LoginActivity.usuario.getIdPersona());
 
+        //Este aviso sale si no hay pedidos activos
         if(pedidos.size()==0){
             Toast.makeText(this, "No tienes pedidos activos", Toast.LENGTH_SHORT).show();
         }
@@ -46,7 +47,9 @@ public class ActiveProductActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
-
+    /**
+     * Método para refrescar la pantalla
+     */
     public void refrescar() {
         finish();
         startActivity(getIntent());

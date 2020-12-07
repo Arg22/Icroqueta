@@ -27,9 +27,8 @@ public class MenuBar extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-//todo no volver a abrir la activity si estas en esa
 
-        //Esto es para que el usuario no vea la pantalla de repartos
+        //Esto es para que el usuario no vea la pantalla de repartos si no tiene ese rol
         if (LoginActivity.usuario.isRol() == 0) {
             MenuItem item = menu.findItem(R.id.myDeliver);
             item.setVisible(false);

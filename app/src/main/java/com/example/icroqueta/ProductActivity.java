@@ -67,7 +67,10 @@ public class ProductActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
-
+    /**
+     * Método para restar la cantidad de producto con el botón restar
+     * @param view nuestra view
+     */
     public void restarCantidad(View view) {
         DBHelper db = new DBHelper();
         //Obtiene el valor del TextView
@@ -89,7 +92,10 @@ public class ProductActivity extends MenuBar {
             }
         }
     }
-
+    /**
+     * Método para sumar la cantidad de producto con el botón sumar
+     * @param view nuestra view
+     */
     public void sumarCantidad(View view) {
         DBHelper db = new DBHelper();
         //Obtiene el valor del TextView
@@ -105,10 +111,12 @@ public class ProductActivity extends MenuBar {
         }
     }
 
+    /**
+     * Método que nos abre el carrito
+     * @param view nuestra view
+     */
     public void FinalizarCarrito(View view) {
         Intent  intent = new Intent(this, ShoppingCarActivity.class);
         startActivity(intent);
     }
-
-    //todo Futuro - Scroll en la descripcion
 }

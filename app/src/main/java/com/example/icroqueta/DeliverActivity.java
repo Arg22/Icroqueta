@@ -24,10 +24,11 @@ public class DeliverActivity extends MenuBar {
         //todo: meter mapa google
 
 
-        //Esto le envia al ActiveRecyclerViewAdapter todos pedidos activos
+        //Esto le envia al OrderRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
         List<Pedido> pedidos=db.allPedidosActivos(this);
 
+        //Este aviso sale si no hay pedidos activos
         if(pedidos.size()==0){
             Toast.makeText(this, "No tienes pedidos activos", Toast.LENGTH_SHORT).show();
         }
@@ -50,6 +51,9 @@ public class DeliverActivity extends MenuBar {
         return super.onSupportNavigateUp();
     }
 
+    /**
+     * Método para refrescar la pantalla
+     */
     public void refrescar() {
         finish();
         startActivity(getIntent());

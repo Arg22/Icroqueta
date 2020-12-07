@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row"
         tools:text="18,99€/ud" />
 
+<!--todo Futuro - Descripción con scroll-->
     <TextView
         android:id="@+id/producto_descripcion_row"
         android:layout_width="match_parent"
