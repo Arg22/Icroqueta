@@ -21,6 +21,7 @@ import java.util.Objects;
 
 public class LineaActivity extends AppCompatActivity {
     int id_pedido;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,17 +51,26 @@ public class LineaActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    public void repetirPedido(View view) {
+    public void agregarPedido(View view) {
         DBHelper db = new DBHelper();
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
-        List<Carrito> carrito =db.allCarritoPersona(this, LoginActivity.usuario.getIdPersona());
-//todo arreglar este bucle
-        for(Linea n:lineas){
-            for(Carrito c:carrito){
-                if(n.getIdProducto()==c.getIdProducto()){
-                    db.updateCarrito(this,LoginActivity.usuario.getIdPersona(),n.getIdProducto(),n.getCantidad()+c.getCantidad());
-                }else{
-                    db.addCarrito(this, LoginActivity.usuario.getIdPersona(),n.getIdProducto(),n.getCantidad());
+        List<Carrito> carrito = db.allCarritoPersona(this, LoginActivity.usuario.getIdPersona());
+
+        //todo Futuro - optimizar este bucle
+        if (carrito.size() == 0) {
+            for (Linea n : lineas) {
+                db.addCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad());
+            }
+        } else {
+            for (Linea n : lineas) {
+                if (comprobarCarrito(carrito, lineas)) {
+                    for (Carrito c : carrito) {
+                        if (n.getIdProducto() == c.getIdProducto()) {
+                            db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad() + c.getCantidad());
+                        }
+                    }
+                } else {
+                    db.addCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad());
                 }
             }
         }
@@ -68,10 +78,14 @@ public class LineaActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void ocultarPieDePagina(){
-        LinearLayout pieDePagina=findViewById(R.id.linea_linearLayout);
-        Button boton = findViewById(R.id.linea_boton);
-        pieDePagina.setVisibility(View.INVISIBLE);
-        boton.setVisibility(View.GONE);
+    public boolean comprobarCarrito(List<Carrito> carrito, List<Linea> lineas) {
+        for(Linea n : lineas) {
+            for (Carrito c : carrito) {
+                if (n.getIdProducto() == c.getIdProducto()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

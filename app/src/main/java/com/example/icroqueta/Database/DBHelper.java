@@ -2,7 +2,6 @@ package com.example.icroqueta.database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteException;
 
 import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.entidades.*;
@@ -482,6 +481,7 @@ public class DBHelper {
         Pedido p = new Pedido(idPedido, idPersona, fechaPedido, estado, importe);
         db.getWritableDatabase().update(PedidoTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
+
 
 }
 

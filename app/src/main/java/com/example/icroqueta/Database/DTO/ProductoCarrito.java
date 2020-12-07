@@ -1,8 +1,6 @@
 package com.example.icroqueta.database.DTO;
 
-import android.content.ContentValues;
 import android.database.Cursor;
-import android.widget.Toast;
 
 import com.example.icroqueta.database.entidades.Producto;
 import com.example.icroqueta.database.tablas.CarritoTable;

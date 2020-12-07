@@ -79,12 +79,6 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
 
                 }
             });
-            //Esto es para comprobar que si somos repartidores no salga el boton de Repetir pedido
-            if (LoginActivity.usuario.isRol()==1) {
-                LineaActivity l = (LineaActivity) itemView.getContext();
-                l.ocultarPieDePagina();
-            }
-
         }
     }
 
