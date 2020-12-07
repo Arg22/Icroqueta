@@ -2,6 +2,7 @@ package com.example.icroqueta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -42,26 +43,35 @@ public class MenuBar extends AppCompatActivity {
      * @param item el elemento seleccionado para realizar
      *             en este caso, abrir otra activity
      */
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
 
         switch (item.getItemId()) {
             case R.id.myOptions:
-                intent = new Intent(this, OptionActivity.class);
-                startActivity(intent);
+                if (!(this instanceof OptionActivity)) {
+                    intent = new Intent(this, OptionActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.myHistory:
-                intent = new Intent(this, HistoryActivity.class);
-                startActivity(intent);
+                if (!(this instanceof HistoryActivity)) {
+                    intent = new Intent(this, HistoryActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.myActiveProduct:
-                intent = new Intent(this, ActiveProductActivity.class);
-                startActivity(intent);
+                if (!(this instanceof ActiveProductActivity)) {
+                    intent = new Intent(this, ActiveProductActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.myDeliver:
-                intent = new Intent(this, DeliverActivity.class);
-                startActivity(intent);
+                if (!(this instanceof DeliverActivity)) {
+                    intent = new Intent(this, DeliverActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.myClose:
                 intent = new Intent(this, LoginActivity.class);
@@ -69,8 +79,10 @@ public class MenuBar extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.myCart:
-                intent = new Intent(this, ShoppingCarActivity.class);
-                startActivity(intent);
+                if (!(this instanceof ShoppingCarActivity)) {
+                    intent = new Intent(this, ShoppingCarActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
         return super.onOptionsItemSelected(item);
