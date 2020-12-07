@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -19,11 +20,40 @@ import com.example.icroqueta.database.entidades.Producto;
 
 import java.util.List;
 
-public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecyclerViewAdapter.MyViewHolder> {
-    private List<Linea> lineas;
+public class LineRecyclerViewAdapter extends RecyclerView.Adapter<LineRecyclerViewAdapter.MyViewHolder> {
+    private final List<Linea> lineas;
 
-    public LineaRecyclerViewAdapter(List<Linea> lineas) {
+    public LineRecyclerViewAdapter(List<Linea> lineas) {
         this.lineas = lineas;
+    }
+
+    @NonNull
+    @Override
+    public LineRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Aqui se crea la nueva View
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.linea_layout, parent, false);
+        return new LineRecyclerViewAdapter.MyViewHolder(v);
+    }
+
+    /**
+     * Une la Recicle view con la posición hasta que llegue
+     * y va  enlazando los nuevos
+     *
+     * @param position la posicion actual en la lista
+     * @param holder   mi clase de RecicleView
+     */
+    @Override
+    public void onBindViewHolder(LineRecyclerViewAdapter.MyViewHolder holder, int position) {
+        holder.bind(lineas.get(position));
+    }
+
+    /**
+     * Esta es la cantidad de veces que va a reutilizar
+     * el Recicle view con la posición hasta que llegue a esta cantidad
+     */
+    @Override
+    public int getItemCount() {
+        return lineas.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -35,9 +65,10 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
 
 
         /**
-         * Inicializamos todos los parametros que van a ser reutilizados
+         * Inicializamos en el contructor todos los parametros
+         * que van a ser reutilizados
          *
-         * @param v la view de la activity
+         * @param v es el layout que vamos a actualizar
          */
         public MyViewHolder(View v) {
             super(v);
@@ -50,7 +81,7 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
         }
 
         /**
-         * Metodo que se va a ir actualizando a cada elemento nuevo que se le envie
+         * Este metodo va a ir actualizando a cada elemento nuevo que se le envie
          *
          * @param linea nuestro objeto
          */
@@ -65,50 +96,20 @@ public class LineaRecyclerViewAdapter extends RecyclerView.Adapter<LineaRecycler
                     .centerCrop()
                     .into(foto);
             nombre.setText(producto.getNombre());
-            precio.setText(producto.getPrecioUd() + "€/ud");
+            precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
             cantidad.setText(String.valueOf(linea.getCantidad()));
 
             fila.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Envia id a la actividad ProductActivity
+                    //Si pulsamos en el producto, abrimos la activity del Producto y le enviamos la id
+                    // del producto para que nos carge su infomación
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", linea.getIdProducto());
                     v.getContext().startActivity(intent);
-
-
                 }
             });
         }
-    }
-
-    @Override
-    public LineaRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.linea_pedido_layout, parent, false);
-        return new LineaRecyclerViewAdapter.MyViewHolder(v);
-    }
-
-
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     *
-     * @param position la posicion actual en la lista
-     * @param holder   mi clase de RecicleView
-     */
-    @Override
-    public void onBindViewHolder(LineaRecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.bind(lineas.get(position));
-    }
-
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     */
-    @Override
-    public int getItemCount() {
-        return lineas.size();
     }
 }
 

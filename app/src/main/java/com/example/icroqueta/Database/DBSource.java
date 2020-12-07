@@ -24,7 +24,7 @@ import com.example.icroqueta.database.tablas.TelefonoTable;
 
 public class DBSource extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "croqueta.db";
 
     public DBSource(@Nullable Context context) {
@@ -48,7 +48,11 @@ public class DBSource extends SQLiteOpenHelper {
         IngredienteProductoTable.onCreate(db);
     }
 
-
+    /**
+     * Metodo para que la base dato detecte las foreign key
+     *
+     * @param db nuestra base de datos
+     */
     @Override
     public void onOpen(SQLiteDatabase db){
         super.onOpen(db);
@@ -56,9 +60,9 @@ public class DBSource extends SQLiteOpenHelper {
     }
 
     /**
-     * Borra la tabla y la vuelve a inicializar cuando se suma la version
+     * Borra la tabla y la vuelve a inicializar cuando aumenta la version
      *
-     * @param db         nuestra base de datos
+     * @param db nuestra base de datos
      * @param oldVersion la version anterior
      * @param newVersion la version actual
      */

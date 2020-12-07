@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icroqueta.adapter.PedidosRecyclerViewAdapter;
+import com.example.icroqueta.adapter.OrderRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Pedido;
 
@@ -30,7 +30,7 @@ public class ActiveProductActivity extends MenuBar {
         }
 
         //Para visualizar el Recicle view en esta Vista
-        PedidosRecyclerViewAdapter adapter = new PedidosRecyclerViewAdapter(pedidos);
+        OrderRecyclerViewAdapter adapter = new OrderRecyclerViewAdapter(pedidos);
         RecyclerView activeRecyclerView = findViewById(R.id.activeRecyclerView);
         activeRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         activeRecyclerView.setAdapter(adapter);

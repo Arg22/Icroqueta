@@ -45,5 +45,8 @@
     <string name="anadir_boton_producto">Añadir al carrito</string>
     <string name="ingredientes">Ingredientes</string>
     <string name="nif">Nif</string>
+    <string name="cancelar_pedido">Cancelar pedido</string>
+    <string name="sin_entregar">Sin entregar</string>
+    <string name="entregado">Entregado</string>
 
 </resources>

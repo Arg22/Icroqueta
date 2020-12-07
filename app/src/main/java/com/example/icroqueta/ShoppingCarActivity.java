@@ -9,7 +9,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icroqueta.adapter.CroquetasRecyclerViewAdapter;
+import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.DTO.ProductoCarrito;
 
@@ -30,7 +30,7 @@ public class ShoppingCarActivity extends MenuBar {
         DBHelper db = new DBHelper();
         List<ProductoCarrito> productos=db.findProductosInCarrito(this,LoginActivity.usuario.getIdPersona());
         //Para visualizar el Recicle view en esta Vista
-        CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
+        ProductRecyclerViewAdapter adapter = new ProductRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.carritoRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
@@ -67,6 +67,10 @@ public class ShoppingCarActivity extends MenuBar {
     public void limpiarCarro(View view) {
         DBHelper db = new DBHelper();
         db.deleteCarrito(this,LoginActivity.usuario.getIdPersona());
+        refrescar();
+    }
+
+    public void refrescar(){
         finish();
         startActivity(getIntent());
     }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.icroqueta.adapter.CroquetasRecyclerViewAdapter;
+import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.DTO.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
 import com.google.android.material.navigation.NavigationView;
@@ -58,7 +58,7 @@ public class MainActivity extends MenuBar {
         List<ProductoCarrito> productos=db.allProductosCarrito(this,LoginActivity.usuario.getIdPersona());
 
         //Para visualizar el Recicle view en esta Vista
-        CroquetasRecyclerViewAdapter adapter = new CroquetasRecyclerViewAdapter(productos);
+        ProductRecyclerViewAdapter adapter = new ProductRecyclerViewAdapter(productos);
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icroqueta.ActiveProductActivity;
@@ -21,11 +22,40 @@ import com.example.icroqueta.database.entidades.Pedido;
 
 import java.util.List;
 
-public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecyclerViewAdapter.MyViewHolder> {
-    private List<Pedido> pedidos;
+public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecyclerViewAdapter.MyViewHolder> {
+    private final List<Pedido> pedidos;
 
-    public PedidosRecyclerViewAdapter(List<Pedido> pedidos) {
+    public OrderRecyclerViewAdapter(List<Pedido> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    @NonNull
+    @Override
+    public OrderRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Aqui se crea la nueva View
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.pedido_layout, parent, false);
+        return new MyViewHolder(v);
+    }
+
+    /**
+     * Une la Recicle view con la posición hasta que llegue
+     * y va a enlazando los nuevos
+     *
+     * @param position la posicion actual en la lista
+     * @param holder   mi clase de RecicleView
+     */
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.bind(pedidos.get(position));
+    }
+
+    /**
+     * Esta es la cantidad de veces que va a reutilizar
+     * el Recicle view con la posición hasta que llegue a esta cantidad
+     */
+    @Override
+    public int getItemCount() {
+        return pedidos.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -37,9 +67,10 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
         public final LinearLayout fila;
 
         /**
-         * Inicializamos todos los parametros que van a ser reutilizados
+         * Inicializamos en el contructor todos los parametros
+         * que van a ser reutilizados
          *
-         * @param v la view de la activity
+         * @param v es el layout que vamos a actualizar
          */
         public MyViewHolder(View v) {
             super(v);
@@ -52,7 +83,7 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
         }
 
         /**
-         * Metodo que se va a ir actualizando a cada elemento nuevo que se le envie
+         * Este metodo va a ir actualizando a cada elemento nuevo que se le envie
          *
          * @param pedidos nuestro objeto
          */
@@ -61,13 +92,13 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
 
             Fecha.setText(pedidos.getFechaPedido());
             cantidad.setText(String.valueOf(db.allLineasProducto(itemView.getContext(),pedidos.getIdPedido()).size()));
-            precio.setText(pedidos.getImporte()+"€");
-            estado.setText("Pedido "+pedidos.getEstado());
+            precio.setText(String.format("%s€", pedidos.getImporte()));
+            estado.setText(String.format("Pedido %s", pedidos.getEstado()));
 
             //Si venimos desde la vista de Pedidos activos, podremos cancelar el pedido
             if (itemView.getContext() instanceof ActiveProductActivity) {
                 estado.setTextColor(itemView.getResources().getColor(R.color.colorPrimaryDark));
-                boton.setText("Cancelar pedido");
+                boton.setText(R.string.cancelar_pedido);
                 boton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -87,8 +118,8 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
 
             //Si venimos desde el la vista del repartidor podremos dar por entregado el pedido
             if (itemView.getContext() instanceof DeliverActivity) {
-                estado.setText("Sin entregar");
-                boton.setText("Entregado");
+                estado.setText(R.string.sin_entregar);
+                boton.setText(R.string.entregado);
                 boton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -100,7 +131,6 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
                     }
                 });
             }
-            //todo que no se borre el boton de la linea cuando soy repartidor
             fila.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,33 +143,6 @@ public class PedidosRecyclerViewAdapter extends RecyclerView.Adapter<PedidosRecy
         }
     }
 
-    @Override
-    public PedidosRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pedido_layout, parent, false);
-        return new MyViewHolder(v);
-    }
 
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     *
-     * @param position la posicion actual en la lista
-     * @param holder   mi clase de RecicleView
-     */
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.bind(pedidos.get(position));
-    }
-
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     */
-    @Override
-    public int getItemCount() {
-        return pedidos.size();
-    }
 }
 

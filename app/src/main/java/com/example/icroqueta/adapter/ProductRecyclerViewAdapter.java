@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,11 +22,40 @@ import com.example.icroqueta.database.DTO.ProductoCarrito;
 
 import java.util.List;
 
-public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<CroquetasRecyclerViewAdapter.MyViewHolder> {
-    private List<ProductoCarrito> productos;
+public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.MyViewHolder> {
+    private final List<ProductoCarrito> productos;
 
-    public CroquetasRecyclerViewAdapter(List<ProductoCarrito> productos) {
+    public ProductRecyclerViewAdapter(List<ProductoCarrito> productos) {
         this.productos = productos;
+    }
+
+    @NonNull
+    @Override
+    public ProductRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        //Aqui se crea la nueva View
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.producto_layout, parent, false);
+        return new MyViewHolder(v);
+    }
+
+    /**
+     * Une la Recicle view con la posición hasta que llegue
+     * y va  enlazando los nuevos
+     *
+     * @param position la posicion actual en la lista
+     * @param holder   mi clase de RecicleView
+     */
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.bind(productos.get(position));
+    }
+
+    /**
+     * Esta es la cantidad de veces que va a reutilizar
+     * el Recicle view con la posición hasta que llegue a esta cantidad
+     */
+    @Override
+    public int getItemCount() {
+        return productos.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -38,9 +68,10 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         public ImageView foto;
 
         /**
-         * Inicializamos todos los parametros que van a ser reutilizados
+         * Inicializamos en el contructor todos los parametros
+         * que van a ser reutilizados
          *
-         * @param v la view de la activity
+         * @param v es el layout que vamos a actualizar
          */
         public MyViewHolder(View v) {
             super(v);
@@ -54,7 +85,7 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
         }
 
         /**
-         * Metodo que se va a ir actualizando a cada elemento nuevo que se le envie
+         * Este metodo va a ir actualizando a cada elemento nuevo que se le envie
          *
          * @param producto nuestro objeto
          */
@@ -65,23 +96,22 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                     .override(300, 300)
                     .centerCrop()
                     .into(foto);
-            nombre.setText(producto.getNombre());
-            precio.setText(producto.getPrecioUd() + "€/ud");
-            cantidad.setText(String.valueOf(producto.getCantidad()));
 
+            nombre.setText(producto.getNombre());
+            precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
+            cantidad.setText(String.valueOf(producto.getCantidad()));
             menos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     DBHelper db = new DBHelper();
-                    //Obtiene el valor del TextView
-                    String valor = cantidad.getText().toString();
-                    //Se convierte  Integer
-                    int aux = Integer.parseInt(valor);
-                    //Se define el valor de una resta y en el caso de que el valor sea igual a 0, se mantiene
-                    if (aux == 1) {
+                    String valor = cantidad.getText().toString(); //Cogemos el valor del TextView
+                    int aux = Integer.parseInt(valor); //Pasamos el valor a integer
+
+                    if (aux == 1) {   //Este if es para que nunca llege a numeros negativos y además se borre de nuestro carro
                         cantidad.setText("0");
-                        //Si tuviesemos este elemento en el carrito, entonces lo borramos
                         db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
+                        ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
+                        a.refrescar();
 
                     } else if (aux > 1) {
                         cantidad.setText(String.valueOf(aux - 1));
@@ -104,10 +134,8 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                 @Override
                 public void onClick(View v) {
                     DBHelper db = new DBHelper();
-                    //Obtiene el valor del TextView
-                    String valor = cantidad.getText().toString();
-                    //Se convierte  Integer
-                    int aux = Integer.parseInt(valor);
+                    String valor = cantidad.getText().toString(); //Cogemos el valor del TextView
+                    int aux = Integer.parseInt(valor); //Se convierte  Integer
                     cantidad.setText(String.valueOf(aux + 1));
                     //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
                     if (!db.existCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
@@ -121,49 +149,19 @@ public class CroquetasRecyclerViewAdapter extends RecyclerView.Adapter<Croquetas
                         ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
                         a.actualizarTotal();
                     }
-
                 }
             });
-
             fila.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Envia id a la actividad ProductActivity
+                    //Si pulsamos en el producto, abrimos la activity del Producto y le enviamos la id
+                    // del producto para que nos carge su infomación
                     Intent intent = new Intent(v.getContext(), ProductActivity.class);
                     intent.putExtra("ID_PRODUCTO", producto.getIdProducto());
                     v.getContext().startActivity(intent);
                 }
             });
         }
-    }
-
-    @Override
-    public CroquetasRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.producto_layout, parent, false);
-        return new MyViewHolder(v);
-    }
-
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     *
-     * @param position la posicion actual en la lista
-     * @param holder   mi clase de RecicleView
-     */
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.bind(productos.get(position));
-    }
-
-    /**
-     * Une la Recicle view con la posición hasta que llegue
-     * y va a enlazando los nuevos
-     */
-    @Override
-    public int getItemCount() {
-        return productos.size();
     }
 }
 
