@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".DeliverActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".DeliverActivity">
 
     <!--Aqui van los pedidos Activos-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/deliverRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="4dp" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/deliverRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingTop="4dp" />
 
-        <!-- todo Futuro - Meter mapa en este Linear-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/pruebamapa" />
+
+    <!-- todo Futuro - Meter mapa en este Linear-->
+    <!--
         <LinearLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
@@ -23,4 +34,6 @@
             android:orientation="horizontal"
             android:layout_weight="1">
         </LinearLayout>
-    </LinearLayout>
+        -->
+
+</LinearLayout>
