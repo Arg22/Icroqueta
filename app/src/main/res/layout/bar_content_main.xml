@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/bar_main"
-    >
+    tools:showIn="@layout/bar_main">
 
 
     <fragment
@@ -19,27 +18,11 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <!--Aqui van las cosas del mainActivity-->
-
+    <!--Aqui van las cosas del mainActivity-->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/croquetasRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="4dp" />
-
-
-    <!--
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:onClick="abrirProducto"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
