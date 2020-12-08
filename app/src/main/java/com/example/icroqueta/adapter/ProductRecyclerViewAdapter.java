@@ -110,8 +110,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                     if (aux == 1) {   //Este if es para que nunca llege a numeros negativos y además se borre de nuestro carro
                         cantidad.setText("0");
                         db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
-                        ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
-                        a.refrescar();
+                        //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
+                        if (itemView.getContext() instanceof ShoppingCarActivity) {
+                            ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
+                            a.actualizarTotal();
+                        }
 
                     } else if (aux > 1) {
                         cantidad.setText(String.valueOf(aux - 1));
