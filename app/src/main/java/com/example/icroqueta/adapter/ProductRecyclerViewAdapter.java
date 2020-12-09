@@ -114,6 +114,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                         if (itemView.getContext() instanceof ShoppingCarActivity) {
                             ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
                             a.actualizarTotal();
+                            a.refrescar();
                         }
 
                     } else if (aux > 1) {
