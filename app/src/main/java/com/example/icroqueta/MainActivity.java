@@ -74,7 +74,11 @@ public class MainActivity extends MenuBar {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
+    //todo Cifrar contraseñas
+    //todo Stock que deshabilite los botones y ponga
+    //todo descuentos
+    //todo lupa para buscar
+    //todo ordenar por más caro/más comprado
     //todo Futuro - poner funcionalidad al menu lateral y que reaccione con la base de datos
 
     public void onBackPressed() {
