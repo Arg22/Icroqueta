@@ -36,6 +36,7 @@ public class DBHelper {
         return productos;
     }
 
+
     /**
      * Este método recoge únicamente los productos que estan en el carrito
      * y los mete en una lista.
@@ -112,6 +113,24 @@ public class DBHelper {
             lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
         }
         return lista;
+    }
+    /**
+     * Método para obtener solo un producto por su id
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public Producto oneProducto(Context context, int idProducto) {
+        DBSource db = new DBSource(context);
+        String where = ProductoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = { idProducto + ""};
+
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Producto> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Producto().loadProductoFromCursor(cursor));
+        }
+        return lista.get(0);
     }
 
     /**

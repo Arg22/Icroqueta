@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,6 +62,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public final TextView nombre;
         public final TextView precio;
+        public final TextView stock;
         public final ImageButton menos;
         public final ImageButton mas;
         public final TextView cantidad;
@@ -78,6 +80,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             super(v);
             nombre = v.findViewById(R.id.producto_nombre_row);
             precio = v.findViewById(R.id.producto_precio_row);
+            stock = v.findViewById(R.id.producto_stock_row);
             menos = v.findViewById(R.id.btn_menos_row);
             mas = v.findViewById(R.id.btn_mas_row);
             cantidad = v.findViewById(R.id.producto_cantidad_row);
@@ -96,13 +99,13 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
             db = new DBHelper();
             //Esto es por si no hay stock, que se marque que no está
-            if (db.oneProducto(itemView.getContext(), producto.getIdProducto()).getStock() == 0) {
+            if (producto.getStock() == 0) {
                 //Se retira del carrito
                 db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
 
                 //Se pone una imagen predeterminada
                 Glide.with(itemView.getContext())
-                        .load("https://2za0ob3xhiy9351n2i39ertk-wpengine.netdna-ssl.com/wp-content/uploads/2014/07/out-of-stock-e1406829585922.jpg")
+                        .load(producto.getImagen())
                         .placeholder(R.drawable.logo)//En el caso de que no pueda cargar la imagen
                         .override(300, 300)
                         .centerCrop()
@@ -111,7 +114,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                 nombre.setTextColor(nombre.getResources().getColor(R.color.disableText));
                 precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
                 precio.setTextColor(precio.getResources().getColor(R.color.disableText));
-                //Quitamos
+                // int count = producto.getStock();
+                stock.setText(stock.getResources().getQuantityString(R.plurals.disponibilidad, producto.getStock(), producto.getStock()));
+                stock.setTextColor(stock.getResources().getColor(R.color.disableText));
+
+                //Quitamos los botones y cantidad
                 menos.setVisibility(View.GONE);
                 mas.setVisibility(View.GONE);
                 cantidad.setText("0");
@@ -137,6 +144,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
                 nombre.setText(producto.getNombre());
                 precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
+                stock.setText(stock.getResources().getQuantityString(R.plurals.disponibilidad, producto.getStock(), producto.getStock()));
                 cantidad.setText(String.valueOf(producto.getCantidad()));
                 menos.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -179,18 +187,25 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                         DBHelper db = new DBHelper();
                         String valor = cantidad.getText().toString(); //Cogemos el valor del TextView
                         int aux = Integer.parseInt(valor); //Se convierte  Integer
-                        cantidad.setText(String.valueOf(aux + 1));
-                        //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                        if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-                            db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
-                        } else {
-                            db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
-                        }
 
-                        //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
-                        if (itemView.getContext() instanceof ShoppingCarActivity) {
-                            ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
-                            a.actualizarTotal();
+                        //comprobamos que solo puede añadir hasta el stock
+                        if (aux+1 <= producto.getStock()) {
+
+                            cantidad.setText(String.valueOf(aux + 1));
+                            //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+                            if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                                db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                            } else {
+                                db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                            }
+
+                            //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
+                            if (itemView.getContext() instanceof ShoppingCarActivity) {
+                                ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
+                                a.actualizarTotal();
+                            }
+                        } else {
+                            Toast.makeText(v.getContext(), R.string.noPuedeAgregar, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

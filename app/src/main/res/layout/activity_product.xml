@@ -42,6 +42,16 @@
         app:layout_constraintTop_toBottomOf="@+id/producto_nombre_detalle"
         tools:text="18,99€/ud" />
 
+    <TextView
+        android:id="@+id/producto_stock_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/producto_precio_detalle"
+        android:gravity="center_vertical|end"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/producto_precio_detalle"
+        tools:text="0 unidades" />
+
 <!--todo Futuro - Descripción con scroll-->
     <TextView
         android:id="@+id/producto_descripcion_detalle"
@@ -49,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/producto_precio_detalle"
+        app:layout_constraintTop_toBottomOf="@+id/producto_stock_detalle"
         tools:layout_editor_absoluteX="18dp"
         tools:text="DescripcioDescripcionn" />
 

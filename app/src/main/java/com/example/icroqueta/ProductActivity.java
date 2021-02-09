@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.icroqueta.database.DBHelper;
@@ -18,6 +19,7 @@ public class ProductActivity extends MenuBar {
     private int id_producto;
     private  TextView nombre;
     private  TextView precio;
+    private TextView stock;
     private  TextView descripcion;
     private TextView cantidad;
     public ImageView foto;
@@ -40,6 +42,7 @@ public class ProductActivity extends MenuBar {
         descripcion = findViewById(R.id.producto_descripcion_detalle);
         cantidad = findViewById(R.id.producto_cantidad_detalle);
         foto = findViewById(R.id.producto_imagen_detalle);
+        stock = findViewById(R.id.producto_stock_detalle);
 
         producto= db.getProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
         if(producto!=null){
@@ -51,14 +54,15 @@ public class ProductActivity extends MenuBar {
             descripcion.setText(producto.getDescripcion());
             precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
             cantidad.setText(String.valueOf(producto.getCantidad()));
+            stock.setText(stock.getResources().getQuantityString(R.plurals.disponibilidad, producto.getStock(), producto.getStock()));
         }
+
         //Esto es por si no tuviese stock el producto
         if (db.oneProducto(this, producto.getIdProducto()).getStock() == 0) {
             this.findViewById(R.id.btn_menos_detalle).setVisibility(View.GONE);
             this.findViewById(R.id.btn_mas_detalle).setVisibility(View.GONE);
             this.findViewById(R.id.producto_cantidad_detalle).setVisibility(View.GONE);
         }
-
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 
@@ -105,12 +109,16 @@ public class ProductActivity extends MenuBar {
         String valor = cantidad.getText().toString();
         //Se convierte  Integer
         int aux = Integer.parseInt(valor);
-        cantidad.setText(String.valueOf(aux + 1));
-        //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-        if (db.notExistCarritoProducto(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-            db.addCarrito(this, LoginActivity.usuario.getIdPersona(),  producto.getIdProducto(),Integer.parseInt(cantidad.getText().toString()));
+        if (aux + 1 <= producto.getStock()) {
+            cantidad.setText(String.valueOf(aux + 1));
+            //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
+            if (db.notExistCarritoProducto(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
+                db.addCarrito(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+            } else {
+                db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+            }
         } else {
-            db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+            Toast.makeText(this, R.string.noPuedeAgregar, Toast.LENGTH_SHORT).show();
         }
     }
 

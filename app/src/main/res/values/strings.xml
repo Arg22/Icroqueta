@@ -56,5 +56,9 @@
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="borrar_cuenta">Borrar cuenta</string>
     <string name="title_activity_maps">Map</string>
-
+    <plurals name="disponibilidad">
+        <item quantity="one" formatted="true">%d disponible</item>
+        <item quantity="other" formatted="true">%d disponibles</item>
+    </plurals>
+    <string name="noPuedeAgregar">No puede añadir más unidades de este producto</string>
 </resources>

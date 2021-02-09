@@ -29,6 +29,16 @@
         app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row"
         tools:text="18,99€/ud" />
 
+    <TextView
+        android:id="@+id/producto_stock_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/producto_precio_row"
+        android:gravity="center_vertical|top"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/producto_precio_row"
+        tools:text="Stock: 0" />
 
     <ImageButton
 
