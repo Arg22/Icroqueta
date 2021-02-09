@@ -16,24 +16,18 @@
         android:layout_weight="1"
         android:paddingTop="4dp" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="1"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/pruebamapa" />
 
-    <!-- todo Futuro - Meter mapa en este Linear-->
-    <!--
+
+    <!-- todo -Hacer funcional el mapa-->
+
         <LinearLayout
             android:id="@+id/mapLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
             android:layout_weight="1">
+            <include layout="@layout/activity_maps" />
         </LinearLayout>
-        -->
+
 
 </LinearLayout>

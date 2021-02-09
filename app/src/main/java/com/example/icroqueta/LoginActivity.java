@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
     private EditText contrasena;
-    public static Persona usuario;   //todo Futuro - optimizar la manera de enviar esta informacion a las demas activties
+    public static Persona usuario;   //todo secundario - optimizar la manera de enviar esta informacion a las demas activties
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view nuestra view
      */
     public void pedirContrasena(View view) {
-        //todo Futuro - enviar correo con la contraseña al usuario
+        //todo Enviar correo con la contraseña al usuario
         Toast.makeText(getApplicationContext(),
                 "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
     }

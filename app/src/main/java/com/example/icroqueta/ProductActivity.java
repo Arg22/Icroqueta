@@ -3,6 +3,7 @@ package com.example.icroqueta;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,12 +33,13 @@ public class ProductActivity extends MenuBar {
         id_producto = extras.getInt("ID_PRODUCTO");
         DBHelper db = new DBHelper();
 
+
         //Recogemos el producto
-        nombre = findViewById(R.id.producto_nombre_row);
-        precio = findViewById(R.id.producto_precio_row);
-        descripcion = findViewById(R.id.producto_descripcion_row);
-        cantidad = findViewById(R.id.producto_cantidad_row);
-        foto = findViewById(R.id.producto_imagen);
+        nombre = findViewById(R.id.producto_nombre_detalle);
+        precio = findViewById(R.id.producto_precio_detalle);
+        descripcion = findViewById(R.id.producto_descripcion_detalle);
+        cantidad = findViewById(R.id.producto_cantidad_detalle);
+        foto = findViewById(R.id.producto_imagen_detalle);
 
         producto= db.getProductoCarrito(this,LoginActivity.usuario.getIdPersona(),id_producto);
         if(producto!=null){
@@ -49,6 +51,12 @@ public class ProductActivity extends MenuBar {
             descripcion.setText(producto.getDescripcion());
             precio.setText(String.format("%s€/ud", producto.getPrecioUd()));
             cantidad.setText(String.valueOf(producto.getCantidad()));
+        }
+        //Esto es por si no tuviese stock el producto
+        if (db.oneProducto(this, producto.getIdProducto()).getStock() == 0) {
+            this.findViewById(R.id.btn_menos_detalle).setVisibility(View.GONE);
+            this.findViewById(R.id.btn_mas_detalle).setVisibility(View.GONE);
+            this.findViewById(R.id.producto_cantidad_detalle).setVisibility(View.GONE);
         }
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home

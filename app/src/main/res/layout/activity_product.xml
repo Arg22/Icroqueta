@@ -9,7 +9,7 @@
     tools:context=".ProductActivity">
 
     <ImageView
-        android:id="@+id/producto_imagen"
+        android:id="@+id/producto_imagen_detalle"
         android:layout_width="368dp"
         android:layout_height="179dp"
         android:layout_marginStart="16dp"
@@ -22,56 +22,56 @@
         app:srcCompat="@drawable/logo" />
 
     <TextView
-        android:id="@+id/producto_nombre_row"
+        android:id="@+id/producto_nombre_detalle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/producto_imagen"
+        android:layout_below="@+id/producto_imagen_detalle"
         android:layout_marginTop="16dp"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/producto_imagen"
+        app:layout_constraintTop_toBottomOf="@+id/producto_imagen_detalle"
         tools:text="Nombre" />
 
     <TextView
-        android:id="@+id/producto_precio_row"
+        android:id="@+id/producto_precio_detalle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/producto_nombre_row"
+        android:layout_below="@+id/producto_nombre_detalle"
         android:gravity="center_vertical|end"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_row"
+        app:layout_constraintTop_toBottomOf="@+id/producto_nombre_detalle"
         tools:text="18,99€/ud" />
 
 <!--todo Futuro - Descripción con scroll-->
     <TextView
-        android:id="@+id/producto_descripcion_row"
+        android:id="@+id/producto_descripcion_detalle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/producto_precio_row"
+        app:layout_constraintTop_toBottomOf="@+id/producto_precio_detalle"
         tools:layout_editor_absoluteX="18dp"
         tools:text="DescripcioDescripcionn" />
 
     <ImageButton
-        android:id="@+id/btn_menos"
+        android:id="@+id/btn_menos_detalle"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_toStartOf="@+id/btn_mas_row"
+        android:layout_toStartOf="@+id/btn_mas_detalle"
         android:background="@null"
         android:contentDescription="@string/descripcion_boton_menos"
         android:scaleType="fitXY"
         android:onClick="restarCantidad"
         android:src="@drawable/ic_remove_circle"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/producto_cantidad_row"
-        app:layout_constraintEnd_toStartOf="@+id/producto_cantidad_row"
+        app:layout_constraintBottom_toBottomOf="@+id/producto_cantidad_detalle"
+        app:layout_constraintEnd_toStartOf="@+id/producto_cantidad_detalle"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/producto_cantidad_row" />
+        app:layout_constraintTop_toTopOf="@+id/producto_cantidad_detalle" />
 
     <TextView
-        android:id="@+id/producto_cantidad_row"
+        android:id="@+id/producto_cantidad_detalle"
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:layout_centerInParent="true"
@@ -79,19 +79,19 @@
         android:gravity="center_vertical|center_horizontal"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_mas_row"
-        app:layout_constraintEnd_toStartOf="@+id/btn_mas_row"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_mas_detalle"
+        app:layout_constraintEnd_toStartOf="@+id/btn_mas_detalle"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_menos"
-        app:layout_constraintTop_toTopOf="@+id/btn_mas_row"
+        app:layout_constraintStart_toEndOf="@+id/btn_menos_detalle"
+        app:layout_constraintTop_toTopOf="@+id/btn_mas_detalle"
         tools:text="0" />
 
 
     <ImageButton
-        android:id="@+id/btn_mas_row"
+        android:id="@+id/btn_mas_detalle"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignTop="@+id/producto_cantidad_row"
+        android:layout_alignTop="@+id/producto_cantidad_detalle"
         android:background="@null"
         android:contentDescription="@string/descripcion_boton_mas"
         android:onClick="sumarCantidad"
@@ -100,7 +100,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/button"
         app:layout_constraintEnd_toStartOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/producto_cantidad_row"
+        app:layout_constraintStart_toEndOf="@+id/producto_cantidad_detalle"
         app:layout_constraintTop_toTopOf="@+id/button" />
 
     <Button
@@ -108,7 +108,7 @@
         android:layout_width="wrap_content"
         android:padding="8dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/producto_cantidad_row"
+        android:layout_alignTop="@+id/producto_cantidad_detalle"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
         android:background="@drawable/button_rounded_border"
@@ -117,6 +117,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_mas_row" />
+        app:layout_constraintStart_toEndOf="@+id/btn_mas_detalle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,9 +21,6 @@ public class DeliverActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver);
 
-        //todo: meter mapa google
-
-
         //Esto le envia al OrderRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
         List<Pedido> pedidos=db.allPedidosActivos(this);

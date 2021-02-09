@@ -60,7 +60,7 @@ public class LineaActivity extends AppCompatActivity {
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
         List<Carrito> carrito = db.allCarritoPersona(this, LoginActivity.usuario.getIdPersona());
 
-        //todo Futuro - optimizar este bucle
+        //todo secundario - optimizar este bucle
         if (carrito.size() == 0) {
             for (Linea n : lineas) {
                 db.addCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad());

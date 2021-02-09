@@ -80,7 +80,7 @@ public class MainActivity extends MenuBar {
     //todo lupa para buscar
     //todo ordenar por más caro/más comprado
     //todo Futuro - poner funcionalidad al menu lateral y que reaccione con la base de datos
-
+    //todo Traducir strings
     public void onBackPressed() {
         long  time = System.currentTimeMillis();
 

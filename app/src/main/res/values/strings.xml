@@ -55,5 +55,6 @@
     <string name="mm_aa">mm/aa</string>
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="borrar_cuenta">Borrar cuenta</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
