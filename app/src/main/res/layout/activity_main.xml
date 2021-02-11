@@ -23,8 +23,12 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/bar_header_main"
-        app:menu="@menu/menu_lateral"
-        />
+        app:menu="@menu/menu_lateral">
+
+
+
+    </com.google.android.material.navigation.NavigationView>
+
 
     <FrameLayout
         android:id="@+id/fragment_menulateral"

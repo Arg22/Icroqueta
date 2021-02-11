@@ -9,7 +9,7 @@
 
     <!--La tarjetas donde van a ir archivado el pedido-->
     <LinearLayout
-        android:id="@+id/ingredientes_menulateral"
+        android:id="@+id/menulateral_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
@@ -17,6 +17,7 @@
         android:focusable="true">
 
         <include layout="@layout/menulateral_fragment" />
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
