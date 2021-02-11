@@ -7,9 +7,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.icroqueta.adapter.IngredientRecyclerViewAdapter;
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.database.entidades.Ingrediente;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -62,6 +64,16 @@ public class MainActivity extends MenuBar {
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
+
+        //Esto le envia al IngredientRecyclerViewAdapter todos los ingredientes de la base de datos
+
+        List<Ingrediente> ingredientes=db.allIngredientes(this);
+
+        //Para visualizar el Recicle view en esta Vista
+        IngredientRecyclerViewAdapter adapterIng = new IngredientRecyclerViewAdapter(ingredientes);
+        RecyclerView ingredientesRecyclerView = findViewById(R.id.croquetasRecyclerView);
+        ingredientesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        ingredientesRecyclerView.setAdapter(adapter);
     }
 
 
@@ -81,6 +93,7 @@ public class MainActivity extends MenuBar {
     //todo ordenar por más caro/más comprado
     //todo Futuro - poner funcionalidad al menu lateral y que reaccione con la base de datos
     //todo Traducir strings
+
     public void onBackPressed() {
         long  time = System.currentTimeMillis();
 

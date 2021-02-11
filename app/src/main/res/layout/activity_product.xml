@@ -52,16 +52,31 @@
         app:layout_constraintTop_toBottomOf="@+id/producto_precio_detalle"
         tools:text="0 unidades" />
 
-<!--todo Futuro - Descripción con scroll-->
-    <TextView
-        android:id="@+id/producto_descripcion_detalle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        android:textSize="18sp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintTop_toBottomOf="@+id/producto_stock_detalle"
-        tools:layout_editor_absoluteX="18dp"
-        tools:text="DescripcioDescripcionn" />
+        tools:layout_editor_absoluteX="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/producto_descripcion_detalle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                tools:text="DescripcioDescripcionn" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <ImageButton
         android:id="@+id/btn_menos_detalle"
@@ -70,8 +85,8 @@
         android:layout_toStartOf="@+id/btn_mas_detalle"
         android:background="@null"
         android:contentDescription="@string/descripcion_boton_menos"
-        android:scaleType="fitXY"
         android:onClick="restarCantidad"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_remove_circle"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/producto_cantidad_detalle"
@@ -116,13 +131,13 @@
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
-        android:padding="8dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/producto_cantidad_detalle"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="16dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="FinalizarCarrito"
+        android:padding="8dp"
         android:text="@string/finalizar_compra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -488,6 +488,24 @@ public class DBHelper {
         db.getWritableDatabase().update(PedidoTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
 
+    //****** Métodos tabla Ingrediente ******//
+
+    /**
+     * Este método recoge todos los productos que estén o no en un carrito
+     * y los mete en una lista.
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los productos.
+     */
+    public List<Ingrediente> allIngredientes(Context context) {
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, null, null, null, null, null);
+        List<Ingrediente> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Ingrediente().loadIngredienteFromCursor(cursor));
+        }
+        return lista;
+    }
 
 }
 

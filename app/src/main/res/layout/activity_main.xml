@@ -23,7 +23,14 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/bar_header_main"
-        app:menu="@menu/menu_lateral" />
+        app:menu="@menu/menu_lateral"
+        />
 
+    <FrameLayout
+        android:id="@+id/fragment_menulateral"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

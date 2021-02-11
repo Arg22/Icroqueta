@@ -7,77 +7,61 @@
             <group>
                 <item
                     android:title="@string/lactosa"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_layout" />
                 <item
                     android:title="@string/gluten"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_vegetariano"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
             </group>
 
             <group>
                 <item
                     android:title="@string/ingrediente_pollo"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_cerdo"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_ternera"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
             </group>
 
             <group>
                 <item
                     android:title="@string/ingrediente_salmon"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_bacalao"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
             </group>
 
             <group>
                 <item
                     android:title="@string/ingrediente_queso"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
             </group>
 
             <group>
                 <item
                     android:title="@string/ingrediente_brocoli"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_acelgas"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_quinoa"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_garbanzos"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
                 <item
                     android:title="@string/ingrediente_patata"
-                    app:actionLayout="@layout/widget_check" />
+                    app:actionLayout="@layout/menulateral_fragment" />
             </group>
-
-            <group>
-                <item
-                    android:title="@string/ingrediente_chocolate"
-                    app:actionLayout="@layout/widget_check" />
-                <item
-                    android:title="@string/ingrediente_fresa"
-                    app:actionLayout="@layout/widget_check" />
-                <item
-                    android:title="@string/ingrediente_naranja"
-                    app:actionLayout="@layout/widget_check" />
-                <item
-                    android:title="@string/ingrediente_vainilla"
-                    app:actionLayout="@layout/widget_check" />
-            </group>
-
-
+            <include layout="@layout/menulateral_fragment" />
         </menu>
+
     </item>
 </menu>
-
