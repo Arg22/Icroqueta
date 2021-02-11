@@ -124,7 +124,7 @@ public class MainActivity extends MenuBar {
         }
 
 
-        Menu menu2 = navigationView.getMenu();
+        SubMenu menu2 = menu.addSubMenu("Menu 2");;
 //Metemos todos los ingredientes de esa categoría
         for (int i = 0; i < 7; i++) {
             menu2.add("Menu 2." + (i + 1));
