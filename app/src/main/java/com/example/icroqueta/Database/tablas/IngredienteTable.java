@@ -11,6 +11,7 @@ public class IngredienteTable {
     public static final String VEGETARIANO = "vegetariano";
     public static final String GLUTEN = "gluten";
     public static final String LACTOSA = "lactosa";
+    public static final String TIPO = "tipo";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -18,7 +19,8 @@ public class IngredienteTable {
                     NOMBRE + " TEXT," +
                     VEGETARIANO + " INTEGER, " +
                     GLUTEN + " INTEGER," +
-                    LACTOSA + " INTEGER)";
+                    LACTOSA + " INTEGER"+
+                    TIPO + "TEXT)";
 
 
     private static final String SQL_DELETE_ENTRIES =
@@ -40,8 +42,10 @@ public class IngredienteTable {
      * @param db nuestra base de datos
      */
     public static void insertIniciales(SQLiteDatabase db) {
-        Ingrediente i1 = new Ingrediente("Bacalao", 0, 0, 0);
-        Ingrediente i2 = new Ingrediente("Cerdo", 0, 0, 0);
+        //todo  Frutos secos - Lácteo - Pescado - Carne - Tallo (Patatas boniato o el jengibre),
+        // Verduras - Hortalizas, Legumbres - Frutas -Cereales -Dulces
+        Ingrediente i1 = new Ingrediente("Bacalao", 0, 0, 0,"Lácteo");
+        Ingrediente i2 = new Ingrediente("Cerdo", 0, 0, 0,"Carne");
         Ingrediente i3 = new Ingrediente("Ternera", 0, 0, 0);
         Ingrediente i4 = new Ingrediente("Pollo", 0, 0, 0);
         Ingrediente i5 = new Ingrediente("Salmon", 0, 0, 0);

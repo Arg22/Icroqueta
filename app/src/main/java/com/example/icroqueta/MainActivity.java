@@ -112,6 +112,7 @@ public class MainActivity extends MenuBar {
         List<Ingrediente> ingredientes = db.allIngredientes(this);
 
         //TODO que actualicen los productos
+        //todo primero los especiales de sin lactosa, sin gluten y vegetarianos
         //Cargamos el navigation view
         NavigationView navigationView = this.findViewById(R.id.nav_view);
         //Creamos un menu

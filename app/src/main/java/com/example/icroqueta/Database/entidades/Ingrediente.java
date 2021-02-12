@@ -5,67 +5,82 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.IngredienteTable;
 
-public class Ingrediente  implements java.io.Serializable {
+public class Ingrediente implements java.io.Serializable {
 
 
-     private Integer idIngrediente;
-     private String nombre;
-     private int vegetariano;
-     private int gluten;
-     private int lactosa;
+    private Integer idIngrediente;
+    private String nombre;
+    private int vegetariano;
+    private int gluten;
+    private int lactosa;
+    private String tipo;
 
     public Ingrediente() {
     }
-
-    public Ingrediente(Integer idIngrediente, String nombre, int vegetariano, int gluten, int lactosa) {
+    public Ingrediente(String nombre, int vegetariano, int gluten, int lactosa, String tipo) {
+        this.nombre = nombre;
+        this.vegetariano = vegetariano;
+        this.gluten = gluten;
+        this.lactosa = lactosa;
+        this.tipo = tipo;
+    }
+    public Ingrediente(Integer idIngrediente, String nombre, int vegetariano, int gluten, int lactosa, String tipo) {
         this.idIngrediente = idIngrediente;
         this.nombre = nombre;
         this.vegetariano = vegetariano;
         this.gluten = gluten;
         this.lactosa = lactosa;
+        this.tipo = tipo;
     }
 
-    public Ingrediente(String nombre, int vegetariano, int gluten, int lactosa) {
-       this.nombre = nombre;
-       this.vegetariano = vegetariano;
-       this.gluten = gluten;
-       this.lactosa = lactosa;
-    }
-   
+
+
     public Integer getIdIngrediente() {
         return this.idIngrediente;
     }
-    
+
     public void setIdIngrediente(Integer idIngrediente) {
         this.idIngrediente = idIngrediente;
     }
+
     public String getNombre() {
         return this.nombre;
     }
-    
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public int isVegetariano() {
         return this.vegetariano;
     }
-    
+
     public void setVegetariano(int vegetariano) {
         this.vegetariano = vegetariano;
     }
+
     public int isGluten() {
         return this.gluten;
     }
-    
+
     public void setGluten(int gluten) {
         this.gluten = gluten;
     }
+
     public int isLactosa() {
         return this.lactosa;
     }
-    
+
     public void setLactosa(int lactosa) {
         this.lactosa = lactosa;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getTipo() {
+        return tipo;
     }
 
     /**
@@ -83,6 +98,7 @@ public class Ingrediente  implements java.io.Serializable {
         values.put(IngredienteTable.VEGETARIANO, vegetariano);
         values.put(IngredienteTable.GLUTEN, gluten);
         values.put(IngredienteTable.LACTOSA, lactosa);
+        values.put(IngredienteTable.TIPO, tipo);
         return values;
     }
 
@@ -101,12 +117,14 @@ public class Ingrediente  implements java.io.Serializable {
         int vegetariano = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.VEGETARIANO));
         int gluten = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.GLUTEN));
         int lactosa = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.LACTOSA));
+        String tipo = cursor.getString(cursor.getColumnIndexOrThrow(IngredienteTable.TIPO));
 
         this.idIngrediente = idIngrediente;
         this.nombre = nombre;
         this.vegetariano = vegetariano;
         this.gluten = gluten;
         this.lactosa = lactosa;
+        this.tipo = tipo;
 
         return this;
     }

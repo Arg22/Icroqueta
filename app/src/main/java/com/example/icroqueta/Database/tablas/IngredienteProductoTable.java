@@ -6,9 +6,9 @@ import com.example.icroqueta.database.entidades.IngredienteProducto;
 
 public class IngredienteProductoTable {
     public static final String TABLE_NAME = "ingrediente_producto";
-    public static final String ID_INGREDIENTE_PRODUCTO = "id_persona_tarjeta";
+    public static final String ID_INGREDIENTE_PRODUCTO = "id_persona_producto";
     public static final String ID_INGREDIENTE = "id_persona";
-    public static final String ID_PRODUCTO = "id_tarjeta";
+    public static final String ID_PRODUCTO = "id_producto";
 
 
     private static final String SQL_CREATE_ENTRIES =
