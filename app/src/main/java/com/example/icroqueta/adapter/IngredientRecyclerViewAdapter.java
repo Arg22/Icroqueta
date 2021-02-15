@@ -17,6 +17,7 @@ import com.example.icroqueta.MainActivity;
 import com.example.icroqueta.R;
 import com.example.icroqueta.ShoppingCarActivity;
 import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.entidades.Ingrediente;
 
 
@@ -118,6 +119,15 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
                     } else {
                         idIngredientes.remove(String.valueOf(ingrediente.getIdIngrediente()));
+                        if(idIngredientes.isEmpty()){
+                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                            home.loadMainRecicler(productos);
+
+                        }else{
+                            List<String> idProducto=   db.idProductosIdIngredientes(itemView.getContext(),idIngredientes);
+                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                        }
+
 
                     }
                 }
