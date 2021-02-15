@@ -3,33 +3,33 @@ package com.example.icroqueta.database.entidades;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.icroqueta.database.tablas.IngredienteTable;
+import com.example.icroqueta.database.tablas.TipoTable;
 
-public class Ingrediente implements java.io.Serializable {
+public class Tipo implements java.io.Serializable {
 
 
-    private Integer idIngrediente;
+    private Integer idTipo;
     private String nombre;
 
-    public Ingrediente() {
+    public Tipo() {
     }
 
-    public Ingrediente(Integer idIngrediente, String nombre) {
-        this.idIngrediente = idIngrediente;
+    public Tipo(Integer idTipo, String nombre) {
+        this.idTipo = idTipo;
         this.nombre = nombre;
     }
 
-    public Ingrediente(String nombre) {
+    public Tipo(String nombre) {
         this.nombre = nombre;
 
     }
 
-    public Integer getIdIngrediente() {
-        return this.idIngrediente;
+    public Integer getIdTipo() {
+        return this.idTipo;
     }
 
-    public void setIdIngrediente(Integer idIngrediente) {
-        this.idIngrediente = idIngrediente;
+    public void setIdTipo(Integer idTipo) {
+        this.idTipo = idTipo;
     }
 
     public String getNombre() {
@@ -40,6 +40,7 @@ public class Ingrediente implements java.io.Serializable {
         this.nombre = nombre;
     }
 
+
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
@@ -49,8 +50,8 @@ public class Ingrediente implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
-        values.put(IngredienteTable.ID_INGREDIENTE, idIngrediente);
-        values.put(IngredienteTable.NOMBRE, nombre);
+        values.put(TipoTable.ID_TIPO, idTipo);
+        values.put(TipoTable.NOMBRE, nombre);
         return values;
     }
 
@@ -60,14 +61,13 @@ public class Ingrediente implements java.io.Serializable {
      * en el objeto (lee la informacion de la tabla).
      *
      * @param cursor es lo que se lee de la base de datos.
-     * @return un objeto ingrediente.
+     * @return un objeto Tipo.
      */
-    public Ingrediente loadIngredienteFromCursor(Cursor cursor) {
-        int idIngrediente = cursor.getInt(cursor.getColumnIndexOrThrow(IngredienteTable.ID_INGREDIENTE));
-        String nombre = cursor.getString(cursor.getColumnIndexOrThrow(IngredienteTable.NOMBRE));
-        this.idIngrediente = idIngrediente;
+    public Tipo loadTipoFromCursor(Cursor cursor) {
+        int idTipo = cursor.getInt(cursor.getColumnIndexOrThrow(TipoTable.ID_TIPO));
+        String nombre = cursor.getString(cursor.getColumnIndexOrThrow(TipoTable.NOMBRE));
+        this.idTipo = idTipo;
         this.nombre = nombre;
-
         return this;
     }
 }

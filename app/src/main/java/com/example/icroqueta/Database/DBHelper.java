@@ -551,22 +551,19 @@ public class DBHelper {
         }
         return lista;
     }
-
     /**
-     * Este método recoge los distintos tipos que tenemos de ingredientes
+     * Este método recoge todos los ingredientes de la base de datos
      * y los mete en una lista.
      *
      * @param context el contexto de la actividad
      * @return la lista de los ingredientes.
      */
-    public List<String> tiposIngredientes(Context context) {
-        List<String> lista = new ArrayList<>();
-        List<Ingrediente> todosIngredientes = allIngredientes(context);
-
-        for (Ingrediente i : todosIngredientes) {
-            if (!lista.contains(i.getTipo())) {
-                lista.add(i.getTipo());
-            }
+    public List<TipoIngrediente> allTipoIngredientes(Context context) {
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(TipoIngredienteTable.TABLE_NAME, null, null, null, null, null, null);
+        List<TipoIngrediente> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new TipoIngrediente().loadTipoIngredienteFromCursor(cursor));
         }
         return lista;
     }
@@ -576,22 +573,49 @@ public class DBHelper {
      * Método para sacar solo la lista de ingredientes con el mismo tipo
      *
      * @param context el contexto de la actividad
-     * @param tipo    el tipo de ingrediente
+     * @param idtipo    el idtipo de ingrediente
      * @return la lista de los ingredientes
      */
-    public List<Ingrediente> ingredientesPorTipos(Context context, String tipo) {
-        String where = IngredienteTable.TIPO + "=? ";
-        String[] whereArgs = {tipo};
+    public List<TipoIngrediente> TiposDeIngredientesDeTipo(Context context, int idtipo) {
+        String where = TipoIngredienteTable.ID_TIPO + "=? ";
+        String[] whereArgs = {String.valueOf(idtipo)};
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-        List<Ingrediente> lineas = new ArrayList<>();
+        Cursor cursor = db.getReadableDatabase().query(TipoIngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<TipoIngrediente> tipos = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Ingrediente l = new Ingrediente().loadIngredienteFromCursor(cursor);
-            lineas.add(l);
+            TipoIngrediente l = new TipoIngrediente().loadTipoIngredienteFromCursor(cursor);
+            tipos.add(l);
         }
-        return lineas;
+        return tipos;
     }
 
+    /**
+     * Método para sacar solo la lista de los ingredientes con un mismo id
+     *
+     * @param context        el contexto de la actividad
+     * @param tipoIngredientes las id de los ingredientes
+     * @return la lista de los ingredientes
+     */
+    public List<Ingrediente> allIngredientesDeUnTipo(Context context, List <TipoIngrediente> tipoIngredientes) {
+        String where = IngredienteTable.ID_INGREDIENTE + "=?";
+
+        String[] whereArgs = new String[tipoIngredientes.size()];
+        whereArgs[0] = String.valueOf(tipoIngredientes.get(0));
+
+        for (int i = 0; i < tipoIngredientes.size() - 1; i++) {
+            where += " OR "+IngredienteTable.ID_INGREDIENTE +"=?";
+            whereArgs[i + 1] = String.valueOf(tipoIngredientes.get(i + 1));
+        }
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME,null, where,whereArgs, null, null, null, null);
+        List<Ingrediente> ingredientes = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            Ingrediente l = new Ingrediente().loadIngredienteFromCursor(cursor);
+            ingredientes.add(l);
+        }
+        return ingredientes;
+    }
     /**
      * Método para sacar solo la lista de los identificadores del producto, que tengan los id que introduzcamos los id de los ingredientes
      *
@@ -619,6 +643,44 @@ public class DBHelper {
         }
 
         return idProductos;
+    }
+
+    /**
+     * Método para obtener solo un producto por su id
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public Tipo oneTipo(Context context, int idTipo) {
+        DBSource db = new DBSource(context);
+        String where = TipoTable.ID_TIPO + "=?";
+        String[] whereArgs = {String.valueOf(idTipo)};
+
+        Cursor cursor = db.getReadableDatabase().query(TipoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Tipo> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Tipo().loadTipoFromCursor(cursor));
+        }
+        return lista.get(0);
+    }
+
+    /**
+     * Método para obtener solo un producto por su id
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public Ingrediente oneIngrediente(Context context, int idIngrediente) {
+        DBSource db = new DBSource(context);
+        String where = IngredienteTable.ID_INGREDIENTE + "=?";
+        String[] whereArgs = {String.valueOf(idIngrediente)};
+
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Ingrediente> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Ingrediente().loadIngredienteFromCursor(cursor));
+        }
+        return lista.get(0);
     }
 }
 

@@ -11,6 +11,7 @@ import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Ingrediente;
+import com.example.icroqueta.database.entidades.TipoIngrediente;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -60,7 +61,7 @@ public class MainActivity extends MenuBar {
 
 
         //Esto le envia al IngredientRecyclerViewAdapter todos los ingredientes de la base de datos
-        List<Ingrediente> ingredientes = db.allIngredientes(this);
+        List<TipoIngrediente> ingredientes = db.allTipoIngredientes(this);
 
         //Para visualizar el Recicle view en esta Vista
         IngredientRecyclerViewAdapter adapterIng = new IngredientRecyclerViewAdapter(ingredientes);
@@ -81,6 +82,7 @@ public class MainActivity extends MenuBar {
     //todo Cifrar contraseñas
     //todo descuentos
     //todo Traducir strings
+    //todo meter alergenos
 
     /**
      * Método para salir de la aplicación si se pulsa reiteradamente con el botón back

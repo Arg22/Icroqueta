@@ -19,10 +19,12 @@ import com.example.icroqueta.database.tablas.PersonaTelefonoTable;
 import com.example.icroqueta.database.tablas.ProductoTable;
 import com.example.icroqueta.database.tablas.TarjetaTable;
 import com.example.icroqueta.database.tablas.TelefonoTable;
+import com.example.icroqueta.database.tablas.TipoIngredienteTable;
+import com.example.icroqueta.database.tablas.TipoTable;
 
 public class DBSource extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 4;
     public static final String DATABASE_NAME = "croqueta.db";
 
     public DBSource(@Nullable Context context) {
@@ -31,20 +33,21 @@ public class DBSource extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        ProductoTable.onCreate(db);
-        PersonaTable.onCreate(db);
+        CarritoTable.onCreate(db);
         DireccionTable.onCreate(db);
+        IngredienteProductoTable.onCreate(db);
         IngredienteTable.onCreate(db);
+        LineaTable.onCreate(db);
         PedidoTable.onCreate(db);
+        PersonaDireccionTable.onCreate(db);
+        PersonaTable.onCreate(db);
+        PersonaTarjetaTable.onCreate(db);
+        PersonaTelefonoTable.onCreate(db);
+        ProductoTable.onCreate(db);
         TarjetaTable.onCreate(db);
         TelefonoTable.onCreate(db);
-        PersonaTelefonoTable.onCreate(db);
-        PersonaTarjetaTable.onCreate(db);
-        PersonaDireccionTable.onCreate(db);
-        LineaTable.onCreate(db);
-        CarritoTable.onCreate(db);
-        IngredienteProductoTable.onCreate(db);
-
+        TipoIngredienteTable.onCreate(db);
+        TipoTable.onCreate(db);
     }
 
     /**
@@ -67,22 +70,23 @@ public class DBSource extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        PersonaTelefonoTable.onDrop(db);
-        PersonaTarjetaTable.onDrop(db);
-        PersonaDireccionTable.onDrop(db);
-        LineaTable.onDrop(db);
         CarritoTable.onDrop(db);
-        IngredienteProductoTable.onDrop(db);
-        ProductoTable.onDrop(db);
-        PersonaTable.onDrop(db);
         DireccionTable.onDrop(db);
+        IngredienteProductoTable.onDrop(db);
         IngredienteTable.onDrop(db);
+        LineaTable.onDrop(db);
         PedidoTable.onDrop(db);
+        PersonaDireccionTable.onDrop(db);
+        PersonaTable.onDrop(db);
+        PersonaTarjetaTable.onDrop(db);
+        PersonaTelefonoTable.onDrop(db);
+        ProductoTable.onDrop(db);
         TarjetaTable.onDrop(db);
         TelefonoTable.onDrop(db);
+        TipoIngredienteTable.onDrop(db);
+        TipoTable.onDrop(db);
         onCreate(db);
     }
-
 
     /**
      * Borra la tabla y la vuelve a inicializar cuando se baja la version
@@ -93,21 +97,21 @@ public class DBSource extends SQLiteOpenHelper {
      */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        PersonaTelefonoTable.onDrop(db);
-        PersonaTarjetaTable.onDrop(db);
-        PersonaDireccionTable.onDrop(db);
-        LineaTable.onDrop(db);
         CarritoTable.onDrop(db);
-        IngredienteProductoTable.onDrop(db);
-        ProductoTable.onDrop(db);
-        PersonaTable.onDrop(db);
         DireccionTable.onDrop(db);
+        IngredienteProductoTable.onDrop(db);
         IngredienteTable.onDrop(db);
+        LineaTable.onDrop(db);
         PedidoTable.onDrop(db);
+        PersonaDireccionTable.onDrop(db);
+        PersonaTable.onDrop(db);
+        PersonaTarjetaTable.onDrop(db);
+        PersonaTelefonoTable.onDrop(db);
+        ProductoTable.onDrop(db);
         TarjetaTable.onDrop(db);
         TelefonoTable.onDrop(db);
+        TipoIngredienteTable.onDrop(db);
+        TipoTable.onDrop(db);
         onCreate(db);
     }
-
-
 }

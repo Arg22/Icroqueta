@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -17,15 +18,15 @@ import com.example.icroqueta.MainActivity;
 import com.example.icroqueta.R;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.dto.ProductoCarrito;
-import com.example.icroqueta.database.entidades.Ingrediente;
+import com.example.icroqueta.database.entidades.TipoIngrediente;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<IngredientRecyclerViewAdapter.MyViewHolder> {
-    private final List<Ingrediente> ingredientes;
+    private final List<TipoIngrediente> ingredientes;
 
-    public IngredientRecyclerViewAdapter(List<Ingrediente> productos) {
+    public IngredientRecyclerViewAdapter(List<TipoIngrediente> productos) {
         this.ingredientes = productos;
         setHasStableIds(true);
     }
@@ -51,16 +52,15 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
+    public int getItemViewType(int position) {
         return position;
     }
+
     /**
      * Esta es la cantidad de veces que va a reutilizar
      * el Recicle view con la posición hasta que llegue a esta cantidad
@@ -100,18 +100,18 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
          *
          * @param ingrediente nuestro objeto
          */
-        public void bind(final Ingrediente ingrediente) {
+        public void bind(final TipoIngrediente ingrediente) {
             db = new DBHelper();
-
-            if (!ultimoTipo.equals(ingrediente.getTipo())) {
-                tipo.setText(ingrediente.getTipo());
-                ultimoTipo = ingrediente.getTipo();
+            String nombreTipo = db.oneTipo(itemView.getContext(), ingrediente.getidTipo()).getNombre();
+            if (!ultimoTipo.equals(nombreTipo)) {
+                tipo.setText(nombreTipo);
+                ultimoTipo = nombreTipo;
 
             } else {
                 tipo.setVisibility(View.GONE);
                 separador.setVisibility(View.GONE);
             }
-            nombre.setText(ingrediente.getNombre());
+            nombre.setText(db.oneIngrediente(itemView.getContext(), ingrediente.getIdIngrediente()).getNombre());
 
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -121,18 +121,30 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                     if (isChecked) {
                         //añadimos el id del ingrediente a la lista
                         idIngredientes.add(String.valueOf(ingrediente.getIdIngrediente()));
-                        List<String> idProducto=   db.idProductosIdIngredientes(itemView.getContext(),idIngredientes);
-                        home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                        List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
+                        try {
+                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                        } catch (IndexOutOfBoundsException e) {
+                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                            home.loadMainRecicler(productos);
+                            Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
+                        }
 
                     } else {
                         idIngredientes.remove(String.valueOf(ingrediente.getIdIngrediente()));
-                        if(idIngredientes.isEmpty()){
+                        if (idIngredientes.isEmpty()) {
                             List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
                             home.loadMainRecicler(productos);
 
-                        }else{
-                            List<String> idProducto=   db.idProductosIdIngredientes(itemView.getContext(),idIngredientes);
-                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                        } else {
+                            List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
+                            try {
+                                home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                            } catch (IndexOutOfBoundsException e) {
+                                List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                                home.loadMainRecicler(productos);
+                                Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
 
