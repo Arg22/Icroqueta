@@ -22,7 +22,7 @@ import com.example.icroqueta.database.tablas.TelefonoTable;
 
 public class DBSource extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION =4;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "croqueta.db";
 
     public DBSource(@Nullable Context context) {
@@ -44,6 +44,7 @@ public class DBSource extends SQLiteOpenHelper {
         LineaTable.onCreate(db);
         CarritoTable.onCreate(db);
         IngredienteProductoTable.onCreate(db);
+
     }
 
     /**

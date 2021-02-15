@@ -147,7 +147,7 @@ public class DBHelper {
         whereArgs[0] = idProducto.get(0);
 
         for (int i = 0; i < idProducto.size() - 1; i++) {
-            where += " OR =?";
+            where += " OR "+ProductoTable.ID_PRODUCTO +"=?";
             whereArgs[i + 1] = idProducto.get(i + 1);
         }
         DBSource db = new DBSource(context);
@@ -581,7 +581,7 @@ public class DBHelper {
      */
     public List<Ingrediente> ingredientesPorTipos(Context context, String tipo) {
         String where = IngredienteTable.TIPO + "=? ";
-        String[] whereArgs = {String.valueOf(tipo)};
+        String[] whereArgs = {tipo};
         DBSource db = new DBSource(context);
         Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Ingrediente> lineas = new ArrayList<>();
@@ -600,16 +600,17 @@ public class DBHelper {
      * @return la lista de los ingredientes
      */
     public List<String> idProductosIdIngredientes(Context context, List<String> idIngredientes) {
-        String where = IngredienteProductoTable.ID_INGREDIENTE + "=? ";
+       String where = IngredienteProductoTable.ID_INGREDIENTE + "=?";
+
         String[] whereArgs = new String[idIngredientes.size()];
         whereArgs[0] = idIngredientes.get(0);
 
         for (int i = 0; i < idIngredientes.size() - 1; i++) {
-            where += " OR =?";
+            where += " OR "+IngredienteProductoTable.ID_INGREDIENTE +"=?";
             whereArgs[i + 1] = idIngredientes.get(i + 1);
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME,null, where,whereArgs, null, null, null, null);
         List<String> idProductos = new ArrayList<>();
 
         while (cursor.moveToNext()) {

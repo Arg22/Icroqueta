@@ -25,6 +25,7 @@ public class IngredienteProductoTable {
 
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        insertIniciales(db);
     }
 
     public static void onDrop(SQLiteDatabase db) {
