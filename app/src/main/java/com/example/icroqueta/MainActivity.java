@@ -1,17 +1,26 @@
 package com.example.icroqueta;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.SubMenu;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.view.menu.MenuItemImpl;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.icroqueta.adapter.IngredientRecyclerViewAdapter;
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
@@ -69,8 +78,17 @@ public class MainActivity extends MenuBar {
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
 
-        //Para añadir los checkbox dinámicamente al menu lateral
-        configView();
+        //Esto le envia al IngredientRecyclerViewAdapter todos los ingredientes de la base de datos
+
+        List<Ingrediente> ingredientes = db.allIngredientes(this);
+
+
+        //Para visualizar el Recicle view en esta Vista
+        IngredientRecyclerViewAdapter adapterIng = new IngredientRecyclerViewAdapter(ingredientes);
+        RecyclerView ingredientesRecyclerView = findViewById(R.id.ingredienteRecyclerView);
+        ingredientesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        ingredientesRecyclerView.setAdapter(adapterIng);
+
     }
 
 
@@ -103,69 +121,6 @@ public class MainActivity extends MenuBar {
             super.onBackPressed();
         }
     }
-
-    /**
-     * En este metodo cargamos los ingredientes y los checkbox de los ingredientes y que se dividan por tipos de ingredientes
-     */
-    private void configView() {
-        DBHelper db = new DBHelper();
-        List<Ingrediente> ingredientes = db.allIngredientes(this);
-
-        //TODO que actualicen los productos
-        //todo primero los especiales de sin lactosa, sin gluten y vegetarianos
-        //Cargamos el navigation view
-        NavigationView navigationView = this.findViewById(R.id.nav_view);
-        //Creamos un menu
-        Menu menu = navigationView.getMenu();
-        //Ponemos un submenu con las distintas categorias
-        SubMenu menu1 = menu.addSubMenu("Menu 1");
-//Metemos todos los ingredientes de esa categoría
-        for (int i = 0; i < 15; i++) {
-            menu1.add("Menu 1." + (i + 1));
-        }
-
-
-        SubMenu menu2 = menu.addSubMenu("Menu 2");;
-//Metemos todos los ingredientes de esa categoría
-        for (int i = 0; i < 7; i++) {
-            menu2.add("Menu 2." + (i + 1));
-        }
-
-/*
-
-        //Botón para marcar todos si fuese necesario
-
-        //Capturo contenedor de botones
-        Menu miContenedor = findViewById(R.id.menulateral_xml); //LinearLayout
-
-        //Indicamos las propiedades que tendrán los elementos que inserte dentro de mi contenedor
-        LinearLayout.LayoutParams lp =
-                new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        //Creamos los elementos en bucle
-        for(int i=0; i<numElementos; i++){
-            CheckBox chk =  new CheckBox(this);
-            //Asignamos las propiedades al elemento
-            chk.setLayoutParams(lp);
-
-            //Asignamos texto al elemento
-            chk.setText("Checkbox " +String.format("%02d", i+1));
-
-            //Para poder interaccionar con los botones le vamos a asignar un Listener
-            chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(buttonView.isChecked()){
-                        Toast.makeText(MainActivity.this, "Has marcado "+ chk.getText(), Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Has desmarcado "+ chk.getText(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-
-            //Finalmente lo añadimos al contenedor
-            miContenedor.addView(chk);
-        }*/
-
-        }
 }
+
+
