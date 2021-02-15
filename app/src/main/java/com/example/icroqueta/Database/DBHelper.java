@@ -36,6 +36,26 @@ public class DBHelper {
         return productos;
     }
 
+    /**
+     * Este método recoge todos los productos que estén o no en un carrito
+     * y los mete en una lista.
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los productos.
+     */
+    public List<ProductoCarrito> allProductosCarritoById(Context context, int idPersona, List<String> idProducto) {
+        List<ProductoCarrito> productos = allProductoById(context, idProducto); //Todos los productos
+        List<ProductoCarrito> productosCarrito = findProductosInCarrito(context, idPersona);//Todos los productos que haya en el carrito
+        for (ProductoCarrito p : productos) {
+            for (ProductoCarrito c : productosCarrito) {
+                if (c.getIdProducto().equals(p.getIdProducto())) { //Si son el mismo producto se actualiza con la cantidad del carro
+                    p.setCantidad(c.getCantidad());
+                }
+            }
+        }
+        return productos;
+    }
+
 
     /**
      * Este método recoge únicamente los productos que estan en el carrito
@@ -84,8 +104,8 @@ public class DBHelper {
     /**
      * Este método sirve para sacar un unico producto de la bd.
      *
-     * @param context el contexto de la actividad
-     * @param idPersona la id del usuario
+     * @param context    el contexto de la actividad
+     * @param idPersona  la id del usuario
      * @param idProducto la id del producto
      * @return un objeto producto
      */
@@ -114,6 +134,31 @@ public class DBHelper {
         }
         return lista;
     }
+
+    /**
+     * Método para obtener todos los productos de la bd por la idProducto
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public List<ProductoCarrito> allProductoById(Context context, List<String> idProducto) {
+        String where = ProductoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = new String[idProducto.size()];
+        whereArgs[0] = idProducto.get(0);
+
+        for (int i = 0; i < idProducto.size() - 1; i++) {
+            where += " OR =?";
+            whereArgs[i + 1] = idProducto.get(i + 1);
+        }
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<ProductoCarrito> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
+        }
+        return lista;
+    }
+
     /**
      * Método para obtener solo un producto por su id
      *
@@ -123,7 +168,7 @@ public class DBHelper {
     public Producto oneProducto(Context context, int idProducto) {
         DBSource db = new DBSource(context);
         String where = ProductoTable.ID_PRODUCTO + "=?";
-        String[] whereArgs = { idProducto + ""};
+        String[] whereArgs = {idProducto + ""};
 
         Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Producto> lista = new ArrayList<>();
@@ -169,11 +214,11 @@ public class DBHelper {
     /**
      * Método para obtener todos los productos del carrito de una persona.
      *
-     * @param context el contexto de la actividad
+     * @param context   el contexto de la actividad
      * @param idPersona el id de la persona
      * @return La lista de productos de la bd
      */
-    public List<Carrito> allCarritoPersona (Context context,int idPersona) {
+    public List<Carrito> allCarritoPersona(Context context, int idPersona) {
         String where = CarritoTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
@@ -491,11 +536,11 @@ public class DBHelper {
     //****** Métodos tabla Ingrediente ******//
 
     /**
-     * Este método recoge todos los productos que estén o no en un carrito
+     * Este método recoge todos los ingredientes de la base de datos
      * y los mete en una lista.
      *
      * @param context el contexto de la actividad
-     * @return la lista de los productos.
+     * @return la lista de los ingredientes.
      */
     public List<Ingrediente> allIngredientes(Context context) {
         DBSource db = new DBSource(context);
@@ -507,6 +552,72 @@ public class DBHelper {
         return lista;
     }
 
-}
+    /**
+     * Este método recoge los distintos tipos que tenemos de ingredientes
+     * y los mete en una lista.
+     *
+     * @param context el contexto de la actividad
+     * @return la lista de los ingredientes.
+     */
+    public List<String> tiposIngredientes(Context context) {
+        List<String> lista = new ArrayList<>();
+        List<Ingrediente> todosIngredientes = allIngredientes(context);
 
+        for (Ingrediente i : todosIngredientes) {
+            if (!lista.contains(i.getTipo())) {
+                lista.add(i.getTipo());
+            }
+        }
+        return lista;
+    }
+
+
+    /**
+     * Método para sacar solo la lista de ingredientes con el mismo tipo
+     *
+     * @param context el contexto de la actividad
+     * @param tipo    el tipo de ingrediente
+     * @return la lista de los ingredientes
+     */
+    public List<Ingrediente> ingredientesPorTipos(Context context, String tipo) {
+        String where = IngredienteTable.TIPO + "=? ";
+        String[] whereArgs = {String.valueOf(tipo)};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Ingrediente> lineas = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            Ingrediente l = new Ingrediente().loadIngredienteFromCursor(cursor);
+            lineas.add(l);
+        }
+        return lineas;
+    }
+
+    /**
+     * Método para sacar solo la lista de los identificadores del producto, que tengan los id que introduzcamos los id de los ingredientes
+     *
+     * @param context        el contexto de la actividad
+     * @param idIngredientes las id de los ingredientes
+     * @return la lista de los ingredientes
+     */
+    public List<String> idProductosIdIngredientes(Context context, List<String> idIngredientes) {
+        String where = IngredienteProductoTable.ID_INGREDIENTE + "=? ";
+        String[] whereArgs = new String[idIngredientes.size()];
+        whereArgs[0] = idIngredientes.get(0);
+
+        for (int i = 0; i < idIngredientes.size() - 1; i++) {
+            where += " OR =?";
+            whereArgs[i + 1] = idIngredientes.get(i + 1);
+        }
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<String> idProductos = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            IngredienteProducto l = new IngredienteProducto().loadIngredienteProductoFromCursor(cursor);
+            idProductos.add(String.valueOf(l.getIdProducto()));
+        }
+
+        return idProductos;
+    }
+}
 

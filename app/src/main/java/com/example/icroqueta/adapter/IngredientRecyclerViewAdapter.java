@@ -12,8 +12,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.icroqueta.LoginActivity;
 import com.example.icroqueta.MainActivity;
 import com.example.icroqueta.R;
+import com.example.icroqueta.ShoppingCarActivity;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Ingrediente;
 
@@ -26,6 +28,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     public IngredientRecyclerViewAdapter(List<Ingrediente> productos) {
         this.ingredientes = productos;
+
 
     }
 
@@ -66,8 +69,8 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         public CheckBox checkBox;
         public DBHelper db;
         static String ultimoTipo = " ";
-        static List<String> idIngredientes= new ArrayList<>();
-
+        static List<String> idIngredientes = new ArrayList<>();
+        public MainActivity home;
 
         /**
          * Inicializamos en el contructor todos los parametros
@@ -81,6 +84,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
             nombre = v.findViewById(R.id.nombre_menuLateral);
             checkBox = v.findViewById(R.id.check_menuLateral);
             separador = v.findViewById(R.id.separador_menuLateral);
+            home = (MainActivity) itemView.getContext();
         }
 
         /**
@@ -107,8 +111,10 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
+                        //añadimos el id del ingrediente a la lista
                         idIngredientes.add(String.valueOf(ingrediente.getIdIngrediente()));
-
+                        List<String> idProducto=   db.idProductosIdIngredientes(itemView.getContext(),idIngredientes);
+                        home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
 
                     } else {
                         idIngredientes.remove(String.valueOf(ingrediente.getIdIngrediente()));

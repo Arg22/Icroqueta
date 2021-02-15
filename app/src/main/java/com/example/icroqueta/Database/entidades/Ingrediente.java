@@ -17,13 +17,7 @@ public class Ingrediente implements java.io.Serializable {
 
     public Ingrediente() {
     }
-    public Ingrediente(String nombre, int vegetariano, int gluten, int lactosa, String tipo) {
-        this.nombre = nombre;
-        this.vegetariano = vegetariano;
-        this.gluten = gluten;
-        this.lactosa = lactosa;
-        this.tipo = tipo;
-    }
+
     public Ingrediente(Integer idIngrediente, String nombre, int vegetariano, int gluten, int lactosa, String tipo) {
         this.idIngrediente = idIngrediente;
         this.nombre = nombre;
@@ -33,7 +27,13 @@ public class Ingrediente implements java.io.Serializable {
         this.tipo = tipo;
     }
 
-
+    public Ingrediente(String nombre, int vegetariano, int gluten, int lactosa, String tipo) {
+        this.nombre = nombre;
+        this.vegetariano = vegetariano;
+        this.gluten = gluten;
+        this.lactosa = lactosa;
+        this.tipo = tipo;
+    }
 
     public Integer getIdIngrediente() {
         return this.idIngrediente;
@@ -75,12 +75,12 @@ public class Ingrediente implements java.io.Serializable {
         this.lactosa = lactosa;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public String getTipo() {
         return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     /**
@@ -92,7 +92,6 @@ public class Ingrediente implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
-
         values.put(IngredienteTable.ID_INGREDIENTE, idIngrediente);
         values.put(IngredienteTable.NOMBRE, nombre);
         values.put(IngredienteTable.VEGETARIANO, vegetariano);
@@ -128,8 +127,4 @@ public class Ingrediente implements java.io.Serializable {
 
         return this;
     }
-
-
 }
-
-

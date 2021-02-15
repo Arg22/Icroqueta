@@ -71,17 +71,11 @@ public class MainActivity extends MenuBar {
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper db = new DBHelper();
         List<ProductoCarrito> productos = db.allProductosCarrito(this, LoginActivity.usuario.getIdPersona());
+        loadMainRecicler(productos);
 
-        //Para visualizar el Recicle view en esta Vista
-        ProductRecyclerViewAdapter adapter = new ProductRecyclerViewAdapter(productos);
-        RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
-        croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
-        croquetasRecyclerView.setAdapter(adapter);
 
         //Esto le envia al IngredientRecyclerViewAdapter todos los ingredientes de la base de datos
-
         List<Ingrediente> ingredientes = db.allIngredientes(this);
-
 
         //Para visualizar el Recicle view en esta Vista
         IngredientRecyclerViewAdapter adapterIng = new IngredientRecyclerViewAdapter(ingredientes);
@@ -120,6 +114,19 @@ public class MainActivity extends MenuBar {
             // Toast.makeText(this, "¿Quiere salir de la aplicacion?",Toast.LENGTH_SHORT).cancel();
             super.onBackPressed();
         }
+    }
+
+    /**
+     * Método para recargar la página principal con los productos
+     *
+     * @param productos
+     */
+    public void  loadMainRecicler( List<ProductoCarrito> productos){
+        //Para visualizar el Recicle view en esta Vista
+        ProductRecyclerViewAdapter adapter = new ProductRecyclerViewAdapter(productos);
+        RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
+        croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
+        croquetasRecyclerView.setAdapter(adapter);
     }
 }
 
