@@ -1,32 +1,17 @@
 package com.example.icroqueta;
 
-import android.graphics.Color;
+
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.view.menu.MenuItemImpl;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.example.icroqueta.adapter.IngredientRecyclerViewAdapter;
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Ingrediente;
 import com.google.android.material.navigation.NavigationView;
-
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -94,11 +79,7 @@ public class MainActivity extends MenuBar {
                 || super.onSupportNavigateUp();
     }
     //todo Cifrar contraseñas
-    //todo Stock que deshabilite los botones y ponga
     //todo descuentos
-    //todo lupa para buscar
-    //todo ordenar por más caro/más comprado
-    //todo Futuro - poner funcionalidad al menu lateral y que reaccione con la base de datos
     //todo Traducir strings
 
     /**
@@ -119,7 +100,7 @@ public class MainActivity extends MenuBar {
     /**
      * Método para recargar la página principal con los productos
      *
-     * @param productos
+     * @param productos la lista de productos que apareceran en nuestra pantalla
      */
     public void  loadMainRecicler( List<ProductoCarrito> productos){
         //Para visualizar el Recicle view en esta Vista

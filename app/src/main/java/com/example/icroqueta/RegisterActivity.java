@@ -29,7 +29,7 @@ public class RegisterActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //todo Futuro - Validacion de datos
+    //todo - Validacion de datos
     public void comprobarDatos(View view) {
         nif = findViewById(R.id.nif);
         nombre = findViewById(R.id.nombre);

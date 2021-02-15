@@ -42,7 +42,7 @@ public class OptionActivity extends MenuBar {
     }
 
     public void guardarOpcion(View view) {
-        //todo Futuro - Guardar información usuario en la base de datos correspondiente
+        //todo - Guardar información usuario en la base de datos correspondiente
     }
 
     public void borrarCuenta(View view) {
@@ -85,6 +85,6 @@ public class OptionActivity extends MenuBar {
         codigoPostal.setText();
         tarjeta.setText();
         fechaTarjeta.setText();*/
-        //todo Futuro - cargar todos los datos
+        //todo - cargar todos los datos
     }
 }

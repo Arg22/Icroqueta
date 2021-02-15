@@ -27,7 +27,7 @@ public class RegisterPaymentActivity extends MenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_payment);
-        //todo Futuro - comprobar datos que se tienen del usuario y pedir los que les falten
+        //todo - comprobar datos que se tienen del usuario y pedir los que les falten
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
         final TextView fecha = findViewById(R.id.fechaTarjetaPago);
         //Esto es para que escriba automaticamente en la fehca la barra lateral
@@ -66,9 +66,9 @@ public class RegisterPaymentActivity extends MenuBar {
     }
 
 
-    //todo Futuro - checkbox enviar informacion a las tablas
 
-    //todo Futuro - Validacion de datos
+
+    //todo - Validacion de datos
     public void comprobarDatos(View view) {
         telefono = findViewById(R.id.telefonoPago);
         direccion = findViewById(R.id.direccionPago);
@@ -83,7 +83,7 @@ public class RegisterPaymentActivity extends MenuBar {
             Toast.makeText(getApplicationContext(), "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
 
-            //todo Futuro-Comprueba los datos en la base de datos
+            //todo -Comprueba los datos en la base de datos
 
             validarPago();
         }

@@ -1,25 +1,23 @@
 package com.example.icroqueta.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icroqueta.LoginActivity;
 import com.example.icroqueta.MainActivity;
 import com.example.icroqueta.R;
-import com.example.icroqueta.ShoppingCarActivity;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.entidades.Ingrediente;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +27,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     public IngredientRecyclerViewAdapter(List<Ingrediente> productos) {
         this.ingredientes = productos;
-
-
+        setHasStableIds(true);
     }
 
     @NonNull
@@ -49,11 +46,21 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
      * @param holder   mi clase de RecicleView
      */
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.bind(ingredientes.get(position));
     }
 
+    @Override
+    public long getItemId(int position)
+    {
+        return position;
+    }
 
+    @Override
+    public int getItemViewType(int position)
+    {
+        return position;
+    }
     /**
      * Esta es la cantidad de veces que va a reutilizar
      * el Recicle view con la posición hasta que llegue a esta cantidad

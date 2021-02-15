@@ -28,6 +28,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     public ProductRecyclerViewAdapter(List<ProductoCarrito> productos) {
         this.productos = productos;
+        setHasStableIds(true);
     }
 
     @NonNull
@@ -46,8 +47,10 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
      * @param holder   mi clase de RecicleView
      */
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final  MyViewHolder holder, int position) {
         holder.bind(productos.get(position));
+        holder.setIsRecyclable(false);
+
     }
 
     /**
