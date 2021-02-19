@@ -142,16 +142,16 @@ public class DBHelper {
      * @return La lista de productos de la bd
      */
     public List<ProductoCarrito> allProductoById(Context context, List<String> idProducto) {
-        String where = ProductoTable.ID_PRODUCTO + "=?";
+        StringBuilder where = new StringBuilder(ProductoTable.ID_PRODUCTO + "=?");
         String[] whereArgs = new String[idProducto.size()];
         whereArgs[0] = idProducto.get(0);
 
         for (int i = 0; i < idProducto.size() - 1; i++) {
-            where += " OR "+ProductoTable.ID_PRODUCTO +"=?";
+            where.append(" OR " + ProductoTable.ID_PRODUCTO + "=?");
             whereArgs[i + 1] = idProducto.get(i + 1);
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(ProductoTable.TABLE_NAME, null, where.toString(), whereArgs, null, null, null);
         List<ProductoCarrito> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
             lista.add(new ProductoCarrito().loadProductoCarritoFromCursor(cursor));
@@ -624,17 +624,17 @@ public class DBHelper {
      * @return la lista de los ingredientes
      */
     public List<String> idProductosIdIngredientes(Context context, List<String> idIngredientes) {
-       String where = IngredienteProductoTable.ID_INGREDIENTE + "=?";
+       StringBuilder where = new StringBuilder(IngredienteProductoTable.ID_INGREDIENTE + "=?");
 
         String[] whereArgs = new String[idIngredientes.size()];
         whereArgs[0] = idIngredientes.get(0);
 
         for (int i = 0; i < idIngredientes.size() - 1; i++) {
-            where += " OR "+IngredienteProductoTable.ID_INGREDIENTE +"=?";
+            where.append(" OR " + IngredienteProductoTable.ID_INGREDIENTE + "=?");
             whereArgs[i + 1] = idIngredientes.get(i + 1);
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME,null, where,whereArgs, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME,null, where.toString(),whereArgs, null, null, null, null);
         List<String> idProductos = new ArrayList<>();
 
         while (cursor.moveToNext()) {

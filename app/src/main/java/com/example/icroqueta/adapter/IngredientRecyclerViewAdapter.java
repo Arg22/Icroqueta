@@ -146,13 +146,9 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                                 Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
                             }
                         }
-
-
                     }
                 }
             });
         }
     }
 }
-
-

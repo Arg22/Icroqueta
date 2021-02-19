@@ -11,11 +11,6 @@ import android.widget.Toast;
 import com.example.icroqueta.database.DBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
-    private EditText nif;
-    private EditText nombre;
-    private EditText apellido;
-    private EditText contrasena;
-    private EditText correo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +26,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     //todo - Validacion de datos
     public void comprobarDatos(View view) {
-        nif = findViewById(R.id.nif);
-        nombre = findViewById(R.id.nombre);
-        apellido = findViewById(R.id.apellido);
-        contrasena = findViewById(R.id.contrasena);
-        correo = findViewById(R.id.correo);
+        EditText nif = findViewById(R.id.nif);
+        EditText nombre = findViewById(R.id.nombre);
+        EditText apellido = findViewById(R.id.apellido);
+        EditText contrasena = findViewById(R.id.contrasena);
+        EditText correo = findViewById(R.id.correo);
 
         //comprueba datos y en caso afirmativo abre el Login
         if (nif.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
@@ -43,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
+
             if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString(), contrasena.getText().toString()))) {
                 Toast.makeText(getApplicationContext(),
                         "El correo ya está registrado", Toast.LENGTH_SHORT).show();

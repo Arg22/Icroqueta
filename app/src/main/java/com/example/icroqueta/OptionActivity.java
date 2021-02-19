@@ -43,6 +43,9 @@ public class OptionActivity extends MenuBar {
 
     public void guardarOpcion(View view) {
         //todo - Guardar información usuario en la base de datos correspondiente
+
+
+
     }
 
     public void borrarCuenta(View view) {
