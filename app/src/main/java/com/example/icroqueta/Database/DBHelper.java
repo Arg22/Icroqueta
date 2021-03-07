@@ -389,8 +389,11 @@ public class DBHelper {
     public void addLinea(Context context, int idPersona, int idPedido) {
         DBSource db = new DBSource(context);
         //Ahora saca todos los productos del carrito y los pasa a Lista
+        //todo actualizar stock del pedido
+
         List<ProductoCarrito> lista = findProductosInCarrito(context, idPersona);
         for (ProductoCarrito pc : lista) {
+            updateProducto(context, pc.getIdProducto(), pc.getCantidad());
             Linea linea = new Linea(idPedido, pc.getIdProducto(), pc.getCantidad());
             db.getWritableDatabase().insert(LineaTable.TABLE_NAME, null, linea.mapearAContenValues());
         }
@@ -551,6 +554,7 @@ public class DBHelper {
         }
         return lista;
     }
+
     /**
      * Este método recoge todos los ingredientes de la base de datos
      * y los mete en una lista.
@@ -573,7 +577,7 @@ public class DBHelper {
      * Método para sacar solo la lista de ingredientes con el mismo tipo
      *
      * @param context el contexto de la actividad
-     * @param idtipo    el idtipo de ingrediente
+     * @param idtipo  el idtipo de ingrediente
      * @return la lista de los ingredientes
      */
     public List<TipoIngrediente> TiposDeIngredientesDeTipo(Context context, int idtipo) {
@@ -592,22 +596,22 @@ public class DBHelper {
     /**
      * Método para sacar solo la lista de los ingredientes con un mismo id
      *
-     * @param context        el contexto de la actividad
+     * @param context          el contexto de la actividad
      * @param tipoIngredientes las id de los ingredientes
      * @return la lista de los ingredientes
      */
-    public List<Ingrediente> allIngredientesDeUnTipo(Context context, List <TipoIngrediente> tipoIngredientes) {
+    public List<Ingrediente> allIngredientesDeUnTipo(Context context, List<TipoIngrediente> tipoIngredientes) {
         String where = IngredienteTable.ID_INGREDIENTE + "=?";
 
         String[] whereArgs = new String[tipoIngredientes.size()];
         whereArgs[0] = String.valueOf(tipoIngredientes.get(0));
 
         for (int i = 0; i < tipoIngredientes.size() - 1; i++) {
-            where += " OR "+IngredienteTable.ID_INGREDIENTE +"=?";
+            where += " OR " + IngredienteTable.ID_INGREDIENTE + "=?";
             whereArgs[i + 1] = String.valueOf(tipoIngredientes.get(i + 1));
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME,null, where,whereArgs, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null, null);
         List<Ingrediente> ingredientes = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -616,6 +620,7 @@ public class DBHelper {
         }
         return ingredientes;
     }
+
     /**
      * Método para sacar solo la lista de los identificadores del producto, que tengan los id que introduzcamos los id de los ingredientes
      *
@@ -624,7 +629,7 @@ public class DBHelper {
      * @return la lista de los ingredientes
      */
     public List<String> idProductosIdIngredientes(Context context, List<String> idIngredientes) {
-       StringBuilder where = new StringBuilder(IngredienteProductoTable.ID_INGREDIENTE + "=?");
+        StringBuilder where = new StringBuilder(IngredienteProductoTable.ID_INGREDIENTE + "=?");
 
         String[] whereArgs = new String[idIngredientes.size()];
         whereArgs[0] = idIngredientes.get(0);
@@ -634,7 +639,7 @@ public class DBHelper {
             whereArgs[i + 1] = idIngredientes.get(i + 1);
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME,null, where.toString(),whereArgs, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME, null, where.toString(), whereArgs, null, null, null, null);
         List<String> idProductos = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -643,6 +648,22 @@ public class DBHelper {
         }
 
         return idProductos;
+    }
+
+    /**
+     * Método para actualizar la cantidad del stock de un producto.
+     *
+     * @param context    el contexto de la actividad
+     * @param idProducto el id del producto
+     * @param cantidad   la cantidad que se va a restar al stock
+     */
+    public void updateProducto(Context context, Integer idProducto, Integer cantidad) {
+        String where = ProductoTable.ID_PRODUCTO + "=?";
+        String[] whereArgs = {String.valueOf(idProducto)};
+        DBSource db = new DBSource(context);
+        Producto p = oneProducto(context, idProducto);
+        p.setStock(p.getStock() - cantidad);
+        db.getWritableDatabase().update(ProductoTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
 
     /**
@@ -674,13 +695,136 @@ public class DBHelper {
         DBSource db = new DBSource(context);
         String where = IngredienteTable.ID_INGREDIENTE + "=?";
         String[] whereArgs = {String.valueOf(idIngrediente)};
-
         Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Ingrediente> lista = new ArrayList<>();
         while (cursor.moveToNext()) {
             lista.add(new Ingrediente().loadIngredienteFromCursor(cursor));
         }
         return lista.get(0);
+    }
+
+
+    /**
+     * Método para añadir un producto al carrito para guardarlo cuando cierre la app
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param numero    el numero de telefono
+     */
+    public void addPersonaTelefono(Context context, int idPersona, int numero) {
+        //primero comprobamos si el telefono está en la bd
+        DBSource db = new DBSource(context);
+        String where = TelefonoTable.NUMERO + "=?";
+        String[] whereArgs = {String.valueOf(numero)};
+        Cursor cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Telefono> lista = new ArrayList<>();
+        Telefono tlf;
+        //En el caso de que no esté lo metemos
+        if (cursor.getCount()==0) {
+            tlf = new Telefono(numero);
+            db.getWritableDatabase().insert(TelefonoTable.TABLE_NAME, null, tlf.mapearAContenValues());
+            //recogemos la id autogenerada para poder unirlo con el
+            cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        }
+        while (cursor.moveToNext()) {
+            lista.add(new Telefono().loadTelefonoFromCursor(cursor));
+        }
+        tlf = lista.get(0);
+        PersonaTelefono ptlf = new PersonaTelefono(idPersona, tlf.getIdTelefono());
+        db.getWritableDatabase().insert(PersonaTelefonoTable.TABLE_NAME, null, ptlf.mapearAContenValues());
+    }
+
+    /**
+     * Método para obtener solo un producto por su id
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public String oneTelefono(Context context, int idPersona) {
+      try {
+          DBSource db = new DBSource(context);
+          String where = PersonaTelefonoTable.ID_PERSONA + "=?";
+          String[] whereArgs = {String.valueOf(idPersona)};
+          Cursor cursor = db.getReadableDatabase().query(PersonaTelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+          List<PersonaTelefono> lista = new ArrayList<>();
+          while (cursor.moveToNext()) {
+              lista.add(new PersonaTelefono().loadPersonaTelefonoFromCursor(cursor));
+          }
+          PersonaTelefono ptlf = lista.get(0);
+          where = TelefonoTable.ID_TELEFONO + "=?";
+          whereArgs = new String[]{String.valueOf(ptlf.getIdTelefono())};
+          cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+          List<Telefono> listat = new ArrayList<>();
+          Telefono tlf;
+          while (cursor.moveToNext()) {
+              listat.add(new Telefono().loadTelefonoFromCursor(cursor));
+          }
+          return listat.get(0).getNumero() + "";
+      }catch (IndexOutOfBoundsException e){
+          return "";
+      }
+    }
+
+
+    /**
+     * Método para añadir un producto al carrito para guardarlo cuando cierre la app
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param direccion    el numero de telefono
+     */
+    public void addPersonaDireccion(Context context, int idPersona, String direccion, String localidad, String codigo, String coordenadas) {
+        //primero comprobamos si el telefono está en la bd
+        DBSource db = new DBSource(context);
+        String where = DireccionTable.CALLE + "=? AND " + DireccionTable.LOCALIDAD + "=? AND " + DireccionTable.CODIGO_POSTAL  + "=? AND " + DireccionTable.COORDENADA + "=?";
+        String[] whereArgs = {direccion,localidad,codigo, coordenadas};
+        Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Direccion> lista = new ArrayList<>();
+        Direccion dir;
+        //En el caso de que no esté lo metemos
+        if (cursor.getCount()==0) {
+            dir = new Direccion(idPersona, direccion,localidad, codigo, coordenadas);
+            db.getWritableDatabase().insert(DireccionTable.TABLE_NAME, null, dir.mapearAContenValues());
+            //recogemos la id autogenerada para poder unirlo con el
+            cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        }
+        while (cursor.moveToNext()) {
+            lista.add(new Direccion().loadDireccionFromCursor(cursor));
+        }
+        dir = lista.get(0);
+        PersonaDireccion pdir = new PersonaDireccion(idPersona, dir.getIdDireccion());
+        db.getWritableDatabase().insert(PersonaTelefonoTable.TABLE_NAME, null, pdir.mapearAContenValues());
+    }
+
+    /**
+     * Método para obtener solo un producto por su id
+     *
+     * @param context el contexto de la actividad
+     * @return La lista de productos de la bd
+     */
+    public Direccion oneDireccion(Context context, int idPersona) {
+        try {
+            DBSource db = new DBSource(context);
+            String where = PersonaDireccionTable.ID_PERSONA + "=?";
+            String[] whereArgs = {String.valueOf(idPersona)};
+            Cursor cursor = db.getReadableDatabase().query(PersonaDireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+            List<PersonaDireccion> lista = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                lista.add(new PersonaDireccion().loadPersonaDireccionFromCursor(cursor));
+            }
+            PersonaDireccion pdir = lista.get(0);
+            where = TelefonoTable.ID_TELEFONO + "=?";
+            whereArgs = new String[]{String.valueOf(pdir.getIdDireccion())};
+            cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+            List<Direccion> listat = new ArrayList<>();
+            Direccion dir;
+            while (cursor.moveToNext()) {
+                listat.add(new Direccion().loadDireccionFromCursor(cursor));
+            }
+            return listat.get(0);
+        }catch (IndexOutOfBoundsException e){
+            return null;
+        }
     }
 }
 

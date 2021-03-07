@@ -17,6 +17,8 @@ public class Telefono implements java.io.Serializable {
         this.idTelefono = idTelefono;
         this.numero = numero;
     }
+    public Telefono() {
+    }
 
     public Telefono(int numero) {
         this.numero = numero;

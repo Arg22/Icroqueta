@@ -36,6 +36,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     public IngredientRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Aqui se crea la nueva View
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.menulateral_layout, parent, false);
+
         return new MyViewHolder(v);
     }
 
@@ -49,6 +50,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.bind(ingredientes.get(position));
+
     }
 
     @Override

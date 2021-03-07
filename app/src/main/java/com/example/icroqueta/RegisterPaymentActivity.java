@@ -28,6 +28,7 @@ public class RegisterPaymentActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_payment);
         //todo - comprobar datos que se tienen del usuario y pedir los que les falten
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
         final TextView fecha = findViewById(R.id.fechaTarjetaPago);
         //Esto es para que escriba automaticamente en la fehca la barra lateral
@@ -83,7 +84,7 @@ public class RegisterPaymentActivity extends MenuBar {
             Toast.makeText(getApplicationContext(), "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
 
-            //todo -Comprueba los datos en la base de datos
+            //todo -Comprueba los datos en la base de datos o los añade
 
             validarPago();
         }
@@ -93,7 +94,6 @@ public class RegisterPaymentActivity extends MenuBar {
         //Se elimina el carro una vez hecho y se crea las lineas del producto asociado a un pedido
         DBHelper db = new DBHelper();
         if (db.addPedido(this, LoginActivity.usuario.getIdPersona())) {
-
             Toast.makeText(getApplicationContext(), "Pago realizado con éxito", Toast.LENGTH_LONG).show();
             //Se va automáticamente al MainActivity
             Intent intent = new Intent(this, MainActivity.class);

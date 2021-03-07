@@ -2,6 +2,8 @@ package com.example.icroqueta;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ public class OptionActivity extends MenuBar {
     EditText direccion;
     EditText localidad;
     EditText codigoPostal;
+    String nom, ape, n, cor, con, tel, dir, loc, cod;
 
 
     private static final long TIME_TO_CLOSE_APP = 5000;
@@ -30,6 +33,7 @@ public class OptionActivity extends MenuBar {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
         cargarDatos();
+        validacionDatos();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
 
@@ -42,8 +46,31 @@ public class OptionActivity extends MenuBar {
     }
 
     public void guardarOpcion(View view) {
-        //todo - Guardar información usuario en la base de datos correspondiente
+        DBHelper db = new DBHelper();
+        int aux;
+        if (nombre.getText().toString().matches("")) {
+            Toast.makeText(this, "No puede dejar vacio el nombre", Toast.LENGTH_LONG).show();
+        } else if (nombre.getText().toString().matches("")) {
+            Toast.makeText(this, "No puede dejar vacio el nombre", Toast.LENGTH_LONG).show();
+        } else if (nombre.getText().toString().matches("")) {
+            Toast.makeText(this, "No puede dejar vacio el correo", Toast.LENGTH_LONG).show();
+        } else if (nombre.getText().toString().matches("")) {
+            Toast.makeText(this, "No puede dejar vacia la contraseña", Toast.LENGTH_LONG).show();
+        } else if (nombre.getText().toString().matches(nom) && apellido.getText().toString().matches(ape) && nif.getText().toString().matches(n) && correo.getText().toString().matches(cor) && contrasena.getText().toString().matches(con) && telefono.getText().toString().matches(tel) && direccion.getText().toString().matches(dir) && localidad.getText().toString().matches(loc) && codigoPostal.getText().toString().matches(cod)) {
+            Toast.makeText(this, "No ha realizado ningún cambio", Toast.LENGTH_LONG).show();
+        } else {
+            //Comprobamos user name y correo por si existe en la base de datos otro usuario con el mismo nombre
+            //todo comporbar usuario
 
+            //Comprobamos telefono
+            if((!telefono.getText().toString().matches(tel))&&tel.matches("")){
+                //Se añade un telefono nuevo
+            aux=Integer.parseInt(telefono.getText().toString());
+            db.addPersonaTelefono(this,LoginActivity.usuario.getIdPersona(),aux);
+            }
+            // db.updatePersona(this,nombre.getText(),apellido.getText(),nif.getText(),correo.getText(),contrasena.getText(),telefono.getText(),direccion.getText(),localidad.getText(),codigoPostal.getText();
+            Toast.makeText(this, "Cambios guardados con exito", Toast.LENGTH_LONG).show();
+        }
 
 
     }
@@ -64,8 +91,11 @@ public class OptionActivity extends MenuBar {
 
         }
     }
-
+/**
+ * Método para cargar los datos disponibles del usuario
+ */
     public void cargarDatos() {
+        DBHelper db = new DBHelper();
         nombre = findViewById(R.id.nombreOpciones);
         apellido = findViewById(R.id.apellidoOpciones);
         nif = findViewById(R.id.nifOpciones);
@@ -82,12 +112,87 @@ public class OptionActivity extends MenuBar {
         nif.setText(LoginActivity.usuario.getNif());
         correo.setText(LoginActivity.usuario.getCorreo());
         contrasena.setText(LoginActivity.usuario.getContrasenya());
-    /* telefono.setText();
-        direccion.setText();
+        telefono.setText(db.oneTelefono(this, LoginActivity.usuario.getIdPersona()));
+
+      /*direccion.setText();
         localidad.setText();
-        codigoPostal.setText();
-        tarjeta.setText();
-        fechaTarjeta.setText();*/
+        codigoPostal.setText();*/
         //todo - cargar todos los datos
+        //todo-guardar coordenadas https://es.stackoverflow.com/questions/196676/extraer-coordenadas-de-una-direccion-con-la-api-de-google-maps
+        //https://developers.google.com/maps/documentation/javascript/markers
+       // https://developers.google.com/maps/documentation/geocoding/overview
+
+        nom = nombre.getText().toString();
+        ape = apellido.getText().toString();
+        n = nif.getText().toString();
+        cor = correo.getText().toString();
+        con = contrasena.getText().toString();
+        tel = telefono.getText().toString();
+        dir = direccion.getText().toString();
+        loc = localidad.getText().toString();
+        cod = codigoPostal.getText().toString();
     }
+
+    /**
+     * Método para aplciar la validación de datos de cada EditText
+     */
+    public void validacionDatos(){
+
+
+
+        correo = findViewById(R.id.correoOpciones);
+        contrasena = findViewById(R.id.contrasenaOpciones);
+        telefono = findViewById(R.id.telefonoOpciones);
+        direccion = findViewById(R.id.direccionOpciones);
+        localidad = findViewById(R.id.localidadOpciones);
+        codigoPostal = findViewById(R.id.cPostalOpciones);
+
+        nif.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                char caracter = e.getKeyChar();
+
+             if (recogeSinSimbolos(nif.getText().toString()).length() < 8) {
+                    if (!((caracter >= '0') && (caracter <= '9') || (caracter == ' ') || (caracter == '/') || (caracter == '-') || (caracter == '\r') || (caracter == '\b'))) {
+                        e.consume();
+                    }
+                } else if ((recogeSinSimbolos(nif.getText().toString()).length() == 8)) {
+                    if (((caracter >= '0') && (caracter <= '9')) && !(caracter == '\r') && !(caracter == '\b')) {
+                        if (!(caracter == ' ')) {
+                            e.consume();
+                        }
+                    }
+                } else {
+                    e.consume();
+
+                }
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+    }
+
+    /**
+     * Devuelve un String quitandole los caracteres que le indiquemos
+     *
+     * @param frase Es el String que le metemos para que le borres los
+     * caracteres que indiquemos
+     * @return la cadena sin simbolos
+     */
+    private String recogeSinSimbolos(String frase) {
+        String[] elementos = {" ", "-", ".", "/"}; //Aqui se añadirian más
+        for (String elemento : elementos) {
+            frase = frase.replace(elemento, "");
+        }
+        return frase;
+    }
+
 }

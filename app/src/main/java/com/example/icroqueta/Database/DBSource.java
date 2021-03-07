@@ -24,7 +24,7 @@ import com.example.icroqueta.database.tablas.TipoTable;
 
 public class DBSource extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 5;
     public static final String DATABASE_NAME = "croqueta.db";
 
     public DBSource(@Nullable Context context) {

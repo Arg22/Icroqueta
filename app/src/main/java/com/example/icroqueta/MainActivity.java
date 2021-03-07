@@ -65,7 +65,10 @@ public class MainActivity extends MenuBar {
 
         //Para visualizar el Recicle view en esta Vista
         IngredientRecyclerViewAdapter adapterIng = new IngredientRecyclerViewAdapter(ingredientes);
+
         RecyclerView ingredientesRecyclerView = findViewById(R.id.ingredienteRecyclerView);
+        //Para que no se refresquen a cada item
+        ingredientesRecyclerView.setItemViewCacheSize(100);
         ingredientesRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         ingredientesRecyclerView.setAdapter(adapterIng);
 
@@ -80,9 +83,8 @@ public class MainActivity extends MenuBar {
                 || super.onSupportNavigateUp();
     }
     //todo Cifrar contraseñas
-    //todo descuentos
     //todo Traducir strings
-    //todo meter alergenos
+    //todo guardar coordenadas maps
 
     /**
      * Método para salir de la aplicación si se pulsa reiteradamente con el botón back
