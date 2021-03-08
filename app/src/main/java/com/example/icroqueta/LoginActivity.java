@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
-            int idPersona = db.findPersonaLogin(this, correo.getText().toString(), contrasena.getText().toString());
+            int idPersona = db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), contrasena.getText().toString());
             switch (idPersona) {
                 case -1:
                     Toast.makeText(getApplicationContext(),

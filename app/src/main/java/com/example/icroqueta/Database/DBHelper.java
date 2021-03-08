@@ -765,8 +765,7 @@ public class DBHelper {
       }
     }
 
-
-    /**
+     /**
      * Método para añadir un producto al carrito para guardarlo cuando cierre la app
      *
      * @param context   el contexto de la actividad
@@ -825,6 +824,21 @@ public class DBHelper {
         }catch (IndexOutOfBoundsException e){
             return null;
         }
+    }
+    /**
+     * Método para comprobar si existe otro usuario con el mismo correo
+     *
+     * @param context    el contexto de la actividad
+     * @param correo nombre que se quiere comprobar
+     * @param idPersona la id de la persona que solicita la comprobación
+     * @return true si existe, false si no existe en la bd
+     */
+    public boolean notExistCorreo(Context context,  int idPersona, String correo){
+        String where = PersonaTable.CORREO + "=? AND " + PersonaTable.ID_PERSONA + "<>?";
+        String[] whereArgs = {correo, String.valueOf(idPersona)};
+        DBSource db = new DBSource(context);
+        @SuppressLint("Recycle") Cursor cursor = db.getReadableDatabase().query(PersonaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        return cursor.getCount() == 0;
     }
 }
 

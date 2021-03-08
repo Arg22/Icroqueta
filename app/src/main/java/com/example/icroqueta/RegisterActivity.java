@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             DBHelper db = new DBHelper();
 
-            if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString(), contrasena.getText().toString()))) {
+            if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString().toLowerCase(), contrasena.getText().toString()))) {
                 Toast.makeText(getApplicationContext(),
                         "El correo ya está registrado", Toast.LENGTH_SHORT).show();
             } else {

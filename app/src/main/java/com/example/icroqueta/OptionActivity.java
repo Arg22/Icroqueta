@@ -48,6 +48,7 @@ public class OptionActivity extends MenuBar {
     public void guardarOpcion(View view) {
         DBHelper db = new DBHelper();
         int aux;
+        int idPersona = LoginActivity.usuario.getIdPersona();
         if (nombre.getText().toString().matches("")) {
             Toast.makeText(this, "No puede dejar vacio el nombre", Toast.LENGTH_LONG).show();
         } else if (nombre.getText().toString().matches("")) {
@@ -59,25 +60,33 @@ public class OptionActivity extends MenuBar {
         } else if (nombre.getText().toString().matches(nom) && apellido.getText().toString().matches(ape) && nif.getText().toString().matches(n) && correo.getText().toString().matches(cor) && contrasena.getText().toString().matches(con) && telefono.getText().toString().matches(tel) && direccion.getText().toString().matches(dir) && localidad.getText().toString().matches(loc) && codigoPostal.getText().toString().matches(cod)) {
             Toast.makeText(this, "No ha realizado ningún cambio", Toast.LENGTH_LONG).show();
         } else {
-            //todo comporbar usuario
-
-
-            //Comprobamos user name por si existe en la base de datos otro usuario con el mismo nombre
-
-
             // Comprobamos nif
-            if (!compruebaLetraDNI(nif.getText().toString())) {
+           /* if (!compruebaLetraDNI(nif.getText().toString())) {
                 Toast.makeText(this, "Compruebe el dni", Toast.LENGTH_LONG).show();
-            }
+            }*/
             //Comprobamos correo por si existe en la base de datos otro usuario con el mismo nombre
+            if (!db.notExistCorreo(this,idPersona,correo.getText().toString())){
+                Toast.makeText(this, "El correo ya está registrado por otra cuenta", Toast.LENGTH_LONG).show();
+
+            }else{
+                               //todo update correo
+            }
+        
 
 
-            //Comprobamos telefono
+            //Comprobamos que no tenia telefono registrado
             if ((!telefono.getText().toString().matches(tel)) && tel.matches("")) {
                 //Se añade un telefono nuevo
                 aux = Integer.parseInt(telefono.getText().toString());
-                db.addPersonaTelefono(this, LoginActivity.usuario.getIdPersona(), aux);
+                db.addPersonaTelefono(this, idPersona, aux);
             }
+            //todo añadir otro telefono al usuario
+
+//todo direccion
+            //si hay direccion, añadir localidad y poblacion y codigo postal
+
+            //todo share preferences
+
             // db.updatePersona(this,nombre.getText(),apellido.getText(),nif.getText(),correo.getText(),contrasena.getText(),telefono.getText(),direccion.getText(),localidad.getText(),codigoPostal.getText();
             Toast.makeText(this, "Cambios guardados con exito", Toast.LENGTH_LONG).show();
         }
@@ -98,7 +107,6 @@ public class OptionActivity extends MenuBar {
             Intent intent = new Intent(this, LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-
         }
     }
 
