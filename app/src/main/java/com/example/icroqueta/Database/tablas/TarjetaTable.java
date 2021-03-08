@@ -13,7 +13,7 @@ public class TarjetaTable {
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID_TARJETA + " INTEGER PRIMARY KEY," +
                     FECHA_CADUCIDAD + " DATE," +
-                    NUMERO + " TEXT)";
+                    NUMERO + " TEXT UNIQUE)";
 
 
     private static final String SQL_DELETE_ENTRIES =

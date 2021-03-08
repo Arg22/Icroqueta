@@ -16,12 +16,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/nombre"
-        android:maxLength="50"
         android:inputType="textPersonName"
+        android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/apellidoOpciones"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -32,12 +31,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/apellidos"
-        android:maxLength="50"
         android:inputType="textPersonName"
+        android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/nifOpciones"
         app:layout_constraintTop_toBottomOf="@+id/nombreOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -48,12 +46,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/nif"
-        android:maxLength="9"
         android:inputType="textPersonName"
+        android:maxLength="9"
         app:layout_constraintBottom_toTopOf="@+id/correoOpciones"
         app:layout_constraintTop_toBottomOf="@+id/apellidoOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -63,12 +60,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/correo"
-        android:maxLength="50"
         android:inputType="textEmailAddress"
+        android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/contrasenaOpciones"
         app:layout_constraintTop_toBottomOf="@+id/nifOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -82,8 +78,7 @@
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/telefonoOpciones"
         app:layout_constraintTop_toBottomOf="@+id/correoOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        tools:layout_editor_absoluteX="32dp" />
 
     <EditText
         android:id="@+id/telefonoOpciones"
@@ -97,8 +92,7 @@
         android:maxLength="9"
         app:layout_constraintBottom_toTopOf="@+id/direccionOpciones"
         app:layout_constraintTop_toBottomOf="@+id/contrasenaOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
 
@@ -110,12 +104,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/direcci_n"
-        android:maxLength="50"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/localidadOpciones"
+        android:maxLength="50"
+        app:layout_constraintBottom_toTopOf="@+id/portalOpciones"
         app:layout_constraintTop_toBottomOf="@+id/telefonoOpciones"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
 
@@ -126,11 +119,11 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="8"
         android:hint="@string/localidad"
-        android:maxLength="50"
         android:inputType="textPersonName"
+        android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/guardarOpcion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccionOpciones"
+        app:layout_constraintTop_toBottomOf="@+id/portalOpciones"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -141,11 +134,40 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="8"
         android:hint="@string/c_digo_postal"
-        android:maxLength="5"
         android:inputType="number"
+        android:maxLength="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/localidadOpciones"
         app:layout_constraintTop_toTopOf="@+id/localidadOpciones"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/portalOpciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Portal"
+        android:inputType="textPersonName"
+        android:maxLength="50"
+        app:layout_constraintBottom_toTopOf="@+id/localidadOpciones"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/direccionOpciones"
+        tools:targetApi="lollipop" />
+
+    <EditText
+        android:id="@+id/puertaOpciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@color/colorPrimary"
+        android:ems="8"
+        android:hint="Núm.Puerta"
+        android:inputType="number"
+        android:maxLength="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/portalOpciones"
+        app:layout_constraintTop_toTopOf="@+id/portalOpciones"
         tools:targetApi="lollipop" />
 
     <Button
@@ -156,9 +178,8 @@
         android:onClick="guardarOpcion"
         android:text="@string/guardar_cambios"
         app:layout_constraintBottom_toTopOf="@+id/borrarUsuario"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones" />
+        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones"
+        tools:layout_editor_absoluteX="32dp" />
 
     <Button
         android:id="@+id/borrarUsuario"
@@ -170,7 +191,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guardarOpcion"
         tools:ignore="MissingConstraints,OnClick"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        tools:layout_editor_absoluteX="32dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

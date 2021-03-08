@@ -1,15 +1,16 @@
 package com.example.icroqueta;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.icroqueta.database.DBHelper;
+import com.example.icroqueta.utils.LocalizadorDirecciones;
+import com.example.icroqueta.utils.ValidadorDNI;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Objects;
 
@@ -22,6 +23,8 @@ public class OptionActivity extends MenuBar {
     EditText contrasena;
     EditText telefono;
     EditText direccion;
+    EditText portal;
+    EditText puerta;
     EditText localidad;
     EditText codigoPostal;
     String nom, ape, n, cor, con, tel, dir, loc, cod;
@@ -49,37 +52,56 @@ public class OptionActivity extends MenuBar {
         DBHelper db = new DBHelper();
         int aux;
         int idPersona = LoginActivity.usuario.getIdPersona();
-        if (nombre.getText().toString().matches("")) {
+        if (nombre.getText().toString().trim().matches("")) {
             Toast.makeText(this, "No puede dejar vacio el nombre", Toast.LENGTH_LONG).show();
-        } else if (nombre.getText().toString().matches("")) {
-            Toast.makeText(this, "No puede dejar vacio el nombre", Toast.LENGTH_LONG).show();
-        } else if (nombre.getText().toString().matches("")) {
+        } else if (apellido.getText().toString().trim().matches("")) {
+            Toast.makeText(this, "No puede dejar vacio el apellido", Toast.LENGTH_LONG).show();
+        } else if (correo.getText().toString().trim().matches("")) {
             Toast.makeText(this, "No puede dejar vacio el correo", Toast.LENGTH_LONG).show();
-        } else if (nombre.getText().toString().matches("")) {
+        } else if (contrasena.getText().toString().trim().matches("")) {
             Toast.makeText(this, "No puede dejar vacia la contraseña", Toast.LENGTH_LONG).show();
         } else if (nombre.getText().toString().matches(nom) && apellido.getText().toString().matches(ape) && nif.getText().toString().matches(n) && correo.getText().toString().matches(cor) && contrasena.getText().toString().matches(con) && telefono.getText().toString().matches(tel) && direccion.getText().toString().matches(dir) && localidad.getText().toString().matches(loc) && codigoPostal.getText().toString().matches(cod)) {
             Toast.makeText(this, "No ha realizado ningún cambio", Toast.LENGTH_LONG).show();
         } else {
             // Comprobamos nif
-           /* if (!compruebaLetraDNI(nif.getText().toString())) {
-                Toast.makeText(this, "Compruebe el dni", Toast.LENGTH_LONG).show();
-            }*/
-            //Comprobamos correo por si existe en la base de datos otro usuario con el mismo nombre
-            if (!db.notExistCorreo(this,idPersona,correo.getText().toString())){
-                Toast.makeText(this, "El correo ya está registrado por otra cuenta", Toast.LENGTH_LONG).show();
+            ValidadorDNI v = new ValidadorDNI(nif.getText().toString());
+            if (!v.validar()) {
+                Toast.makeText(this, "Compruebe el Nif", Toast.LENGTH_LONG).show();
+            } else {
+                //Actualizamos del nif
+                db.updateNifPersona(this, idPersona, nif.getText().toString());
 
-            }else{
-                               //todo update correo
+                //Comprobamos correo por si existe en la base de datos otro usuario con el mismo correo
+                if (!db.notExistCorreo(this, idPersona, correo.getText().toString())) {
+                    Toast.makeText(this, "El correo ya está registrado por otra cuenta", Toast.LENGTH_LONG).show();
+                } else {
+                    db.updateCorreoPersona(this, idPersona, correo.getText().toString());
+                    //Comprobamos el telefono
+                    if (!(telefono.getText().toString().trim().matches("") || telefono.getText().toString().trim().matches(tel))) {
+                        //Se añade un telefono nuevo
+                        aux = Integer.parseInt(telefono.getText().toString());
+                        db.addPersonaTelefono(this, idPersona, aux);
+                    }
+                        if (!(direccion.getText().toString().trim().matches("") || direccion.getText().toString().trim().matches(tel))) {
+                            //Se añade una direccion nueva
+                            aux = Integer.parseInt(telefono.getText().toString());
+                            LocalizadorDirecciones ld = new LocalizadorDirecciones();
+                            LatLng latlon = ld.getLocationFromAddress(this, direccion.getText().toString());
+                            try {
+                                String auxlat = String.valueOf(latlon.latitude);
+                                Toast.makeText(this, auxlat, Toast.LENGTH_LONG).show();
+                            }catch (Exception e){
+                                Toast.makeText(this, "no lo lee", Toast.LENGTH_LONG).show();}
+
+                            //db.addPersonaDireccion(this, idPersona, direccion.getText().toString(), localidad.getText().toString(), codigoPostal.getText().toString(), latlon);
+
+
+                    }
+                }
             }
-        
 
 
-            //Comprobamos que no tenia telefono registrado
-            if ((!telefono.getText().toString().matches(tel)) && tel.matches("")) {
-                //Se añade un telefono nuevo
-                aux = Integer.parseInt(telefono.getText().toString());
-                db.addPersonaTelefono(this, idPersona, aux);
-            }
+
             //todo añadir otro telefono al usuario
 
 //todo direccion
@@ -88,7 +110,7 @@ public class OptionActivity extends MenuBar {
             //todo share preferences
 
             // db.updatePersona(this,nombre.getText(),apellido.getText(),nif.getText(),correo.getText(),contrasena.getText(),telefono.getText(),direccion.getText(),localidad.getText(),codigoPostal.getText();
-            Toast.makeText(this, "Cambios guardados con exito", Toast.LENGTH_LONG).show();
+            //     Toast.makeText(this, "Cambios guardados con exito", Toast.LENGTH_LONG).show();
         }
 
 
@@ -122,6 +144,8 @@ public class OptionActivity extends MenuBar {
         contrasena = findViewById(R.id.contrasenaOpciones);
         telefono = findViewById(R.id.telefonoOpciones);
         direccion = findViewById(R.id.direccionOpciones);
+        portal = findViewById(R.id.nPortalOpciones);
+        puerta = findViewById(R.id.puertaOpciones);
         localidad = findViewById(R.id.localidadOpciones);
         codigoPostal = findViewById(R.id.cPostalOpciones);
 
@@ -134,6 +158,8 @@ public class OptionActivity extends MenuBar {
         telefono.setText(db.oneTelefono(this, LoginActivity.usuario.getIdPersona()));
 
       /*direccion.setText();
+        portal.setText();
+        puerta.setText();
         localidad.setText();
         codigoPostal.setText();*/
         //todo - cargar todos los datos
@@ -152,17 +178,5 @@ public class OptionActivity extends MenuBar {
         cod = codigoPostal.getText().toString();
     }
 
-    private boolean compruebaLetraDNI(String dni) {
-        try {
-            int num = Integer.parseInt(dni.substring(0, 8));
-            char letra = "TRWAGMYFPDXBNJZSQVHLCKE".charAt(num % 23);
-            if (dni.charAt(8) != letra)
-                return false;
-        } catch (Exception e) {
-            Log.i("ValidacionDNI", e.getClass().toString());
-            return false;
-        }
-        return true;
-    }
 
 }

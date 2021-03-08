@@ -9,6 +9,7 @@ public class DireccionTable {
     public static final String LOCALIDAD = "localidad";
     public static final String CODIGO_POSTAL = "codigo_postal";
     public static final String COORDENADA = "coordenada";
+    public static final String EDIFICIO = "edificio";
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
@@ -16,7 +17,8 @@ public class DireccionTable {
                     CALLE + " TEXT," +
                     LOCALIDAD + " TEXT, " +
                     CODIGO_POSTAL + " TEXT ," +
-                    COORDENADA + " TEXT)";
+                    COORDENADA + " TEXT ," +
+                    EDIFICIO + " TEXT )";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;

@@ -11,7 +11,7 @@ public class TelefonoTable {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID_TELEFONO + " INTEGER PRIMARY KEY," +
-                    NUMERO + " TEXT)";
+                    NUMERO + " TEXT UNIQUE)";
 
 
     private static final String SQL_DELETE_ENTRIES =

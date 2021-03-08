@@ -30,16 +30,19 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/correo"
-        android:maxLength="50"
         android:inputType="textEmailAddress"
+        android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:text="a"
+        />
 
-
+    <!--todo quitar el usuario a-->
     <EditText
+        android:text="a"
         android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -53,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo_login" />
+        app:layout_constraintTop_toBottomOf="@+id/correo_login"/>
 
 
     <TextView
