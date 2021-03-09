@@ -379,12 +379,12 @@ public class DBHelper {
     /**
      * Método para comprobar si existe otro usuario con el mismo correo
      *
-     * @param context    el contexto de la actividad
-     * @param correo nombre que se quiere comprobar
+     * @param context   el contexto de la actividad
+     * @param correo    nombre que se quiere comprobar
      * @param idPersona la id de la persona que solicita la comprobación
      * @return true si existe, false si no existe en la bd
      */
-    public boolean notExistCorreo(Context context,  int idPersona, String correo){
+    public boolean notExistCorreo(Context context, int idPersona, String correo) {
         String where = PersonaTable.CORREO + "=? AND " + PersonaTable.ID_PERSONA + "<>?";
         String[] whereArgs = {correo, String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
@@ -395,45 +395,47 @@ public class DBHelper {
     /**
      * Método para actualizar el nombre de la persona
      *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param nombre   el nuevo nombre
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param nombre    el nuevo nombre
      */
     public void updateNombrePersona(Context context, int idPersona, String nombre) {
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Persona p = findPersonaId(context,idPersona);
+        Persona p = findPersonaId(context, idPersona);
         p.setNombre(nombre);
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
+
     /**
      * Método para actualizar el apellido de la persona
      *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param apellido   el nuevo apellido
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param apellido  el nuevo apellido
      */
     public void updateApellidoPersona(Context context, int idPersona, String apellido) {
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Persona p = findPersonaId(context,idPersona);
+        Persona p = findPersonaId(context, idPersona);
         p.setApellidos(apellido);
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
+
     /**
      * Método para actualizar el nif de la persona
      *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param nif   el nuevo nif
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param nif       el nuevo nif
      */
     public void updateNifPersona(Context context, int idPersona, String nif) {
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Persona p = findPersonaId(context,idPersona);
+        Persona p = findPersonaId(context, idPersona);
         p.setNif(nif);
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
@@ -441,31 +443,32 @@ public class DBHelper {
     /**
      * Método para actualizar el correo de la persona
      *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param correo   el nuevo correo
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param correo    el nuevo correo
      */
     public void updateCorreoPersona(Context context, int idPersona, String correo) {
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Persona p = findPersonaId(context,idPersona);
+        Persona p = findPersonaId(context, idPersona);
         p.setCorreo(correo);
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
+
     /**
      * Método para actualizar la contraseña de la persona
      *
-     * @param context    el contexto de la actividad
-     * @param idPersona  el id del usuario
-     * @param pass   la nueva contraseña
+     * @param context   el contexto de la actividad
+     * @param idPersona el id del usuario
+     * @param pass      la nueva contraseña
      */
     public void updateContrasenyaPersona(Context context, int idPersona, String pass) {
         //todo hash contraseña
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
-        Persona p = findPersonaId(context,idPersona);
+        Persona p = findPersonaId(context, idPersona);
         p.setContrasenya(pass);
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
@@ -818,7 +821,7 @@ public class DBHelper {
         List<Telefono> lista = new ArrayList<>();
         Telefono tlf;
         //En el caso de que no esté lo metemos
-        if (cursor.getCount()==0) {
+        if (cursor.getCount() == 0) {
             tlf = new Telefono(numero);
             db.getWritableDatabase().insert(TelefonoTable.TABLE_NAME, null, tlf.mapearAContenValues());
             //recogemos la id autogenerada para poder unirlo con el usuario
@@ -839,52 +842,56 @@ public class DBHelper {
      * @return La lista de productos de la bd
      */
     public String oneTelefono(Context context, int idPersona) {
-      try {
-          DBSource db = new DBSource(context);
-          String where = PersonaTelefonoTable.ID_PERSONA + "=?";
-          String[] whereArgs = {String.valueOf(idPersona)};
-          Cursor cursor = db.getReadableDatabase().query(PersonaTelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-          List<PersonaTelefono> lista = new ArrayList<>();
-          while (cursor.moveToNext()) {
-              lista.add(new PersonaTelefono().loadPersonaTelefonoFromCursor(cursor));
-          }
-          PersonaTelefono ptlf = lista.get(0);
-          where = TelefonoTable.ID_TELEFONO + "=?";
-          whereArgs = new String[]{String.valueOf(ptlf.getIdTelefono())};
-          cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
-          List<Telefono> listat = new ArrayList<>();
-          Telefono tlf;
-          while (cursor.moveToNext()) {
-              listat.add(new Telefono().loadTelefonoFromCursor(cursor));
-          }
-          return listat.get(0).getNumero() + "";
-      }catch (IndexOutOfBoundsException e){
-          return "";
-      }
+        try {
+            DBSource db = new DBSource(context);
+            String where = PersonaTelefonoTable.ID_PERSONA + "=?";
+            String[] whereArgs = {String.valueOf(idPersona)};
+            Cursor cursor = db.getReadableDatabase().query(PersonaTelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+            List<PersonaTelefono> lista = new ArrayList<>();
+            while (cursor.moveToNext()) {
+                lista.add(new PersonaTelefono().loadPersonaTelefonoFromCursor(cursor));
+            }
+            PersonaTelefono ptlf = lista.get(0);
+            where = TelefonoTable.ID_TELEFONO + "=?";
+            whereArgs = new String[]{String.valueOf(ptlf.getIdTelefono())};
+            cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+            List<Telefono> listat = new ArrayList<>();
+            Telefono tlf;
+            while (cursor.moveToNext()) {
+                listat.add(new Telefono().loadTelefonoFromCursor(cursor));
+            }
+            return listat.get(0).getNumero() + "";
+        } catch (IndexOutOfBoundsException e) {
+            return "";
+        }
     }
-
 
 
     //****** Métodos tabla PersonaDireccion y Direccion ******//
 
-     /**
+    /**
      * Método para añadir un producto al carrito para guardarlo cuando cierre la app
      *
-     * @param context   el contexto de la actividad
-     * @param idPersona el id del usuario
-     * @param direccion    el numero de telefono
+     * @param context el contexto de la actividad
+     * @param idPersona la id del usuario
+     * @param calle la calle de la direccion
+     * @param portal el portal de la direccion
+     * @param puerta la puerta de la direccion
+     * @param codigo el codigo de la direccion
+     * @param localidad la localidad de la direccion
+     * @param coordenadas las coordenadas de la direccion
      */
-    public void addPersonaDireccion(Context context, int idPersona, String direccion, String localidad, String codigo, String coordenadas,String edificio) {
+    public void addPersonaDireccion(Context context, int idPersona, String calle, String portal, String puerta, String codigo, String localidad, String coordenadas) {
         //primero comprobamos si el telefono está en la bd
         DBSource db = new DBSource(context);
-        String where = DireccionTable.CALLE + "=? AND " + DireccionTable.LOCALIDAD + "=? AND " + DireccionTable.CODIGO_POSTAL  + "=? AND " + DireccionTable.COORDENADA + "=?";
-        String[] whereArgs = {direccion,localidad,codigo, coordenadas};
+        String where = DireccionTable.CALLE + "=? AND " + DireccionTable.PORTAL + "=? AND " + DireccionTable.PUERTA + "=? AND " + DireccionTable.CODIGO_POSTAL + "=? AND " + DireccionTable.LOCALIDAD + "=? AND " + DireccionTable.COORDENADA + "=?";
+        String[] whereArgs = {calle, portal, puerta, codigo, localidad, coordenadas};
         Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Direccion> lista = new ArrayList<>();
         Direccion dir;
         //En el caso de que no esté lo metemos
-        if (cursor.getCount()==0) {
-            dir = new Direccion(idPersona, direccion,localidad, codigo, coordenadas,edificio);
+        if (cursor.getCount() == 0) {
+            dir = new Direccion(calle, portal, puerta, codigo, localidad, coordenadas);
             db.getWritableDatabase().insert(DireccionTable.TABLE_NAME, null, dir.mapearAContenValues());
             //recogemos la id autogenerada para poder unirlo con el
             cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
@@ -923,7 +930,7 @@ public class DBHelper {
                 listat.add(new Direccion().loadDireccionFromCursor(cursor));
             }
             return listat.get(0);
-        }catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }

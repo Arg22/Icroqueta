@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 import com.example.icroqueta.database.DBHelper;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -38,8 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
-
-            if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString().toLowerCase(), contrasena.getText().toString()))) {
+            //Para encripar la contraseña
+            String passEncriptada = new String(Hex.encodeHex(DigestUtils.sha1(contrasena.getText().toString())));
+            if (!(db.addPersona(this, nif.getText().toString(), nombre.getText().toString(), apellido.getText().toString(), correo.getText().toString().toLowerCase(),passEncriptada ))) {
                 Toast.makeText(getApplicationContext(),
                         "El correo ya está registrado", Toast.LENGTH_SHORT).show();
             } else {
@@ -48,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-
 
     public void openBack(View view) {
         Intent intent = new Intent(this, LoginActivity.class);

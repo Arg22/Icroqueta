@@ -67,10 +67,8 @@ public class Telefono implements java.io.Serializable {
     public Telefono loadTelefonoFromCursor(Cursor cursor) {
         int idTelefono = cursor.getInt(cursor.getColumnIndexOrThrow(TelefonoTable.ID_TELEFONO));
         int numero = cursor.getInt(cursor.getColumnIndexOrThrow(TelefonoTable.NUMERO));
-
         this.idTelefono = idTelefono;
         this.numero = numero;
-
         return this;
     }
 

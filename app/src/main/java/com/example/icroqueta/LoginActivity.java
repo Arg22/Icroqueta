@@ -11,6 +11,9 @@ import android.widget.Toast;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Persona;
 
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
@@ -47,7 +50,9 @@ public class LoginActivity extends AppCompatActivity {
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
         } else {
             DBHelper db = new DBHelper();
-            int idPersona = db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), contrasena.getText().toString());
+            //Para encripar la contraseña
+            String passEncriptada = new String(Hex.encodeHex(DigestUtils.sha1(contrasena.getText().toString())));
+            int idPersona = db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), passEncriptada);
             switch (idPersona) {
                 case -1:
                     Toast.makeText(getApplicationContext(),

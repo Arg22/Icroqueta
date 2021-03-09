@@ -10,25 +10,31 @@ public class Direccion implements java.io.Serializable {
 
     private Integer idDireccion;
     private String calle;
-    private String localidad;
+    private String portal;
+    private String puerta;
     private String codigoPostal;
+    private String localidad;
     private String coordenada;
 
     public Direccion() {
     }
 
-    public Direccion(String calle, String localidad, String codigoPostal, String coordenada) {
+    public Direccion(String calle, String portal, String puerta, String codigoPostal, String localidad, String coordenada) {
         this.calle = calle;
-        this.localidad = localidad;
+        this.portal = portal;
+        this.puerta = puerta;
         this.codigoPostal = codigoPostal;
+        this.localidad = localidad;
         this.coordenada = coordenada;
     }
 
-    public Direccion(Integer idDireccion, String calle, String localidad, String codigoPostal, String coordenada) {
+    public Direccion(Integer idDireccion, String calle, String portal, String puerta, String codigoPostal, String localidad, String coordenada) {
         this.idDireccion = idDireccion;
         this.calle = calle;
-        this.localidad = localidad;
+        this.portal = portal;
+        this.puerta = puerta;
         this.codigoPostal = codigoPostal;
+        this.localidad = localidad;
         this.coordenada = coordenada;
     }
 
@@ -72,6 +78,22 @@ public class Direccion implements java.io.Serializable {
         this.coordenada = coordenada;
     }
 
+    public String getPuerta() {
+        return puerta;
+    }
+
+    public void setPuerta(String puerta) {
+        this.puerta = puerta;
+    }
+
+    public String getPortal() {
+        return portal;
+    }
+
+    public void setPortal(String portal) {
+        this.portal = portal;
+    }
+
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
@@ -83,10 +105,11 @@ public class Direccion implements java.io.Serializable {
         ContentValues values = new ContentValues();
         values.put(DireccionTable.ID_DIRECCION, idDireccion);
         values.put(DireccionTable.CALLE, calle);
-        values.put(DireccionTable.LOCALIDAD, localidad);
+        values.put(DireccionTable.PORTAL, portal);
+        values.put(DireccionTable.PUERTA, puerta);
         values.put(DireccionTable.CODIGO_POSTAL, codigoPostal);
+        values.put(DireccionTable.LOCALIDAD, localidad);
         values.put(DireccionTable.COORDENADA, coordenada);
-
         return values;
     }
 
@@ -101,18 +124,23 @@ public class Direccion implements java.io.Serializable {
 
         int idDireccion = cursor.getInt(cursor.getColumnIndexOrThrow(DireccionTable.ID_DIRECCION));
         String calle = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CALLE));
-        String localidad = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.LOCALIDAD));
+        String portal = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.PORTAL));
+        String puerta = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.PUERTA));
         String codigoPostal = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.CODIGO_POSTAL));
+        String localidad = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.LOCALIDAD));
         String coordenada = cursor.getString(cursor.getColumnIndexOrThrow(DireccionTable.COORDENADA));
 
         this.idDireccion = idDireccion;
         this.calle = calle;
-        this.localidad = localidad;
+        this.portal = portal;
+        this.puerta = puerta;
         this.codigoPostal = codigoPostal;
+        this.localidad = localidad;
         this.coordenada = coordenada;
 
         return this;
     }
 }
+
 
 

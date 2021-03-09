@@ -73,7 +73,7 @@ public class RegisterPaymentActivity extends MenuBar {
     public void comprobarDatos(View view) {
         telefono = findViewById(R.id.telefonoPago);
         direccion = findViewById(R.id.direccionPago);
-        localidad = findViewById(R.id.localidadlPago);
+        localidad = findViewById(R.id.localidadPago);
         codigo_postal = findViewById(R.id.cPostalPago);
         tarjeta = findViewById(R.id.tarjetaPago);
         fecha = findViewById(R.id.fechaTarjetaPago);
