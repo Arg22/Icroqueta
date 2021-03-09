@@ -464,7 +464,6 @@ public class DBHelper {
      * @param pass      la nueva contraseña
      */
     public void updateContrasenyaPersona(Context context, int idPersona, String pass) {
-        //todo hash contraseña
         String where = PersonaTable.ID_PERSONA + "=?";
         String[] whereArgs = {String.valueOf(idPersona)};
         DBSource db = new DBSource(context);
@@ -473,7 +472,7 @@ public class DBHelper {
         db.getWritableDatabase().update(PersonaTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
 
-    //todo hash tarjeta
+
 
 
     //****** Métodos tabla Linea ******//
@@ -856,7 +855,6 @@ public class DBHelper {
             whereArgs = new String[]{String.valueOf(ptlf.getIdTelefono())};
             cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Telefono> listat = new ArrayList<>();
-            Telefono tlf;
             while (cursor.moveToNext()) {
                 listat.add(new Telefono().loadTelefonoFromCursor(cursor));
             }
@@ -882,10 +880,10 @@ public class DBHelper {
      * @param coordenadas las coordenadas de la direccion
      */
     public void addPersonaDireccion(Context context, int idPersona, String calle, String portal, String puerta, String codigo, String localidad, String coordenadas) {
-        //primero comprobamos si el telefono está en la bd
+        //primero comprobamos si la direccion está en la bd
         DBSource db = new DBSource(context);
-        String where = DireccionTable.CALLE + "=? AND " + DireccionTable.PORTAL + "=? AND " + DireccionTable.PUERTA + "=? AND " + DireccionTable.CODIGO_POSTAL + "=? AND " + DireccionTable.LOCALIDAD + "=? AND " + DireccionTable.COORDENADA + "=?";
-        String[] whereArgs = {calle, portal, puerta, codigo, localidad, coordenadas};
+        String where = DireccionTable.COORDENADA + "=?";
+        String[] whereArgs = {coordenadas};
         Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         List<Direccion> lista = new ArrayList<>();
         Direccion dir;
@@ -893,15 +891,15 @@ public class DBHelper {
         if (cursor.getCount() == 0) {
             dir = new Direccion(calle, portal, puerta, codigo, localidad, coordenadas);
             db.getWritableDatabase().insert(DireccionTable.TABLE_NAME, null, dir.mapearAContenValues());
-            //recogemos la id autogenerada para poder unirlo con el
+            //recogemos la id autogenerada para poder unirlo con el usuario
             cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
         }
         while (cursor.moveToNext()) {
             lista.add(new Direccion().loadDireccionFromCursor(cursor));
         }
         dir = lista.get(0);
-        PersonaDireccion pdir = new PersonaDireccion(idPersona, dir.getIdDireccion());
-        db.getWritableDatabase().insert(PersonaTelefonoTable.TABLE_NAME, null, pdir.mapearAContenValues());
+        PersonaDireccion ptlf = new PersonaDireccion(idPersona, dir.getIdDireccion());
+        db.getWritableDatabase().insert(PersonaDireccionTable.TABLE_NAME, null, ptlf.mapearAContenValues());
     }
 
     /**
@@ -921,11 +919,10 @@ public class DBHelper {
                 lista.add(new PersonaDireccion().loadPersonaDireccionFromCursor(cursor));
             }
             PersonaDireccion pdir = lista.get(0);
-            where = TelefonoTable.ID_TELEFONO + "=?";
+            where = DireccionTable.ID_DIRECCION + "=?";
             whereArgs = new String[]{String.valueOf(pdir.getIdDireccion())};
             cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Direccion> listat = new ArrayList<>();
-            Direccion dir;
             while (cursor.moveToNext()) {
                 listat.add(new Direccion().loadDireccionFromCursor(cursor));
             }

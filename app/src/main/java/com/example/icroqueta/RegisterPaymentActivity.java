@@ -68,7 +68,7 @@ public class RegisterPaymentActivity extends MenuBar {
 
 
 
-
+    //todo hash tarjeta
     //todo - Validacion de datos
     public void comprobarDatos(View view) {
         telefono = findViewById(R.id.telefonoPago);

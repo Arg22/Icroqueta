@@ -82,9 +82,6 @@ public class MainActivity extends MenuBar {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    //todo Cifrar contraseñas
-    //todo Traducir strings
-    //todo guardar coordenadas maps
 
     /**
      * Método para salir de la aplicación si se pulsa reiteradamente con el botón back

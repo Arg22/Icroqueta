@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view nuestra view
      */
     public void pedirContrasena(View view) {
-        //todo Enviar correo con la contraseña al usuario
+        //todo secundario enviar correo con la contraseña al usuario
         Toast.makeText(getApplicationContext(),
                 "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
     }
