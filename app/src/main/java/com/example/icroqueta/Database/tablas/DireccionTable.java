@@ -17,10 +17,10 @@ public class DireccionTable {
             "CREATE TABLE " + TABLE_NAME + " (" +
                     ID_DIRECCION + " INTEGER PRIMARY KEY," +
                     CALLE + " TEXT," +
-                    PORTAL + " TEXT ," +
-                    PUERTA + " TEXT ," +
-                    CODIGO_POSTAL + " TEXT ," +
-                    LOCALIDAD + " TEXT, " +
+                    PORTAL + " TEXT," +
+                    PUERTA + " TEXT," +
+                    CODIGO_POSTAL + " TEXT," +
+                    LOCALIDAD + " TEXT," +
                     COORDENADA + " TEXT UNIQUE)";
 
     private static final String SQL_DELETE_ENTRIES =
