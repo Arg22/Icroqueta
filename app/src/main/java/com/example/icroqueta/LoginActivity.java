@@ -2,9 +2,12 @@ package com.example.icroqueta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     Intent intent;
     private EditText correo;
     private EditText contrasena;
+    private CheckBox checkRecordad;
     public static Persona usuario;
     //todo secundario - optimizar la manera de enviar esta informacion a las demas activties
 
@@ -25,7 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        contrasena = findViewById(R.id.password_login);
+        correo = findViewById(R.id.correo_login);
+        checkRecordad= findViewById(R.id.recordarDatosLogin);
+        cargarPreferencias();
     }
+
 
     /**
      * Se abre el registro al pulsar en el botón
@@ -43,8 +52,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view nuestra view
      */
     public void comprobarDatos(View view) {
-        contrasena = findViewById(R.id.password_login);
-        correo = findViewById(R.id.correo_login);
+
         if (contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),
                     "Rellene los campos vacios", Toast.LENGTH_SHORT).show();
@@ -66,9 +74,41 @@ public class LoginActivity extends AppCompatActivity {
                     intent = new Intent(this, MainActivity.class);
                     usuario = db.findPersonaId(this, idPersona);
                     startActivity(intent);
+                    //Aqui guardaremos la id del usuario que acaba de abrir sesión
+                    guardarUsuario();
                     break;
             }
         }
+    }
+    private void cargarPreferencias() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String user=preferences.getString("email","");
+        String pass=preferences.getString("pass","");
+        boolean recordar=preferences.getBoolean("recordar_login",false);
+        if(recordar){
+            correo.setText(user);
+            contrasena.setText(pass);
+            checkRecordad.setChecked(true);
+        }
+
+    }
+
+    private void guardarUsuario() {
+        DBHelper db = new DBHelper();
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        String email= correo.getText().toString();
+        String pass= contrasena.getText().toString();
+        String passEncriptada = new String(Hex.encodeHex(DigestUtils.sha1(contrasena.getText().toString())));
+        int id= db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), passEncriptada);
+        SharedPreferences.Editor editor=preferences.edit();
+        editor.putString("email",email);
+        editor.putString("pass",pass);
+        editor.putInt("id",id);
+        if(checkRecordad.isChecked()){
+            editor.putBoolean("recordar_login",true);
+        }
+
+        editor.apply();
     }
 
     /**

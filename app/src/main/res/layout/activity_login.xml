@@ -13,11 +13,10 @@
         android:id="@+id/imageView2"
         android:layout_width="170dp"
         android:layout_height="170dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:contentDescription="@string/logo_descripcion"
         app:layout_constraintBottom_toTopOf="@+id/correo_login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
@@ -33,16 +32,11 @@
         android:inputType="textEmailAddress"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        android:text="a"
-        />
+        tools:layout_editor_absoluteX="32dp" />
 
-    <!--todo quitar el usuario a-->
+
     <EditText
-        android:text="a"
         android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -50,14 +44,23 @@
         android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:hint="@string/contrasena"
-        android:maxLength="50"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/preguntaContrasena"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/correo_login"/>
+        android:maxLength="50"
 
+        app:layout_constraintBottom_toTopOf="@+id/preguntaContrasena"
+        app:layout_constraintTop_toBottomOf="@+id/correo_login"
+        tools:layout_editor_absoluteX="32dp" />
+
+    <CheckBox
+        android:id="@+id/recordarDatosLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="Recuérdame"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/preguntaContrasena"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/preguntaContrasena" />
 
     <TextView
         android:id="@+id/preguntaContrasena"
@@ -71,8 +74,6 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/entrar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
     <Button
@@ -84,22 +85,18 @@
         android:onClick="comprobarDatos"
         android:text="@string/entrar"
         app:layout_constraintBottom_toTopOf="@+id/registro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preguntaContrasena" />
+        app:layout_constraintTop_toBottomOf="@+id/preguntaContrasena"
+        tools:layout_editor_absoluteX="32dp" />
 
     <Button
         android:id="@+id/registro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/button_rounded_border"
         android:onClick="openRegistro"
         android:text="@string/registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/entrar" />
+        app:layout_constraintTop_toBottomOf="@+id/entrar"
+        tools:layout_editor_absoluteX="32dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

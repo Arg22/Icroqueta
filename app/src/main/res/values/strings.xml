@@ -61,4 +61,5 @@
         <item quantity="other" formatted="true">%d disponibles</item>
     </plurals>
     <string name="noPuedeAgregar">No puede añadir más unidades de este producto</string>
+     <string name="recordar_estos_datos">Recordar estos datos</string>
 </resources>
