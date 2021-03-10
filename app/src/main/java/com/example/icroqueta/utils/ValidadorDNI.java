@@ -2,7 +2,7 @@ package com.example.icroqueta.utils;
 
 
 public class ValidadorDNI {
-    private String dni;
+    private final String dni;
 
     public ValidadorDNI(String dni) {
         this.dni = dni;

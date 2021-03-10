@@ -75,14 +75,14 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public final TextView tipo;
-        public View separador;
+        public final View separador;
         public final TextView nombre;
-        public CheckBox checkBox;
+        public final CheckBox checkBox;
         public DBHelper db;
         static String ultimoTipo = " ";
-        static List<String> idIngredientes = new ArrayList<>();
-        public MainActivity home;
-        int idPersona;
+        static final List<String> idIngredientes = new ArrayList<>();
+        public final MainActivity home;
+        final int idPersona;
 
         /**
          * Inicializamos en el contructor todos los parametros

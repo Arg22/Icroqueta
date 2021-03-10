@@ -73,7 +73,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         public final LinearLayout fila;
         public final ImageView foto;
         public DBHelper db;
-        int idPersona;
+        final int idPersona;
 
         /**
          * Inicializamos en el contructor todos los parametros
