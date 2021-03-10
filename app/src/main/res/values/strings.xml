@@ -68,4 +68,6 @@
     <string name="cvc">CVC</string>
     <string name="n_m_puerta">Núm.Puerta</string>
     <string name="portal">Portal</string>
+    <string name="precio_unidad">Precio unidad:</string>
+    <string name="cantidad">Cantidad:</string>
 </resources>

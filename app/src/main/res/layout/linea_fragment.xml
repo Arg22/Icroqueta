@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lineaNombre"
         android:gravity="center_vertical|top"
-        android:text="Cantidad:"
+        android:text="@string/cantidad"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lineaNombre" />
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/lineaCantidad"
         android:gravity="center_vertical|top"
-        android:text="Precio unidad:"
+        android:text="@string/precio_unidad"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

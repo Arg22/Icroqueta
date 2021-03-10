@@ -19,8 +19,9 @@
         android:inputType="textPersonName"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/apellidoOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -34,8 +35,9 @@
         android:inputType="textPersonName"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/nifOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nombreOpciones"
-        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -49,8 +51,9 @@
         android:inputType="textPersonName"
         android:maxLength="9"
         app:layout_constraintBottom_toTopOf="@+id/correoOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/apellidoOpciones"
-        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
     <EditText
@@ -63,9 +66,11 @@
         android:inputType="textEmailAddress"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/contrasenaOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nifOpciones"
-        tools:layout_editor_absoluteX="32dp"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/contrasenaOpciones"
@@ -77,8 +82,10 @@
         android:inputType="textPassword"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/telefonoOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/correoOpciones"
-        tools:layout_editor_absoluteX="32dp" />
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/telefonoOpciones"
@@ -91,8 +98,9 @@
         android:inputType="phone"
         android:maxLength="9"
         app:layout_constraintBottom_toTopOf="@+id/direccionOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/contrasenaOpciones"
-        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
 
@@ -107,8 +115,9 @@
         android:inputType="textPersonName"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/portalOpciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telefonoOpciones"
-        tools:layout_editor_absoluteX="32dp"
         tools:targetApi="lollipop" />
 
 
@@ -124,7 +133,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guardarOpcion"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/portalOpciones"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/cPostalOpciones"
@@ -153,7 +163,8 @@
         app:layout_constraintBottom_toTopOf="@+id/localidadOpciones"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/direccionOpciones"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/puertaOpciones"
