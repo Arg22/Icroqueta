@@ -1,5 +1,7 @@
 package com.example.icroqueta.adapter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,6 @@ import androidx.annotation.NonNull;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.icroqueta.LoginActivity;
 import com.example.icroqueta.MainActivity;
 import com.example.icroqueta.R;
 import com.example.icroqueta.database.DBHelper;
@@ -81,6 +82,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         static String ultimoTipo = " ";
         static List<String> idIngredientes = new ArrayList<>();
         public MainActivity home;
+        int idPersona;
 
         /**
          * Inicializamos en el contructor todos los parametros
@@ -95,6 +97,8 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
             checkBox = v.findViewById(R.id.check_menuLateral);
             separador = v.findViewById(R.id.separador_menuLateral);
             home = (MainActivity) itemView.getContext();
+            SharedPreferences preferences = itemView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+            idPersona = preferences.getInt("id", 0);
         }
 
         /**
@@ -105,16 +109,15 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
         public void bind(final TipoIngrediente ingrediente) {
             db = new DBHelper();
             String nombreTipo = db.oneTipo(itemView.getContext(), ingrediente.getidTipo()).getNombre();
+
             if (!ultimoTipo.equals(nombreTipo)) {
                 tipo.setText(nombreTipo);
                 ultimoTipo = nombreTipo;
-
             } else {
                 tipo.setVisibility(View.GONE);
                 separador.setVisibility(View.GONE);
             }
             nombre.setText(db.oneIngrediente(itemView.getContext(), ingrediente.getIdIngrediente()).getNombre());
-
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -125,25 +128,23 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                         idIngredientes.add(String.valueOf(ingrediente.getIdIngrediente()));
                         List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
                         try {
-                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), idPersona, idProducto));
                         } catch (IndexOutOfBoundsException e) {
-                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
                             home.loadMainRecicler(productos);
                             Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
                         }
-
                     } else {
                         idIngredientes.remove(String.valueOf(ingrediente.getIdIngrediente()));
                         if (idIngredientes.isEmpty()) {
-                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
                             home.loadMainRecicler(productos);
-
                         } else {
                             List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
                             try {
-                                home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), LoginActivity.usuario.getIdPersona(), idProducto));
+                                home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), idPersona, idProducto));
                             } catch (IndexOutOfBoundsException e) {
-                                List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona());
+                                List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
                                 home.loadMainRecicler(productos);
                                 Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
                             }

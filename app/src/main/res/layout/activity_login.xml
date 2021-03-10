@@ -56,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:text="Recuérdame"
+        android:text="@string/recu_rdame"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/preguntaContrasena"
         app:layout_constraintStart_toStartOf="parent"

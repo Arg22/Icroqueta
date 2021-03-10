@@ -1,6 +1,8 @@
 package com.example.icroqueta;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -32,7 +34,7 @@ public class OptionActivity extends MenuBar {
     EditText localidad;
     EditText codigoPostal;
     String nom, ape, n, cor, con, tel, dir, por, pu, cod, loc;
-    int idPersona = LoginActivity.usuario.getIdPersona();
+    int idPersona;
 
     private static final long TIME_TO_CLOSE_APP = 5000;
 
@@ -53,9 +55,7 @@ public class OptionActivity extends MenuBar {
     }
 
     public void guardarOpcion(View view) {
-        DBHelper db = new DBHelper();
-        Boolean todoCorrecto = true;
-        int aux;
+        boolean todoCorrecto = true;
         //Comprobamos que no ha dejado vacíos los campos obligatorios
         if (nombre.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "No puede dejar vacío el nombre", Toast.LENGTH_LONG).show();
@@ -69,54 +69,46 @@ public class OptionActivity extends MenuBar {
             Toast.makeText(this, "No puede dejar vacía la contraseña", Toast.LENGTH_LONG).show();
         } else {
             //Si se ha modificado el nombre se actualiza en el bd
-            if (!nombre.getText().toString().matches(nom) && todoCorrecto == true) {
+            if (!nombre.getText().toString().matches(nom) ) {
                 cambiosNombre();
                 todoCorrecto = true;
             }
             //Si se ha modificado el apellido se actualiza en el bd
-            if (!apellido.getText().toString().matches(ape) && todoCorrecto == true) {
+            if (!apellido.getText().toString().matches(ape)) {
                 cambiosApellido();
                 todoCorrecto = true;
             }
             //Si se ha modificado el nif primero hay que validarlo
-            if (!nif.getText().toString().matches(n) && todoCorrecto == true) {
-                if (cambiosNif()) {
-                    todoCorrecto = true;
-                } else {
+            if (!nif.getText().toString().matches(n)) {
+                if (!cambiosNif()) {
                     Toast.makeText(this, "Compruebe el Nif", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
                 }
             }
             //Si se ha modificado el correo primero hay que validarlo
-            if (!correo.getText().toString().matches(cor) && todoCorrecto == true) {
-                if (cambiosCorreo()) {
-                    todoCorrecto = true;
-                } else {
+            if (!correo.getText().toString().matches(cor) && todoCorrecto) {
+                if (!cambiosCorreo()) {
                     Toast.makeText(this, "El correo ya está registrado por otra cuenta", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
                 }
             }
             //Si se ha modificado la contraseña primero hay que validarlo
-            if (!contrasena.getText().toString().matches(con) && todoCorrecto == true) {
+            if (!contrasena.getText().toString().matches(con) && todoCorrecto) {
                 cambiosContrasenya();
                 todoCorrecto = true;
             }
 
             //Si se ha modificado el telefono primero hay que validarlo
-            if (!telefono.getText().toString().matches(tel) && todoCorrecto == true) {
-                if (cambiosTelefono()) {
-                    todoCorrecto = true;
-                } else {
+            if (!telefono.getText().toString().matches(tel) && todoCorrecto) {
+                if (!cambiosTelefono()) {
                     Toast.makeText(this, "Compruebe el teléfono", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
                 }
             }
 
             //Si se ha modificado el telefono primero hay que validarlo
-            if ((!direccion.getText().toString().matches(dir) || !localidad.getText().toString().matches(loc) || !codigoPostal.getText().toString().matches(cod) || !puerta.getText().toString().matches(pu) || !portal.getText().toString().matches(por)) && todoCorrecto == true) {
-                if (cambiosDireccion()) {
-                    todoCorrecto = true;
-                } else {
+            if ((!direccion.getText().toString().matches(dir) || !localidad.getText().toString().matches(loc) || !codigoPostal.getText().toString().matches(cod) || !puerta.getText().toString().matches(pu) || !portal.getText().toString().matches(por)) && todoCorrecto) {
+                if (!cambiosDireccion()) {
                     Toast.makeText(this, "Compruebe que los datos de la direccion estan todos rellenos o correctos", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
                 }
@@ -134,8 +126,6 @@ public class OptionActivity extends MenuBar {
 
     /**
      * Método para modificar el dato del nombre
-     *
-     * @return true si ha sido modificado con éxito
      */
     public void cambiosNombre() {
         DBHelper db = new DBHelper();
@@ -145,12 +135,10 @@ public class OptionActivity extends MenuBar {
     /**
      * Método para modificar el dato del apellido
      *
-     * @return true si ha sido modificado con éxito
      */
-    public boolean cambiosApellido() {
+    public void cambiosApellido() {
         DBHelper db = new DBHelper();
         db.updateApellidoPersona(this, idPersona, apellido.getText().toString());
-        return true;
     }
 
     /**
@@ -189,14 +177,12 @@ public class OptionActivity extends MenuBar {
     /**
      * Método para modificar el dato de la contraseña
      *
-     * @return true si ha sido modificado con éxito, false si no se ha podido modificar
      */
-    public boolean cambiosContrasenya() {
+    public void cambiosContrasenya() {
         DBHelper db = new DBHelper();
         //Para encripar la contraseña
         String passEncriptada = new String(Hex.encodeHex(DigestUtils.sha1(contrasena.getText().toString())));
         db.updateContrasenyaPersona(this, idPersona, passEncriptada);
-        return true;
     }
 
     /**
@@ -267,6 +253,7 @@ public class OptionActivity extends MenuBar {
      */
     public void cargarDatos() {
         DBHelper db = new DBHelper();
+        cargarIdUsuario();
         nombre = findViewById(R.id.nombreOpciones);
         apellido = findViewById(R.id.apellidoOpciones);
         nif = findViewById(R.id.nifOpciones);
@@ -285,7 +272,7 @@ public class OptionActivity extends MenuBar {
         apellido.setText(p.getApellidos());
         nif.setText(p.getNif());
         correo.setText(p.getCorreo());
-        contrasena.setText("esto es por la seguridad de sus datos");
+        contrasena.setText(R.string.esto_es_por_seguridad);
         telefono.setText(db.oneTelefono(this, idPersona));
 
         Direccion d = db.oneDireccion(this, idPersona);
@@ -311,11 +298,13 @@ public class OptionActivity extends MenuBar {
         loc = localidad.getText().toString();
     }
 
+
     /**
-     * Método para refrescar la pantalla
+     * Método para sacar el id del usuario de las credenciales guardadas
      */
-    public void refrescar() {
-        finish();
-        startActivity(getIntent());
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
+
 }

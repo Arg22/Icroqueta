@@ -3,11 +3,9 @@ package com.example.icroqueta.utils;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.IOException;
 import java.util.List;
 
 public class LocalizadorDirecciones {

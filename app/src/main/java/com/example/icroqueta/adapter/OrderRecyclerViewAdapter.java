@@ -79,7 +79,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             precio = v.findViewById(R.id.precioPedido);
             estado = v.findViewById(R.id.estadoPedido);
             fila = v.findViewById(R.id.pedidoRow);
-            boton= v.findViewById(R.id.botonPedido);
+            boton = v.findViewById(R.id.botonPedido);
         }
 
         /**
@@ -91,7 +91,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             DBHelper db = new DBHelper();
 
             Fecha.setText(pedidos.getFechaPedido());
-            cantidad.setText(String.valueOf(db.allLineasProducto(itemView.getContext(),pedidos.getIdPedido()).size()));
+            cantidad.setText(String.valueOf(db.allLineasProducto(itemView.getContext(), pedidos.getIdPedido()).size()));
             precio.setText(String.format("%s€", pedidos.getImporte()));
             estado.setText(String.format("Pedido %s", pedidos.getEstado()));
 
@@ -103,7 +103,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
                     @Override
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
-                        db.updatePedido(itemView.getContext(),pedidos.getIdPedido(),pedidos.getIdPersona(),pedidos.getFechaPedido(),"Cancelado",pedidos.getImporte());
+                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Cancelado", pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido cancelado con éxito", Toast.LENGTH_SHORT).show();
                         ActiveProductActivity a = (ActiveProductActivity) itemView.getContext();
                         a.refrescar();
@@ -124,7 +124,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
                     @Override
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
-                        db.updatePedido(itemView.getContext(),pedidos.getIdPedido(),pedidos.getIdPersona(),pedidos.getFechaPedido(),"Entregado",pedidos.getImporte());
+                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Entregado", pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_SHORT).show();
                         DeliverActivity d = (DeliverActivity) itemView.getContext();
                         d.refrescar();

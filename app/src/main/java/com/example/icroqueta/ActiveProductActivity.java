@@ -1,6 +1,8 @@
 package com.example.icroqueta;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,15 +17,15 @@ import java.util.List;
 import java.util.Objects;
 
 public class ActiveProductActivity extends MenuBar {
-
+int idPersona;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_product);
-
+        cargarIdUsuario();
         //Esto le envia al OrderRecyclerViewAdapter todos pedidos activos
         DBHelper db = new DBHelper();
-        List<Pedido> pedidos=db.allPedidosActivosUsuario(this,LoginActivity.usuario.getIdPersona());
+        List<Pedido> pedidos=db.allPedidosActivosUsuario(this,idPersona);
 
         //Este aviso sale si no hay pedidos activos
         if(pedidos.size()==0){
@@ -53,5 +55,13 @@ public class ActiveProductActivity extends MenuBar {
     public void refrescar() {
         finish();
         startActivity(getIntent());
+    }
+
+    /**
+     * Método para sacar el id del usuario de las credenciales guardadas
+     */
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
 }

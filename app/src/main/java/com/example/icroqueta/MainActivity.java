@@ -1,6 +1,8 @@
 package com.example.icroqueta;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -23,15 +25,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MainActivity extends MenuBar {
+    private static final long TIME_TO_CLOSE_APP = 5000;
     private AppBarConfiguration mAppBarConfiguration;
     long backPressedTime;
-    private static final long TIME_TO_CLOSE_APP = 5000;
-
+    int idPersona;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        cargarIdUsuario();
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,7 +59,7 @@ public class MainActivity extends MenuBar {
 
         //Esto le envia al CroquetasRecyclerViewAdapter todos los productos de la base de datos
         DBHelper db = new DBHelper();
-        List<ProductoCarrito> productos = db.allProductosCarrito(this, LoginActivity.usuario.getIdPersona());
+        List<ProductoCarrito> productos = db.allProductosCarrito(this, idPersona);
         loadMainRecicler(productos);
 
 
@@ -109,6 +112,14 @@ public class MainActivity extends MenuBar {
         RecyclerView croquetasRecyclerView = findViewById(R.id.croquetasRecyclerView);
         croquetasRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         croquetasRecyclerView.setAdapter(adapter);
+    }
+
+    /**
+     * Método para sacar el id del usuario de las credenciales guardadas
+     */
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
 }
 

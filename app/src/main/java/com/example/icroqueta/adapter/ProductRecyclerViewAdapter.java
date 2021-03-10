@@ -1,6 +1,8 @@
 package com.example.icroqueta.adapter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.icroqueta.LoginActivity;
 import com.example.icroqueta.ProductActivity;
 import com.example.icroqueta.R;
 import com.example.icroqueta.ShoppingCarActivity;
@@ -47,7 +48,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
      * @param holder   mi clase de RecicleView
      */
     @Override
-    public void onBindViewHolder(final  MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, int position) {
         holder.bind(productos.get(position));
         holder.setIsRecyclable(false);
 
@@ -72,6 +73,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         public final LinearLayout fila;
         public final ImageView foto;
         public DBHelper db;
+        int idPersona;
 
         /**
          * Inicializamos en el contructor todos los parametros
@@ -89,7 +91,8 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             cantidad = v.findViewById(R.id.producto_cantidad_row);
             fila = v.findViewById(R.id.croquetaRow);
             foto = v.findViewById(R.id.croquetaImagen);
-
+            SharedPreferences preferences = itemView.getContext().getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+            idPersona = preferences.getInt("id", 0);
         }
 
         /**
@@ -104,7 +107,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             //Esto es por si no hay stock, que se marque que no está
             if (producto.getStock() == 0) {
                 //Se retira del carrito
-                db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
+                db.deleteCarritoProducto(itemView.getContext(), idPersona, producto.getIdProducto());
 
                 //Se pone una imagen predeterminada
                 Glide.with(itemView.getContext())
@@ -159,7 +162,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
                         if (aux == 1) {   //Este if es para que nunca llege a numeros negativos y además se borre de nuestro carro
                             cantidad.setText("0");
-                            db.deleteCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto());
+                            db.deleteCarritoProducto(itemView.getContext(), idPersona, producto.getIdProducto());
                             //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total
                             if (itemView.getContext() instanceof ShoppingCarActivity) {
                                 ShoppingCarActivity a = (ShoppingCarActivity) itemView.getContext();
@@ -170,10 +173,10 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                         } else if (aux > 1) {
                             cantidad.setText(String.valueOf(aux - 1));
                             //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                            if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-                                db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                            if (db.notExistCarritoProducto(itemView.getContext(), idPersona, producto.getIdProducto())) {
+                                db.addCarrito(itemView.getContext(), idPersona, producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                             } else {
-                                db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                                db.updateCarrito(itemView.getContext(), idPersona, producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                             }
                         }
 
@@ -192,14 +195,14 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
                         int aux = Integer.parseInt(valor); //Se convierte  Integer
 
                         //comprobamos que solo puede añadir hasta el stock
-                        if (aux+1 <= producto.getStock()) {
+                        if (aux + 1 <= producto.getStock()) {
 
                             cantidad.setText(String.valueOf(aux + 1));
                             //Si no está añadido al carrito se añade o si no se actualiza con la nueva cantidad
-                            if (db.notExistCarritoProducto(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto())) {
-                                db.addCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                            if (db.notExistCarritoProducto(itemView.getContext(), idPersona, producto.getIdProducto())) {
+                                db.addCarrito(itemView.getContext(), idPersona, producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                             } else {
-                                db.updateCarrito(itemView.getContext(), LoginActivity.usuario.getIdPersona(), producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
+                                db.updateCarrito(itemView.getContext(), idPersona, producto.getIdProducto(), Integer.parseInt(cantidad.getText().toString()));
                             }
 
                             //Esto es para comprobar que venimos desde Shopping cart para actualizar el precio total

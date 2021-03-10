@@ -1,6 +1,8 @@
 package com.example.icroqueta;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,20 +17,13 @@ import java.util.Objects;
 
 public class RegisterPaymentActivity extends MenuBar {
     Intent intent;
-    private EditText telefono;
-    private EditText direccion;
-    private EditText localidad;
-    private EditText codigo_postal;
-    private EditText tarjeta;
-    private EditText fecha;
-    private EditText cvc;
-
+    int idPersona;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_payment);
         //todo - comprobar datos que se tienen del usuario y pedir los que les falten
-
+        cargarIdUsuario();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
         final TextView fecha = findViewById(R.id.fechaTarjetaPago);
         //Esto es para que escriba automaticamente en la fehca la barra lateral
@@ -71,13 +66,13 @@ public class RegisterPaymentActivity extends MenuBar {
     //todo hash tarjeta
     //todo - Validacion de datos
     public void comprobarDatos(View view) {
-        telefono = findViewById(R.id.telefonoPago);
-        direccion = findViewById(R.id.direccionPago);
-        localidad = findViewById(R.id.localidadPago);
-        codigo_postal = findViewById(R.id.cPostalPago);
-        tarjeta = findViewById(R.id.tarjetaPago);
-        fecha = findViewById(R.id.fechaTarjetaPago);
-        cvc = findViewById(R.id.cvcPago);
+        EditText telefono = findViewById(R.id.telefonoPago);
+        EditText direccion = findViewById(R.id.direccionPago);
+        EditText localidad = findViewById(R.id.localidadPago);
+        EditText codigo_postal = findViewById(R.id.cPostalPago);
+        EditText tarjeta = findViewById(R.id.tarjetaPago);
+        EditText fecha = findViewById(R.id.fechaTarjetaPago);
+        EditText cvc = findViewById(R.id.cvcPago);
 
         //comprueba datos y en caso afirmativo abre el Login
         if (telefono.getText().toString().isEmpty() || direccion.getText().toString().isEmpty() || tarjeta.getText().toString().isEmpty() || fecha.getText().toString().isEmpty() || cvc.getText().toString().isEmpty() || localidad.getText().toString().isEmpty() || codigo_postal.getText().toString().isEmpty()) {
@@ -93,7 +88,7 @@ public class RegisterPaymentActivity extends MenuBar {
     public void validarPago() {
         //Se elimina el carro una vez hecho y se crea las lineas del producto asociado a un pedido
         DBHelper db = new DBHelper();
-        if (db.addPedido(this, LoginActivity.usuario.getIdPersona())) {
+        if (db.addPedido(this, idPersona)) {
             Toast.makeText(getApplicationContext(), "Pago realizado con éxito", Toast.LENGTH_LONG).show();
             //Se va automáticamente al MainActivity
             Intent intent = new Intent(this, MainActivity.class);
@@ -105,5 +100,13 @@ public class RegisterPaymentActivity extends MenuBar {
     public void openBack(View view) {
         intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    /**
+     * Método para sacar el id del usuario de las credenciales guardadas
+     */
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
 }

@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -19,14 +21,15 @@ import java.util.Objects;
 
 public class LineaActivity extends AppCompatActivity {
     int id_pedido;
-
+    int idPersona;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_linea);
-
+        cargarIdUsuario();
         //Carga la id del producto pulsado en el Adapter
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         id_pedido = extras.getInt("ID_PEDIDO");
 
         //Esto le envia al LineRecyclerViewAdapter todos pedidos activos
@@ -58,23 +61,23 @@ public class LineaActivity extends AppCompatActivity {
     public void agregarPedido(View view) {
         DBHelper db = new DBHelper();
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
-        List<Carrito> carrito = db.allCarritoPersona(this, LoginActivity.usuario.getIdPersona());
+        List<Carrito> carrito = db.allCarritoPersona(this, idPersona);
 
         //todo secundario - optimizar este bucle
         if (carrito.size() == 0) {
             for (Linea n : lineas) {
-                db.addCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad());
+                db.addCarrito(this, idPersona, n.getIdProducto(), n.getCantidad());
             }
         } else {
             for (Linea n : lineas) {
                 if (comprobarCarrito(carrito, lineas)) {
                     for (Carrito c : carrito) {
                         if (n.getIdProducto() == c.getIdProducto()) {
-                            db.updateCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad() + c.getCantidad());
+                            db.updateCarrito(this, idPersona, n.getIdProducto(), n.getCantidad() + c.getCantidad());
                         }
                     }
                 } else {
-                    db.addCarrito(this, LoginActivity.usuario.getIdPersona(), n.getIdProducto(), n.getCantidad());
+                    db.addCarrito(this, idPersona, n.getIdProducto(), n.getCantidad());
                 }
             }
         }
@@ -100,5 +103,13 @@ public class LineaActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+    
+    /**
+     * Método para sacar el id del usuario de las credenciales guardadas
+     */
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
 }

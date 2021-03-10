@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.entidades.Persona;
 
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText correo;
     private EditText contrasena;
     private CheckBox checkRecordad;
-    public static Persona usuario;
+
     //todo secundario - optimizar la manera de enviar esta informacion a las demas activties
 
     @Override
@@ -31,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         contrasena = findViewById(R.id.password_login);
         correo = findViewById(R.id.correo_login);
-        checkRecordad= findViewById(R.id.recordarDatosLogin);
+        checkRecordad = findViewById(R.id.recordarDatosLogin);
         cargarPreferencias();
     }
 
@@ -72,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
                     break;
                 default:
                     intent = new Intent(this, MainActivity.class);
-                    usuario = db.findPersonaId(this, idPersona);
                     startActivity(intent);
                     //Aqui guardaremos la id del usuario que acaba de abrir sesión
                     guardarUsuario();
@@ -80,32 +78,40 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+    /**
+     * Método para cargar las preferencias si el usuario pulsó el botón de recordar datos
+     */
     private void cargarPreferencias() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        String user=preferences.getString("email","");
-        String pass=preferences.getString("pass","");
-        boolean recordar=preferences.getBoolean("recordar_login",false);
-        if(recordar){
+        boolean recordar = preferences.getBoolean("recordar_login", false);
+        if (recordar) {
+            String user = preferences.getString("email", "");
+            String pass = preferences.getString("pass", "");
             correo.setText(user);
             contrasena.setText(pass);
             checkRecordad.setChecked(true);
         }
-
     }
 
+    /**
+     * Método para guardar las credenciales del usuario
+     */
     private void guardarUsuario() {
         DBHelper db = new DBHelper();
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
-        String email= correo.getText().toString();
-        String pass= contrasena.getText().toString();
+        String email = correo.getText().toString();
+        String pass = contrasena.getText().toString();
         String passEncriptada = new String(Hex.encodeHex(DigestUtils.sha1(contrasena.getText().toString())));
-        int id= db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), passEncriptada);
-        SharedPreferences.Editor editor=preferences.edit();
-        editor.putString("email",email);
-        editor.putString("pass",pass);
-        editor.putInt("id",id);
-        if(checkRecordad.isChecked()){
-            editor.putBoolean("recordar_login",true);
+        int id = db.findPersonaLogin(this, correo.getText().toString().toLowerCase(), passEncriptada);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("email", email);
+        editor.putString("pass", pass);
+        editor.putInt("id", id);
+        if (checkRecordad.isChecked()) {
+            editor.putBoolean("recordar_login", true);
+        } else {
+            editor.putBoolean("recordar_login", false);
         }
 
         editor.apply();

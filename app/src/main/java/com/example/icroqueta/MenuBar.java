@@ -3,19 +3,24 @@ package com.example.icroqueta;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.icroqueta.database.DBHelper;
 
 /*Aquí va lo referente al menú superior para añadirlo a cualquier Activity
  */
 
 public class MenuBar extends AppCompatActivity {
-
+int idPersona;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cargarIdUsuario();
     }
 
     /**
@@ -26,9 +31,10 @@ public class MenuBar extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
+        cargarIdUsuario();
+        DBHelper db= new DBHelper();
         //Esto es para que el usuario no vea la pantalla de repartos si no tiene ese rol
-        if (LoginActivity.usuario.isRol() == 0) {
+        if (db.isRolPersona(this,idPersona) == 0) {
             MenuItem item = menu.findItem(R.id.myDeliver);
             item.setVisible(false);
         }
@@ -84,5 +90,13 @@ public class MenuBar extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Método para sacar el id del usuario de las credenciales guardadas
+     */
+    private void cargarIdUsuario() {
+        SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+        idPersona = preferences.getInt("id", 0);
     }
 }
