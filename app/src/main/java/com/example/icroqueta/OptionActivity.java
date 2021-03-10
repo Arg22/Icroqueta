@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Direccion;
 import com.example.icroqueta.database.entidades.Persona;
+import com.example.icroqueta.database.entidades.Telefono;
 import com.example.icroqueta.utils.LocalizadorDirecciones;
 import com.example.icroqueta.utils.ValidadorDNI;
 import com.google.android.gms.maps.model.LatLng;
@@ -35,6 +36,8 @@ public class OptionActivity extends MenuBar {
     EditText codigoPostal;
     String nom, ape, n, cor, con, tel, dir, por, pu, cod, loc;
     int idPersona;
+    int idTelefono;
+    int idDireccion;
 
     private static final long TIME_TO_CLOSE_APP = 5000;
 
@@ -42,6 +45,7 @@ public class OptionActivity extends MenuBar {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
+        cargarDatosPreferencias();
         cargarDatos();
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true); //Botón home
     }
@@ -69,7 +73,7 @@ public class OptionActivity extends MenuBar {
             Toast.makeText(this, "No puede dejar vacía la contraseña", Toast.LENGTH_LONG).show();
         } else {
             //Si se ha modificado el nombre se actualiza en el bd
-            if (!nombre.getText().toString().matches(nom) ) {
+            if (!nombre.getText().toString().matches(nom)) {
                 cambiosNombre();
                 todoCorrecto = true;
             }
@@ -134,7 +138,6 @@ public class OptionActivity extends MenuBar {
 
     /**
      * Método para modificar el dato del apellido
-     *
      */
     public void cambiosApellido() {
         DBHelper db = new DBHelper();
@@ -176,7 +179,6 @@ public class OptionActivity extends MenuBar {
 
     /**
      * Método para modificar el dato de la contraseña
-     *
      */
     public void cambiosContrasenya() {
         DBHelper db = new DBHelper();
@@ -193,10 +195,15 @@ public class OptionActivity extends MenuBar {
     public boolean cambiosTelefono() {
         DBHelper db = new DBHelper();
         //Comprobamos el telefono
-        if (!(telefono.getText().toString().length() < 9)) {
+        String auxNumTelefono = (telefono.getText().toString());
+        if (!(auxNumTelefono.length() < 9)) {
             //Se añade un telefono nuevo
-            int aux = Integer.parseInt(telefono.getText().toString());
-            db.addPersonaTelefono(this, idPersona, aux);
+            db.addPersonaTelefono(this, idPersona, Integer.parseInt(auxNumTelefono));
+            Telefono idT = db.oneTelefonoByNum(this, Integer.parseInt(auxNumTelefono));
+            SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("idTelefono", idT.getIdTelefono());
+            editor.apply();
             return true;
         } else {
             return false;
@@ -222,6 +229,12 @@ public class OptionActivity extends MenuBar {
             LatLng latlon = ld.getLocationFromAddress(this, address);
             coordenadas = latlon.latitude + " " + latlon.longitude;
             db.addPersonaDireccion(this, idPersona, dirCalle, porCalle, pueCalle, codCalle, locCalle, coordenadas);
+
+            Direccion idD = db.oneDireccionByCoord(this, coordenadas);
+            SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putInt("idDireccion", idD.getIdDireccion());
+            editor.apply();
             return true;
         } catch (Exception e) {
             //En el caso de que la api no pueda leer la dirección saltará este error
@@ -253,7 +266,6 @@ public class OptionActivity extends MenuBar {
      */
     public void cargarDatos() {
         DBHelper db = new DBHelper();
-        cargarIdUsuario();
         nombre = findViewById(R.id.nombreOpciones);
         apellido = findViewById(R.id.apellidoOpciones);
         nif = findViewById(R.id.nifOpciones);
@@ -273,9 +285,13 @@ public class OptionActivity extends MenuBar {
         nif.setText(p.getNif());
         correo.setText(p.getCorreo());
         contrasena.setText(R.string.esto_es_por_seguridad);
-        telefono.setText(db.oneTelefono(this, idPersona));
 
-        Direccion d = db.oneDireccion(this, idPersona);
+        Telefono t = db.oneTelefonoById(this, idTelefono);
+        if (t != null) {
+            telefono.setText(String.valueOf(t.getNumero()));
+        }
+
+        Direccion d = db.oneDireccionById(this, idDireccion);
         if (d != null) {
             direccion.setText(d.getCalle());
             portal.setText(d.getPortal());
@@ -302,9 +318,11 @@ public class OptionActivity extends MenuBar {
     /**
      * Método para sacar el id del usuario de las credenciales guardadas
      */
-    private void cargarIdUsuario() {
+    private void cargarDatosPreferencias() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         idPersona = preferences.getInt("id", 0);
+        idTelefono = preferences.getInt("idTelefono", 0);
+        idDireccion = preferences.getInt("idDireccion", 0);
     }
 
 }
