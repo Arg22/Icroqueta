@@ -6,7 +6,7 @@ public class PersonaTarjetaTable {
     public static final String TABLE_NAME = "persona_tarjeta";
     public static final String ID_PERSONA_TARJETA = "id_persona_tarjeta";
     public static final String ID_PERSONA = "id_persona";
-    public static final String ID_TARJETA= "id_tarjeta";
+    public static final String ID_TARJETA = "id_tarjeta";
 
 
     private static final String SQL_CREATE_ENTRIES =

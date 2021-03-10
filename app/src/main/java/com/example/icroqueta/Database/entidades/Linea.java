@@ -5,11 +5,12 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.LineaTable;
 
-public class Linea  implements java.io.Serializable {
-     private Integer idLinea;
-     private int idPedido;
-     private int idProducto;
-     private int cantidad;
+@SuppressWarnings("unused")
+public class Linea implements java.io.Serializable {
+    private Integer idLinea;
+    private int idPedido;
+    private int idProducto;
+    private int cantidad;
 
     public Linea() {
     }

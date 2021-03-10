@@ -5,8 +5,8 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.PersonaTelefonoTable;
 
-
-public class PersonaTelefono  implements java.io.Serializable {
+@SuppressWarnings("unused")
+public class PersonaTelefono implements java.io.Serializable {
     private Integer idPersonaTelefono;
     private int idPersona;
     private int idTelefono;

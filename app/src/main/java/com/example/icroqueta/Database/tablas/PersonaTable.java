@@ -37,7 +37,8 @@ public class PersonaTable {
     }
 
 
-    /**Aqui se insertarian por primera vez los valores de la tabla
+    /**
+     * Aqui se insertarian por primera vez los valores de la tabla
      *
      * @param db nuestra base de datos
      */

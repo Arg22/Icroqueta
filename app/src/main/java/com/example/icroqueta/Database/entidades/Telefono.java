@@ -5,8 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.TelefonoTable;
 
-
-
+@SuppressWarnings("unused")
 public class Telefono implements java.io.Serializable {
 
 
@@ -17,6 +16,7 @@ public class Telefono implements java.io.Serializable {
         this.idTelefono = idTelefono;
         this.numero = numero;
     }
+
     public Telefono() {
     }
 

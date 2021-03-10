@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.IngredienteTable;
 
+@SuppressWarnings("unused")
 public class Ingrediente implements java.io.Serializable {
 
 

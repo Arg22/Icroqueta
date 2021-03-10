@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.TipoTable;
 
+@SuppressWarnings("unused")
 public class Tipo implements java.io.Serializable {
 
 

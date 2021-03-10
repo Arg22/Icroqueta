@@ -34,7 +34,6 @@ public class RegisterActivity extends AppCompatActivity {
         EditText apellido = findViewById(R.id.apellido);
         EditText contrasena = findViewById(R.id.contrasena);
         EditText correo = findViewById(R.id.correo);
-        Boolean todoCorrecto = true;
         //comprueba datos y en caso afirmativo abre el Login
         if (nif.getText().toString().isEmpty() || nombre.getText().toString().isEmpty() || apellido.getText().toString().isEmpty() || contrasena.getText().toString().isEmpty() || correo.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),

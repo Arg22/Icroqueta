@@ -5,9 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 public class CarritoTable {
     public static final String TABLE_NAME = "carrito";
     public static final String ID_CARRITO = "id_carrito";
-    public static final String ID_PERSONA= "id_persona";
+    public static final String ID_PERSONA = "id_persona";
     public static final String ID_PRODUCTO = "id_producto";
-    public static final String CANTIDAD= "cantidad";
+    public static final String CANTIDAD = "cantidad";
 
 
     private static final String SQL_CREATE_ENTRIES =
@@ -30,7 +30,6 @@ public class CarritoTable {
     public static void onDrop(SQLiteDatabase db) {
         db.execSQL(SQL_DELETE_ENTRIES);
     }
-
 
 
 }

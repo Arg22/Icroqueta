@@ -56,7 +56,7 @@ public class DBSource extends SQLiteOpenHelper {
      * @param db nuestra base de datos
      */
     @Override
-    public void onOpen(SQLiteDatabase db){
+    public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
         db.execSQL("PRAGMA foreign_keys=ON");
     }
@@ -64,7 +64,7 @@ public class DBSource extends SQLiteOpenHelper {
     /**
      * Borra la tabla y la vuelve a inicializar cuando aumenta la version
      *
-     * @param db nuestra base de datos
+     * @param db         nuestra base de datos
      * @param oldVersion la version anterior
      * @param newVersion la version actual
      */

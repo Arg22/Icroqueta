@@ -6,12 +6,13 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.TarjetaTable;
 
-public class Tarjeta  implements java.io.Serializable {
+@SuppressWarnings("unused")
+public class Tarjeta implements java.io.Serializable {
 
 
-     private Integer idTarjeta;
-     private String numero;
-     private String fechaCaducidad;
+    private Integer idTarjeta;
+    private String numero;
+    private String fechaCaducidad;
 
     public Tarjeta() {
     }
@@ -27,29 +28,30 @@ public class Tarjeta  implements java.io.Serializable {
         this.fechaCaducidad = fechaCaducidad;
     }
 
-   
+
     public Integer getIdTarjeta() {
         return this.idTarjeta;
     }
-    
+
     public void setIdTarjeta(Integer idTarjeta) {
         this.idTarjeta = idTarjeta;
     }
+
     public String getNumero() {
         return this.numero;
     }
-    
+
     public void setNumero(String numero) {
         this.numero = numero;
     }
+
     public String getFechaCaducidad() {
         return this.fechaCaducidad;
     }
-    
+
     public void setFechaCaducidad(String fechaCaducidad) {
         this.fechaCaducidad = fechaCaducidad;
     }
-
 
 
     /**

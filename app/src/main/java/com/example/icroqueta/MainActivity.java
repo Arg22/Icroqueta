@@ -12,7 +12,6 @@ import com.example.icroqueta.adapter.IngredientRecyclerViewAdapter;
 import com.example.icroqueta.adapter.ProductRecyclerViewAdapter;
 import com.example.icroqueta.database.dto.ProductoCarrito;
 import com.example.icroqueta.database.DBHelper;
-import com.example.icroqueta.database.entidades.Ingrediente;
 import com.example.icroqueta.database.entidades.TipoIngrediente;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;

@@ -1,10 +1,11 @@
 package com.example.icroqueta.database.entidades;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.ProductoTable;
 
-
+@SuppressWarnings("unused")
 public class Producto implements java.io.Serializable {
 
     private Integer idProducto;
@@ -93,9 +94,10 @@ public class Producto implements java.io.Serializable {
         this.imagen = imagen;
     }
 
-    /**Mapear sirve para meter valores y crear un mapa
+    /**
+     * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
-     *(escribe la informacion de la tabla).
+     * (escribe la informacion de la tabla).
      *
      * @return values es el mapa de los productos.
      */
@@ -112,7 +114,8 @@ public class Producto implements java.io.Serializable {
         return values;
     }
 
-    /**Esto sirve para leer de la base de datos y mete los valores
+    /**
+     * Esto sirve para leer de la base de datos y mete los valores
      * en el objeto (lee la informacion de la tabla).
      *
      * @param cursor es lo que se lee de la base de datos.

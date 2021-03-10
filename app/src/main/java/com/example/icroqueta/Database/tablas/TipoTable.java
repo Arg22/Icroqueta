@@ -39,11 +39,11 @@ public class TipoTable {
         Tipo t2 = new Tipo("Carne");
         Tipo t3 = new Tipo("Pescado");
         Tipo t4 = new Tipo("Lácteos");
-        Tipo t5 =new Tipo("Verduras y hortalizas");
-        Tipo t6 =new Tipo("Legumbres y derivados");
-        Tipo t7 =new Tipo("Semillas");
-        Tipo t8 =new Tipo("Fruta");
-        Tipo t9 =new Tipo("Otros");
+        Tipo t5 = new Tipo("Verduras y hortalizas");
+        Tipo t6 = new Tipo("Legumbres y derivados");
+        Tipo t7 = new Tipo("Semillas");
+        Tipo t8 = new Tipo("Fruta");
+        Tipo t9 = new Tipo("Otros");
 
         db.insert(TABLE_NAME, null, t1.mapearAContenValues());
         db.insert(TABLE_NAME, null, t2.mapearAContenValues());

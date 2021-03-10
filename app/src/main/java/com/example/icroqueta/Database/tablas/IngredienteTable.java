@@ -43,18 +43,18 @@ public class IngredienteTable {
         Ingrediente i7 = new Ingrediente("Bacalao");
         Ingrediente i8 = new Ingrediente("Salmón");
         Ingrediente i9 = new Ingrediente("Queso");
-        Ingrediente i10= new Ingrediente("Leche condensada");
-        Ingrediente i11= new Ingrediente("Dulce de leche");
-        Ingrediente i12= new Ingrediente("Patata");
-        Ingrediente i13= new Ingrediente("Acelga");
+        Ingrediente i10 = new Ingrediente("Leche condensada");
+        Ingrediente i11 = new Ingrediente("Dulce de leche");
+        Ingrediente i12 = new Ingrediente("Patata");
+        Ingrediente i13 = new Ingrediente("Acelga");
         Ingrediente i14 = new Ingrediente("Tofu");
         Ingrediente i15 = new Ingrediente("Garbanzo");
         Ingrediente i16 = new Ingrediente("Quinoa");
         Ingrediente i17 = new Ingrediente("Fresa");
         Ingrediente i18 = new Ingrediente("Naranja");
         Ingrediente i19 = new Ingrediente("Chocolate");
-        Ingrediente i20= new Ingrediente("Vainilla");
-        Ingrediente i21= new Ingrediente("Galleta");
+        Ingrediente i20 = new Ingrediente("Vainilla");
+        Ingrediente i21 = new Ingrediente("Galleta");
 
         db.insert(TABLE_NAME, null, i1.mapearAContenValues());
         db.insert(TABLE_NAME, null, i2.mapearAContenValues());

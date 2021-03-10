@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.PedidoTable;
 
+@SuppressWarnings("unused")
 public class Pedido implements java.io.Serializable {
 
 

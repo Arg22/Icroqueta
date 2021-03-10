@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.PersonaTable;
 
+@SuppressWarnings("unused")
 public class Persona implements java.io.Serializable {
 
 
@@ -144,7 +145,6 @@ public class Persona implements java.io.Serializable {
 
         return this;
     }
-
 
 
 }

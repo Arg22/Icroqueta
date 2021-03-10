@@ -18,7 +18,7 @@ public class PedidoTable {
                     FECHA_PEDIDO + " DATE, " +
                     ESTADO + " TEXT," +
                     IMPORTE + " REAL,"
-                    + " FOREIGN KEY ("+ID_PERSONA+") REFERENCES "+PersonaTable.TABLE_NAME+"("+PersonaTable.ID_PERSONA+")ON DELETE CASCADE);";
+                    + " FOREIGN KEY (" + ID_PERSONA + ") REFERENCES " + PersonaTable.TABLE_NAME + "(" + PersonaTable.ID_PERSONA + ")ON DELETE CASCADE);";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TABLE_NAME;

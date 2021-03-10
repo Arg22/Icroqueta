@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.IngredienteProductoTable;
 
+@SuppressWarnings("unused")
 public class IngredienteProducto {
     private Integer idIngredienteProducto;
     private int idIngrediente;
@@ -13,7 +14,7 @@ public class IngredienteProducto {
     public IngredienteProducto() {
     }
 
-    public IngredienteProducto( int idProducto,int idIngrediente) {
+    public IngredienteProducto(int idProducto, int idIngrediente) {
         this.idIngrediente = idIngrediente;
         this.idProducto = idProducto;
     }
@@ -47,6 +48,7 @@ public class IngredienteProducto {
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
     }
+
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto

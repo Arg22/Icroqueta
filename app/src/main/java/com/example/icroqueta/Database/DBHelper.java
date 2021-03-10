@@ -375,7 +375,24 @@ public class DBHelper {
         }
         return lista.get(0);
     }
-
+    /**
+     * Método para encontrar a un usuario por su id.
+     *
+     * @param context   el contexto de la actividad
+     * @param idPersona el id por el que vamos a buscarlo
+     * @return un objeto del tipo Persona
+     */
+    public int isRolPersona(Context context, int idPersona) {
+        String where = PersonaTable.ID_PERSONA + "=?";
+        String[] whereArgs = {idPersona + ""};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(PersonaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+        List<Persona> lista = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            lista.add(new Persona().loadPersonaFromCursor(cursor));
+        }
+        return lista.get(0).isRol();
+    }
     /**
      * Método para comprobar si existe otro usuario con el mismo correo
      *
@@ -699,17 +716,17 @@ public class DBHelper {
      * @return la lista de los ingredientes
      */
     public List<Ingrediente> allIngredientesDeUnTipo(Context context, List<TipoIngrediente> tipoIngredientes) {
-        String where = IngredienteTable.ID_INGREDIENTE + "=?";
+        StringBuilder where = new StringBuilder(IngredienteTable.ID_INGREDIENTE + "=?");
 
         String[] whereArgs = new String[tipoIngredientes.size()];
         whereArgs[0] = String.valueOf(tipoIngredientes.get(0));
 
         for (int i = 0; i < tipoIngredientes.size() - 1; i++) {
-            where += " OR " + IngredienteTable.ID_INGREDIENTE + "=?";
+            where.append(" OR " + IngredienteTable.ID_INGREDIENTE + "=?");
             whereArgs[i + 1] = String.valueOf(tipoIngredientes.get(i + 1));
         }
         DBSource db = new DBSource(context);
-        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where, whereArgs, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteTable.TABLE_NAME, null, where.toString(), whereArgs, null, null, null, null);
         List<Ingrediente> ingredientes = new ArrayList<>();
 
         while (cursor.moveToNext()) {

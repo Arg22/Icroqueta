@@ -8,7 +8,7 @@ public class LineaTable {
     public static final String ID_LINEA = "id_linea";
     public static final String ID_PEDIDO = "id_pedido";
     public static final String ID_PRODUCTO = "id_producto";
-    public static final String CANTIDAD= "cantidad";
+    public static final String CANTIDAD = "cantidad";
 
 
     private static final String SQL_CREATE_ENTRIES =
@@ -31,7 +31,6 @@ public class LineaTable {
     public static void onDrop(SQLiteDatabase db) {
         db.execSQL(SQL_DELETE_ENTRIES);
     }
-
 
 
 }

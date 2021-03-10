@@ -6,6 +6,7 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.DireccionTable;
 
+@SuppressWarnings("unused")
 public class Direccion implements java.io.Serializable {
 
     private Integer idDireccion;

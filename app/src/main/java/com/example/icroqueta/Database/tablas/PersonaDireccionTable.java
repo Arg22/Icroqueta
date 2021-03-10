@@ -6,7 +6,7 @@ public class PersonaDireccionTable {
     public static final String TABLE_NAME = "persona_Direccion";
     public static final String ID_PERSONA_Direccion = "id_persona_Direccion";
     public static final String ID_PERSONA = "id_persona";
-    public static final String ID_DIRECCION= "id_Direccion";
+    public static final String ID_DIRECCION = "id_Direccion";
 
 
     private static final String SQL_CREATE_ENTRIES =

@@ -5,7 +5,8 @@ import android.database.Cursor;
 
 import com.example.icroqueta.database.tablas.CarritoTable;
 
-public class Carrito  implements java.io.Serializable {
+@SuppressWarnings("unused")
+public class Carrito implements java.io.Serializable {
 
     private Integer idCarrito;
     private int idPersona;
@@ -69,7 +70,7 @@ public class Carrito  implements java.io.Serializable {
      */
     public ContentValues mapearAContenValues() {
         ContentValues values = new ContentValues();
-        if(idCarrito!=null) {
+        if (idCarrito != null) {
             values.put(CarritoTable.ID_CARRITO, idCarrito);
         }
         values.put(CarritoTable.ID_PERSONA, idPersona);
