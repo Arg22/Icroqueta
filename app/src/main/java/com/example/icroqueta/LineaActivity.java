@@ -15,6 +15,7 @@ import com.example.icroqueta.adapter.LineRecyclerViewAdapter;
 import com.example.icroqueta.database.DBHelper;
 import com.example.icroqueta.database.entidades.Carrito;
 import com.example.icroqueta.database.entidades.Linea;
+import com.example.icroqueta.database.entidades.Producto;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +23,7 @@ import java.util.Objects;
 public class LineaActivity extends AppCompatActivity {
     int id_pedido;
     int idPersona;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,27 +65,51 @@ public class LineaActivity extends AppCompatActivity {
         List<Linea> lineas = db.allLineasProducto(this, id_pedido);
         List<Carrito> carrito = db.allCarritoPersona(this, idPersona);
 
-        //todo secundario - optimizar este bucle
+        //Recorre todas las lineas y las comprueba con los pedidos de tu carrito por si tuviese el mismo, se actualizara solo la cantidad
         if (carrito.size() == 0) {
             for (Linea n : lineas) {
-                db.addCarrito(this, idPersona, n.getIdProducto(), n.getCantidad());
+                //Buscamos por si acaso ese producto ya no tuviese existencias o la cantidad mayor a la que tiene en stock
+                Producto aux = db.findProducto(this, n.getIdProducto());
+                if (aux.getStock() != 0) {
+                    //Si no, se añade al carrito sin problema
+                    db.addCarrito(this, idPersona, n.getIdProducto(),Math.min(aux.getStock(), n.getCantidad()));
+                    Toast.makeText(this, "Añadido al carro con éxito", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, ShoppingCarActivity.class);
+                    startActivity(intent);
+                }
             }
         } else {
             for (Linea n : lineas) {
                 if (comprobarCarrito(carrito, lineas)) {
                     for (Carrito c : carrito) {
                         if (n.getIdProducto() == c.getIdProducto()) {
-                            db.updateCarrito(this, idPersona, n.getIdProducto(), n.getCantidad() + c.getCantidad());
+                            Producto aux = db.findProducto(this, n.getIdProducto());
+                            //Si superan el stock, solo se añade hasta el tope
+                            if (aux.getStock() == 0) {
+                                //En el caso de que el producto no tenga stock, no se añaden
+                                Toast.makeText(this, "No puede añadir este pedido por falta de stock en alguno de los productos", Toast.LENGTH_LONG).show();
+                            } else
+                                //En el caso de que si que haya, pero la cantidad que hay en el carro y en la linea supere el stock actual, se pondrá este como cantidad
+                                db.updateCarrito(this, idPersona, n.getIdProducto(), Math.min(aux.getStock(), n.getCantidad() + c.getCantidad()));
                         }
                     }
+                    Toast.makeText(this, "Añadido al carro con éxito", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, ShoppingCarActivity.class);
+                    startActivity(intent);
                 } else {
-                    db.addCarrito(this, idPersona, n.getIdProducto(), n.getCantidad());
+                    Producto aux = db.findProducto(this, n.getIdProducto());
+                    if (aux.getStock() == 0) {
+                        //En el caso de que el producto no tenga stock, no se añaden
+                        Toast.makeText(this, "No puede añadir este pedido por falta de stock en alguno de los productos", Toast.LENGTH_LONG).show();
+                    }else {    //Si superan el stock, solo se añade hasta el tope
+                        db.addCarrito(this, idPersona, n.getIdProducto(),Math.min(aux.getStock(), n.getCantidad()));
+                        Toast.makeText(this, "Añadido al carro con éxito", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, ShoppingCarActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         }
-        Toast.makeText(this, "Añadido al carro con éxito", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, ShoppingCarActivity.class);
-        startActivity(intent);
     }
 
     /**
@@ -104,7 +130,7 @@ public class LineaActivity extends AppCompatActivity {
         }
         return false;
     }
-    
+
     /**
      * Método para sacar el id del usuario de las credenciales guardadas
      */

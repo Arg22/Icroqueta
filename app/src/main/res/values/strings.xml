@@ -64,4 +64,8 @@
      <string name="recordar_estos_datos">Recordar estos datos</string>
     <string name="recu_rdame">Recuérdame</string>
     <string name="esto_es_por_seguridad">esto es por la seguridad de sus datos</string>
+    <string name="pagar">Pagar</string>
+    <string name="cvc">CVC</string>
+    <string name="n_m_puerta">Núm.Puerta</string>
+    <string name="portal">Portal</string>
 </resources>

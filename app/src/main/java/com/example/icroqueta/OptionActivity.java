@@ -71,6 +71,10 @@ public class OptionActivity extends MenuBar {
             Toast.makeText(this, "No puede dejar vacío el correo", Toast.LENGTH_LONG).show();
         } else if (contrasena.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "No puede dejar vacía la contraseña", Toast.LENGTH_LONG).show();
+        } else if ((nombre.getText().toString().matches(nom)) && apellido.getText().toString().matches(ape) && nif.getText().toString().matches(n) &&
+                correo.getText().toString().matches(cor) && contrasena.getText().toString().matches(con) && telefono.getText().toString().matches(tel) && direccion.getText().toString().matches(dir) &&
+                localidad.getText().toString().matches(loc) && codigoPostal.getText().toString().matches(cod) && puerta.getText().toString().matches(pu) && portal.getText().toString().matches(por)) {
+            Toast.makeText(this, "No ha hecho ningún cambio", Toast.LENGTH_LONG).show();
         } else {
             //Si se ha modificado el nombre se actualiza en el bd
             if (!nombre.getText().toString().matches(nom)) {
@@ -111,21 +115,22 @@ public class OptionActivity extends MenuBar {
             }
 
             //Si se ha modificado el telefono primero hay que validarlo
-            if ((!direccion.getText().toString().matches(dir) || !localidad.getText().toString().matches(loc) || !codigoPostal.getText().toString().matches(cod) || !puerta.getText().toString().matches(pu) || !portal.getText().toString().matches(por)) && todoCorrecto) {
-                if (!cambiosDireccion()) {
-                    Toast.makeText(this, "Compruebe que los datos de la direccion estan todos rellenos o correctos", Toast.LENGTH_LONG).show();
+            if ((!direccion.getText().toString().matches(dir) || !localidad.getText().toString().matches(loc) || !codigoPostal.getText().toString().matches(cod) || !puerta.getText().toString().matches(pu) || !portal.getText().toString().matches(por)) && todoCorrecto)
+                if (direccion.getText().toString().trim().isEmpty() || localidad.getText().toString().trim().isEmpty() || codigoPostal.getText().toString().trim().isEmpty() || puerta.getText().toString().trim().isEmpty() || portal.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(this, "Rellene los datos de la direccion", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
+                } else {
+                    if (!cambiosDireccion()) {
+                        Toast.makeText(this, "Compruebe que los datos de la direccion esten todos correctos", Toast.LENGTH_LONG).show();
+                        todoCorrecto = false;
+                    }
                 }
-            }
             //Si están los datos correctos, sale un aviso
             if (todoCorrecto) {
                 Toast.makeText(this, "Cambios guardados con exito", Toast.LENGTH_LONG).show();
             }
         }
     }
-
-
-    //todo share preferences ultimo telefono/ ultima direccion/ultima tarjeta
 
 
     /**
@@ -151,7 +156,7 @@ public class OptionActivity extends MenuBar {
      */
     public boolean cambiosNif() {
         DBHelper db = new DBHelper();
-        ValidadorDNI v = new ValidadorDNI(nif.getText().toString());
+        ValidadorDNI v = new ValidadorDNI(nif.getText().toString().trim());
         if (v.validar()) {
             db.updateNifPersona(this, idPersona, nif.getText().toString());
             return true;
@@ -195,14 +200,14 @@ public class OptionActivity extends MenuBar {
     public boolean cambiosTelefono() {
         DBHelper db = new DBHelper();
         //Comprobamos el telefono
-        String auxNumTelefono = (telefono.getText().toString());
+        String auxNumTelefono = (telefono.getText().toString().trim());
         if (!(auxNumTelefono.length() < 9)) {
             //Se añade un telefono nuevo
             db.addPersonaTelefono(this, idPersona, Integer.parseInt(auxNumTelefono));
             Telefono idT = db.oneTelefonoByNum(this, Integer.parseInt(auxNumTelefono));
             SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("idTelefono", idT.getIdTelefono());
+            editor.putInt("idTelefono"+idPersona, idT.getIdTelefono());
             editor.apply();
             return true;
         } else {
@@ -233,7 +238,7 @@ public class OptionActivity extends MenuBar {
             Direccion idD = db.oneDireccionByCoord(this, coordenadas);
             SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putInt("idDireccion", idD.getIdDireccion());
+            editor.putInt("idDireccion"+idPersona, idD.getIdDireccion());
             editor.apply();
             return true;
         } catch (Exception e) {
@@ -242,24 +247,6 @@ public class OptionActivity extends MenuBar {
         }
     }
 
-    /**
-     * Método que borra la cuenta cuando presione dos veces y salga sin guardar
-     */
-    public void borrarCuenta() {
-        long time = System.currentTimeMillis();
-
-        if (time - backPressedTime > TIME_TO_CLOSE_APP) {
-            backPressedTime = time;
-            Toast.makeText(this, "Pulse otra vez para borrar cuenta", Toast.LENGTH_LONG).show();
-        } else {
-            DBHelper db = new DBHelper();
-            db.deletePersona(this, idPersona);
-            //Y sale al loggin
-            Intent intent = new Intent(this, LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        }
-    }
 
     /**
      * Método para cargar los datos disponibles del usuario
@@ -321,8 +308,26 @@ public class OptionActivity extends MenuBar {
     private void cargarDatosPreferencias() {
         SharedPreferences preferences = getSharedPreferences("credenciales", Context.MODE_PRIVATE);
         idPersona = preferences.getInt("id", 0);
-        idTelefono = preferences.getInt("idTelefono", 0);
-        idDireccion = preferences.getInt("idDireccion", 0);
+        idTelefono = preferences.getInt("idTelefono"+idPersona, 0);
+        idDireccion = preferences.getInt("idDireccion"+idPersona, 0);
     }
 
+    /**
+     * Método que borra la cuenta cuando presione dos veces y salga sin guardar
+     */
+    public void borrarCuenta(View view) {
+        long time = System.currentTimeMillis();
+
+        if (time - backPressedTime > TIME_TO_CLOSE_APP) {
+            backPressedTime = time;
+            Toast.makeText(this, "Pulse otra vez para borrar cuenta", Toast.LENGTH_LONG).show();
+        } else {
+            DBHelper db = new DBHelper();
+            db.deletePersona(this, idPersona);
+            //Y sale al loggin
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+    }
 }

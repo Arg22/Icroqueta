@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Método para validar los datos antes de registrar al usuario
-     * @param view
+     * @param view la view donde nos encontramos
      */
     public void comprobarDatos(View view) {
         EditText nif = findViewById(R.id.nif);

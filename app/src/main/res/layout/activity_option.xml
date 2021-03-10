@@ -147,7 +147,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
         android:ems="8"
-        android:hint="Portal"
+        android:hint="@string/portal"
         android:inputType="number"
         android:maxLength="50"
         app:layout_constraintBottom_toTopOf="@+id/localidadOpciones"
@@ -162,9 +162,9 @@
         android:autofillHints=""
         android:backgroundTint="@color/colorPrimary"
         android:ems="8"
-        android:hint="Núm.Puerta"
+        android:hint="@string/n_m_puerta"
         android:inputType="textPersonName"
-        android:maxLength="5"
+        android:maxLength="15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/portalOpciones"
         app:layout_constraintTop_toTopOf="@+id/portalOpciones"
@@ -178,8 +178,9 @@
         android:onClick="guardarOpcion"
         android:text="@string/guardar_cambios"
         app:layout_constraintBottom_toTopOf="@+id/borrarUsuario"
-        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones"
-        tools:layout_editor_absoluteX="32dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/localidadOpciones" />
 
     <Button
         android:id="@+id/borrarUsuario"
@@ -189,8 +190,9 @@
         android:onClick="borrarCuenta"
         android:text="@string/borrar_cuenta"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guardarOpcion"
-        tools:ignore="MissingConstraints,OnClick"
-        tools:layout_editor_absoluteX="32dp" />
+        tools:ignore="MissingConstraints,OnClick" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,8 +43,8 @@ public class PersonaTable {
      * @param db nuestra base de datos
      */
     public static void insertIniciales(SQLiteDatabase db) {
-        Persona p = new Persona("123456878U", "UserTest", "UserTest", "a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8", 0);
-        Persona p2 = new Persona("123456878R", "Soy el Root", "Root", "b", "e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98", 1);
+        Persona p = new Persona("87654321X", "Nombre de prueba", "Apellido de Prueba", "a", "86f7e437faa5a7fce15d1ddcb9eaeaea377667b8", 0);
+        Persona p2 = new Persona("12345678Z", "Soy el Root", "Root", "b", "e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98", 1);
 
         db.insert(TABLE_NAME, null, p.mapearAContenValues());
         db.insert(TABLE_NAME, null, p2.mapearAContenValues());

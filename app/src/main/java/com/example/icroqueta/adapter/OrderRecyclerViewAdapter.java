@@ -103,7 +103,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
                     @Override
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
-                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Cancelado", pedidos.getImporte());
+                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Cancelado",pedidos.getTelefono(),pedidos.getCoordenadas(), pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido cancelado con éxito", Toast.LENGTH_SHORT).show();
                         ActiveProductActivity a = (ActiveProductActivity) itemView.getContext();
                         a.refrescar();
@@ -124,7 +124,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
                     @Override
                     public void onClick(View v) {
                         DBHelper db = new DBHelper();
-                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Entregado", pedidos.getImporte());
+                        db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Entregado",pedidos.getTelefono(),pedidos.getCoordenadas(), pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_SHORT).show();
                         DeliverActivity d = (DeliverActivity) itemView.getContext();
                         d.refrescar();

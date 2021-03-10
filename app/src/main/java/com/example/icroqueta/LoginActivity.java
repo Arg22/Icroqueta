@@ -22,8 +22,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText contrasena;
     private CheckBox checkRecordad;
 
-    //todo secundario - optimizar la manera de enviar esta informacion a las demas activties
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                             "Correo no registrado", Toast.LENGTH_SHORT).show();
                     break;
                 default:
+                    guardarUsuario();
                     intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                    //Aqui guardaremos la id del usuario que acaba de abrir sesión
-                    guardarUsuario();
+                    //Aqui guardaremos la id del usuario que acaba de abrir sesióna
                     break;
             }
         }
@@ -123,8 +121,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param view nuestra view
      */
     public void pedirContrasena(View view) {
-        //todo secundario enviar correo con la contraseña al usuario
-        Toast.makeText(getApplicationContext(),
-                "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
+        //todo futuro enviar correo con la contraseña al usuario
+        Toast.makeText(getApplicationContext(), "Pues haberla apuntado", Toast.LENGTH_SHORT).show();
     }
 }

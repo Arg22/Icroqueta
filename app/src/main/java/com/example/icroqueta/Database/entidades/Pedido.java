@@ -13,23 +13,30 @@ public class Pedido implements java.io.Serializable {
     private Integer idPersona;
     private String fechaPedido;
     private String estado;
+    private String telefono;
+    private String coordenadas;
     private double importe;
 
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, Integer idPersona, String fechaPedido, String estado, double importe) {
+    public Pedido(Integer idPedido, Integer idPersona, String fechaPedido, String estado, String telefono, String coordenadas, double importe) {
         this.idPedido = idPedido;
         this.idPersona = idPersona;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
+        this.telefono = telefono;
+        this.coordenadas = coordenadas;
         this.importe = importe;
+
     }
 
-    public Pedido(Integer persona, String fechaPedido, String estado, double importe) {
+    public Pedido(Integer persona, String fechaPedido, String estado, String telefono, String coordenadas, double importe) {
         this.idPersona = persona;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
+        this.telefono = telefono;
+        this.coordenadas = coordenadas;
         this.importe = importe;
     }
 
@@ -73,6 +80,22 @@ public class Pedido implements java.io.Serializable {
         this.importe = importe;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setCoordenadas(String coordenadas) {
+        this.coordenadas = coordenadas;
+    }
+
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
@@ -86,6 +109,8 @@ public class Pedido implements java.io.Serializable {
         values.put(PedidoTable.ID_PERSONA, idPersona);
         values.put(PedidoTable.FECHA_PEDIDO, String.valueOf(fechaPedido));
         values.put(PedidoTable.ESTADO, estado);
+        values.put(PedidoTable.TELEFONO, telefono);
+        values.put(PedidoTable.COORDENADAS, coordenadas);
         values.put(PedidoTable.IMPORTE, importe);
         return values;
     }
@@ -103,14 +128,17 @@ public class Pedido implements java.io.Serializable {
         int idPersona = cursor.getInt(cursor.getColumnIndexOrThrow(PedidoTable.ID_PERSONA));
         String fechaPedido = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.FECHA_PEDIDO));
         String estado = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.ESTADO));
+        String telefono = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.TELEFONO));
+        String coordenadas = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.COORDENADAS));
         double importe = cursor.getDouble(cursor.getColumnIndexOrThrow(PedidoTable.IMPORTE));
 
         this.idPedido = idPedido;
         this.idPersona = idPersona;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
+        this.telefono = telefono;
+        this.coordenadas = coordenadas;
         this.importe = importe;
-
         return this;
     }
 }

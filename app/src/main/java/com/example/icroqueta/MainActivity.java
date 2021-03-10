@@ -28,7 +28,7 @@ public class MainActivity extends MenuBar {
     private AppBarConfiguration mAppBarConfiguration;
     long backPressedTime;
     int idPersona;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
