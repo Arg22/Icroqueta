@@ -39,9 +39,6 @@
             android:name=".MenuBar"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".DeliverActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ActiveProductActivity"
             android:screenOrientation="portrait" />
         <activity

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.icroqueta.ActiveProductActivity;
-import com.example.icroqueta.DeliverActivity;
+import com.example.icroqueta.MapsActivity;
 import com.example.icroqueta.HistoryActivity;
 import com.example.icroqueta.LineaActivity;
 import com.example.icroqueta.R;
@@ -117,7 +117,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
             }
 
             //Si venimos desde el la vista del repartidor podremos dar por entregado el pedido
-            if (itemView.getContext() instanceof DeliverActivity) {
+            if (itemView.getContext() instanceof MapsActivity) {
                 estado.setText(R.string.sin_entregar);
                 boton.setText(R.string.entregado);
                 boton.setOnClickListener(new View.OnClickListener() {
@@ -126,7 +126,7 @@ public class OrderRecyclerViewAdapter extends RecyclerView.Adapter<OrderRecycler
                         DBHelper db = new DBHelper();
                         db.updatePedido(itemView.getContext(), pedidos.getIdPedido(), pedidos.getIdPersona(), pedidos.getFechaPedido(), "Entregado",pedidos.getTelefono(),pedidos.getCoordenadas(), pedidos.getImporte());
                         Toast.makeText(itemView.getContext(), "Pedido entregado con éxito", Toast.LENGTH_SHORT).show();
-                        DeliverActivity d = (DeliverActivity) itemView.getContext();
+                        MapsActivity d = (MapsActivity) itemView.getContext();
                         d.refrescar();
                     }
                 });

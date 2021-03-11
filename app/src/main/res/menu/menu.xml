@@ -29,7 +29,7 @@
             <!--Solo se activa si eres repartidor-->
             <group>
                 <item
-                    android:id="@+id/myDeliver"
+                    android:id="@+id/myMap"
                     android:title="@string/menu_reparto" />
             </group>
 

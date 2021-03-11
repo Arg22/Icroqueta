@@ -35,7 +35,7 @@ int idPersona;
         DBHelper db= new DBHelper();
         //Esto es para que el usuario no vea la pantalla de repartos si no tiene ese rol
         if (db.isRolPersona(this,idPersona) == 0) {
-            MenuItem item = menu.findItem(R.id.myDeliver);
+            MenuItem item = menu.findItem(R.id.myMap);
             item.setVisible(false);
         }
         return true;
@@ -71,9 +71,9 @@ int idPersona;
                     startActivity(intent);
                 }
                 break;
-            case R.id.myDeliver:
-                if (!(this instanceof DeliverActivity)) {
-                    intent = new Intent(this, DeliverActivity.class);
+            case R.id.myMap:
+                if (!(this instanceof MapsActivity)) {
+                    intent = new Intent(this, MapsActivity.class);
                     startActivity(intent);
                 }
                 break;

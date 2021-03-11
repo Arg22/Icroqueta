@@ -598,7 +598,6 @@ public class DBHelper {
         return pedidosActivos;
     }
 
-
     /**
      * Método sacar la lista de pedidos CANCELADOS y ENTREGADOS que tiene un usuario.
      *
