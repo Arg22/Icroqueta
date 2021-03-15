@@ -4,3 +4,4 @@ com.example.icroqueta.database
 com.example.icroqueta.database.dto
 com.example.icroqueta.database.entidades
 com.example.icroqueta.database.tablas
+com.example.icroqueta.utils
