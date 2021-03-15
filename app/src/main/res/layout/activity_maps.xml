@@ -15,8 +15,6 @@
         android:layout_weight="1"
         android:paddingTop="4dp" />
 
-    <!-- todo -Hacer funcional el mapa-->
-
     <LinearLayout
         android:id="@+id/mapLayout"
         android:layout_width="match_parent"

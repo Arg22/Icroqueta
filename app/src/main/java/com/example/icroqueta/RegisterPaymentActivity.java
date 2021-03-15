@@ -160,7 +160,7 @@ public class RegisterPaymentActivity extends MenuBar {
     public boolean cambiosTelefono() {
         DBHelper db = new DBHelper();
         //Comprobamos el telefono
-        String auxNumTelefono = (telefono.getText().toString().trim());
+        String auxNumTelefono = (telefono.getText().toString().replaceAll(" ",""));
         if (!(auxNumTelefono.length() < 9)) {
             //Se añade un telefono nuevo
             db.addPersonaTelefono(this, idPersona, Integer.parseInt(auxNumTelefono));
@@ -206,14 +206,14 @@ public class RegisterPaymentActivity extends MenuBar {
     public boolean cambiosTarjeta() {
         DBHelper db = new DBHelper();
         //Comprobamos la tarjeta
-        String numTarjeta = (tarjeta.getText().toString().trim());
+        String numTarjeta = (tarjeta.getText().toString().replaceAll(" ",""));
         String f = fecha.getText().toString();
         String[] compruebaFicha = f.split("/");
         if (Integer.parseInt(compruebaFicha[0]) > 12 || Integer.parseInt(compruebaFicha[1]) < 20) {
             return false;
         }
 
-        if (!(numTarjeta.length() < 16)) {
+        if (numTarjeta.length() == 16) {
             //Se añade una tarjeta nuevo
             db.addPersonaTarjeta(this, idPersona, numTarjeta, f);
             Tarjeta trj = db.oneTarjetaByNum(this, numTarjeta);

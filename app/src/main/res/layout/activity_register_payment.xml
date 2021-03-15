@@ -108,7 +108,7 @@
         android:ems="10"
         android:hint="@string/tarjeta"
         android:inputType="textPersonName"
-        android:maxLength="20"
+        android:maxLength="19"
         app:layout_constraintBottom_toTopOf="@+id/fechaTarjetaPago"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

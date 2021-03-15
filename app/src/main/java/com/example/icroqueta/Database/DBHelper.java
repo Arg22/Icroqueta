@@ -375,6 +375,7 @@ public class DBHelper {
         }
         return lista.get(0);
     }
+
     /**
      * Método para encontrar a un usuario por su id.
      *
@@ -393,6 +394,7 @@ public class DBHelper {
         }
         return lista.get(0).isRol();
     }
+
     /**
      * Método para comprobar si existe otro usuario con el mismo correo
      *
@@ -490,8 +492,6 @@ public class DBHelper {
     }
 
 
-
-
     //****** Métodos tabla Linea ******//
 
     /**
@@ -504,8 +504,6 @@ public class DBHelper {
     public void addLinea(Context context, int idPersona, int idPedido) {
         DBSource db = new DBSource(context);
         //Ahora saca todos los productos del carrito y los pasa a Lista
-        //todo actualizar stock del pedido
-
         List<ProductoCarrito> lista = findProductosInCarrito(context, idPersona);
         for (ProductoCarrito pc : lista) {
             updateProducto(context, pc.getIdProducto(), pc.getCantidad());
@@ -545,13 +543,13 @@ public class DBHelper {
      * @param idPersona el id del usuario
      * @return true si se ha añadido bien y false si ha habido un problema
      */
-    public boolean addPedido(Context context, int idPersona,String telefono,String cooredenadas) {
+    public boolean addPedido(Context context, int idPersona, String telefono, String cooredenadas, String puerta) {
         DBSource db = new DBSource(context);
         //Esto es para añadir el pedido con la fecha actual
         long date = System.currentTimeMillis();
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String fechaPedido = sdf.format(date);
-        Pedido usuario = new Pedido(idPersona, fechaPedido, "Activo", telefono, cooredenadas,totalProductosEnCarrito(context, idPersona));
+        Pedido usuario = new Pedido(idPersona, fechaPedido, "Activo", telefono, cooredenadas, puerta, totalProductosEnCarrito(context, idPersona));
         long resultado = db.getWritableDatabase().insert(PedidoTable.TABLE_NAME, null, usuario.mapearAContenValues());
         //Aqui sacamos todos los pedidos y cogemos el último
         Cursor cursor = db.getReadableDatabase().rawQuery("SELECT  * FROM " + PedidoTable.TABLE_NAME, null);
@@ -642,11 +640,11 @@ public class DBHelper {
      * @param idPersona el id del usuario
      * @param idPedido  el id del pedido
      */
-    public void updatePedido(Context context, Integer idPedido, Integer idPersona, String fechaPedido, String estado, String telefono, String coordenadas, double importe) {
+    public void updatePedido(Context context, Integer idPedido, Integer idPersona, String fechaPedido, String estado, String telefono, String coordenadas, String puerta, double importe) {
         String where = PedidoTable.ID_PERSONA + "=? AND " + PedidoTable.ID_PEDIDO + "=?";
         String[] whereArgs = {String.valueOf(idPersona), String.valueOf(idPedido)};
         DBSource db = new DBSource(context);
-        Pedido p = new Pedido(idPedido, idPersona, fechaPedido, estado, telefono, coordenadas,importe);
+        Pedido p = new Pedido(idPedido, idPersona, fechaPedido, estado, telefono, coordenadas, puerta, importe);
         db.getWritableDatabase().update(PedidoTable.TABLE_NAME, p.mapearAContenValues(), where, whereArgs);
     }
 
@@ -765,6 +763,32 @@ public class DBHelper {
     }
 
     /**
+     * Método para sacar solo la lista de los identificadores del producto, que tengan los id que introduzcamos los id de los ingredientes
+     *
+     * @param context        el contexto de la actividad
+     * @param idIngredientes las id de los ingredientes
+     * @return la lista de los ingredientes
+     */
+    public boolean idProductosIdIngredientesIsEmpty(Context context, int idIngredientes) {
+        StringBuilder where = new StringBuilder(IngredienteProductoTable.ID_INGREDIENTE + "=?");
+        String[] whereArgs = {String.valueOf(idIngredientes)};
+        DBSource db = new DBSource(context);
+        Cursor cursor = db.getReadableDatabase().query(IngredienteProductoTable.TABLE_NAME, null, where.toString(), whereArgs, null, null, null, null);
+        List<String> idProductos = new ArrayList<>();
+
+        while (cursor.moveToNext()) {
+            IngredienteProducto l = new IngredienteProducto().loadIngredienteProductoFromCursor(cursor);
+            idProductos.add(String.valueOf(l.getIdProducto()));
+        }
+        if (idProductos.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * Método para actualizar la cantidad del stock de un producto.
      *
      * @param context    el contexto de la actividad
@@ -853,14 +877,14 @@ public class DBHelper {
     /**
      * Método para obtener solo un telefono por su id
      *
-     * @param context el contexto de la actividad
+     * @param context    el contexto de la actividad
      * @param idTelefono el id del telefono que queremos buscar
      * @return el telefono con esa id
      */
     public Telefono oneTelefonoById(Context context, int idTelefono) {
         try {
             DBSource db = new DBSource(context);
-            String where= TelefonoTable.ID_TELEFONO + "=?";
+            String where = TelefonoTable.ID_TELEFONO + "=?";
             String[] whereArgs = new String[]{String.valueOf(idTelefono)};
             Cursor cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Telefono> listat = new ArrayList<>();
@@ -877,13 +901,13 @@ public class DBHelper {
      * Método para obtener solo un telefono por su numero
      *
      * @param context el contexto de la actividad
-     * @param numero el numero del telefono
+     * @param numero  el numero del telefono
      * @return el telefono con esa id
      */
     public Telefono oneTelefonoByNum(Context context, int numero) {
         try {
             DBSource db = new DBSource(context);
-            String where= TelefonoTable.NUMERO + "=?";
+            String where = TelefonoTable.NUMERO + "=?";
             String[] whereArgs = new String[]{String.valueOf(numero)};
             Cursor cursor = db.getReadableDatabase().query(TelefonoTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Telefono> listat = new ArrayList<>();
@@ -901,13 +925,13 @@ public class DBHelper {
     /**
      * Método para añadir la relación entre una persona y su direccion
      *
-     * @param context el contexto de la actividad
-     * @param idPersona la id del usuario
-     * @param calle la calle de la direccion
-     * @param portal el portal de la direccion
-     * @param puerta la puerta de la direccion
-     * @param codigo el codigo de la direccion
-     * @param localidad la localidad de la direccion
+     * @param context     el contexto de la actividad
+     * @param idPersona   la id del usuario
+     * @param calle       la calle de la direccion
+     * @param portal      el portal de la direccion
+     * @param puerta      la puerta de la direccion
+     * @param codigo      el codigo de la direccion
+     * @param localidad   la localidad de la direccion
      * @param coordenadas las coordenadas de la direccion
      */
     public void addPersonaDireccion(Context context, int idPersona, String calle, String portal, String puerta, String codigo, String localidad, String coordenadas) {
@@ -936,16 +960,16 @@ public class DBHelper {
     /**
      * Método para obtener solo una direccion por su id
      *
-     * @param context el contexto de la actividad
+     * @param context     el contexto de la actividad
      * @param idDireccion la id de la direccion que buscamos
      * @return el objeto con la id
      */
     public Direccion oneDireccionById(Context context, int idDireccion) {
         try {
             DBSource db = new DBSource(context);
-            String where  = DireccionTable.ID_DIRECCION + "=?";
-            String[]             whereArgs = new String[]{String.valueOf(idDireccion)};
-           Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
+            String where = DireccionTable.ID_DIRECCION + "=?";
+            String[] whereArgs = new String[]{String.valueOf(idDireccion)};
+            Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Direccion> listat = new ArrayList<>();
             while (cursor.moveToNext()) {
                 listat.add(new Direccion().loadDireccionFromCursor(cursor));
@@ -955,17 +979,18 @@ public class DBHelper {
             return null;
         }
     }
+
     /**
      * Método para obtener solo una direccion por su coordenada
      *
-     * @param context el contexto de la actividad
+     * @param context    el contexto de la actividad
      * @param coordenada la coordenada de la direccion que buscamos
      * @return el objeto con la id
      */
     public Direccion oneDireccionByCoord(Context context, String coordenada) {
         try {
             DBSource db = new DBSource(context);
-            String where  = DireccionTable.COORDENADA + "=?";
+            String where = DireccionTable.COORDENADA + "=?";
             String[] whereArgs = new String[]{coordenada};
             Cursor cursor = db.getReadableDatabase().query(DireccionTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Direccion> listat = new ArrayList<>();
@@ -986,10 +1011,10 @@ public class DBHelper {
      * @param context   el contexto de la actividad
      * @param idPersona el id del usuario
      * @param numero    el numero de telefono
-     * @param fecha  la fecha de caducidad
+     * @param fecha     la fecha de caducidad
      */
     //return id del telefono ultimo que añade el usuario
-    public void addPersonaTarjeta(Context context, int idPersona, String numero,String fecha) {
+    public void addPersonaTarjeta(Context context, int idPersona, String numero, String fecha) {
         //primero comprobamos si la tarjeta está en la bd
         DBSource db = new DBSource(context);
         String where = TarjetaTable.NUMERO + "=?";
@@ -999,7 +1024,7 @@ public class DBHelper {
         Tarjeta tar;
         //En el caso de que no esté lo metemos
         if (cursor.getCount() == 0) {
-            tar = new Tarjeta(numero,fecha);
+            tar = new Tarjeta(numero, fecha);
             db.getWritableDatabase().insert(TarjetaTable.TABLE_NAME, null, tar.mapearAContenValues());
             //recogemos la id autogenerada para poder unirlo con el usuario
             cursor = db.getReadableDatabase().query(TarjetaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
@@ -1015,14 +1040,14 @@ public class DBHelper {
     /**
      * Método para obtener solo una tarjeta por su id
      *
-     * @param context el contexto de la actividad
+     * @param context   el contexto de la actividad
      * @param idTarjeta el id de la tarjeta que queremos buscar
      * @return la tarjeta con esa id
      */
     public Tarjeta oneTarjetaById(Context context, int idTarjeta) {
         try {
             DBSource db = new DBSource(context);
-            String where= TarjetaTable.ID_TARJETA + "=?";
+            String where = TarjetaTable.ID_TARJETA + "=?";
             String[] whereArgs = new String[]{String.valueOf(idTarjeta)};
             Cursor cursor = db.getReadableDatabase().query(TarjetaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Tarjeta> listat = new ArrayList<>();
@@ -1039,13 +1064,13 @@ public class DBHelper {
      * Método para obtener solo una tarjeta por su numero
      *
      * @param context el contexto de la actividad
-     * @param numero el numero del telefono
+     * @param numero  el numero del telefono
      * @return el telefono con esa id
      */
     public Tarjeta oneTarjetaByNum(Context context, String numero) {
         try {
             DBSource db = new DBSource(context);
-            String where= TarjetaTable.NUMERO + "=?";
+            String where = TarjetaTable.NUMERO + "=?";
             String[] whereArgs = new String[]{numero};
             Cursor cursor = db.getReadableDatabase().query(TarjetaTable.TABLE_NAME, null, where, whereArgs, null, null, null);
             List<Tarjeta> listat = new ArrayList<>();

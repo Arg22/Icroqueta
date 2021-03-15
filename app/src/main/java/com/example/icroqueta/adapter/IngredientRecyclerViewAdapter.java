@@ -124,15 +124,22 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
-                        //añadimos el id del ingrediente a la lista
-                        idIngredientes.add(String.valueOf(ingrediente.getIdIngrediente()));
-                        List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
-                        try {
-                            home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), idPersona, idProducto));
-                        } catch (IndexOutOfBoundsException e) {
-                            List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
-                            home.loadMainRecicler(productos);
+                        //primero comprobamos si tiene croquetas ese tipo de ingrediente
+                        if(db.idProductosIdIngredientesIsEmpty(itemView.getContext(), ingrediente.getIdIngrediente())){
                             Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
+                            checkBox.setChecked(false);
+                        }else {
+                            //añadimos el id del ingrediente a la lista
+                            idIngredientes.add(String.valueOf(ingrediente.getIdIngrediente()));
+                            List<String> idProducto = db.idProductosIdIngredientes(itemView.getContext(), idIngredientes);
+                            try {
+                                home.loadMainRecicler(db.allProductosCarritoById(itemView.getContext(), idPersona, idProducto));
+                            } catch (IndexOutOfBoundsException e) {
+                                List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
+                                home.loadMainRecicler(productos);
+                                Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
+                                checkBox.setChecked(false);
+                            }
                         }
                     } else {
                         idIngredientes.remove(String.valueOf(ingrediente.getIdIngrediente()));
@@ -147,6 +154,7 @@ public class IngredientRecyclerViewAdapter extends RecyclerView.Adapter<Ingredie
                                 List<ProductoCarrito> productos = db.allProductosCarrito(itemView.getContext(), idPersona);
                                 home.loadMainRecicler(productos);
                                 Toast.makeText(home, "No disponemos actualmente de croquetas con este ingrediente", Toast.LENGTH_SHORT).show();
+                                checkBox.setChecked(false);
                             }
                         }
                     }

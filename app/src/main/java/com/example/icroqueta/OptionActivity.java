@@ -61,15 +61,15 @@ public class OptionActivity extends MenuBar {
     public void guardarOpcion(View view) {
         boolean todoCorrecto = true;
         //Comprobamos que no ha dejado vacíos los campos obligatorios
-        if (nombre.getText().toString().trim().isEmpty()) {
+        if (nombre.getText().toString().replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "No puede dejar vacío el nombre", Toast.LENGTH_LONG).show();
-        } else if (apellido.getText().toString().trim().isEmpty()) {
+        } else if (apellido.getText().toString().replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "No puede dejar vacío el apellido", Toast.LENGTH_LONG).show();
-        } else if (nif.getText().toString().trim().isEmpty()) {
+        } else if (nif.getText().toString().replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "No puede dejar vacío el Nif", Toast.LENGTH_LONG).show();
-        } else if (correo.getText().toString().trim().isEmpty()) {
+        } else if (correo.getText().toString().replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "No puede dejar vacío el correo", Toast.LENGTH_LONG).show();
-        } else if (contrasena.getText().toString().trim().isEmpty()) {
+        } else if (contrasena.getText().toString().replaceAll(" ","").isEmpty()) {
             Toast.makeText(this, "No puede dejar vacía la contraseña", Toast.LENGTH_LONG).show();
         } else if ((nombre.getText().toString().matches(nom)) && apellido.getText().toString().matches(ape) && nif.getText().toString().matches(n) &&
                 correo.getText().toString().matches(cor) && contrasena.getText().toString().matches(con) && telefono.getText().toString().matches(tel) && direccion.getText().toString().matches(dir) &&
@@ -116,7 +116,7 @@ public class OptionActivity extends MenuBar {
 
             //Si se ha modificado el telefono primero hay que validarlo
             if ((!direccion.getText().toString().matches(dir) || !localidad.getText().toString().matches(loc) || !codigoPostal.getText().toString().matches(cod) || !puerta.getText().toString().matches(pu) || !portal.getText().toString().matches(por)) && todoCorrecto)
-                if (direccion.getText().toString().trim().isEmpty() || localidad.getText().toString().trim().isEmpty() || codigoPostal.getText().toString().trim().isEmpty() || puerta.getText().toString().trim().isEmpty() || portal.getText().toString().trim().isEmpty()) {
+                if (direccion.getText().toString().replaceAll(" ","").isEmpty() || localidad.getText().toString().replaceAll(" ","").isEmpty() || codigoPostal.getText().toString().replaceAll(" ","").isEmpty() || puerta.getText().toString().replaceAll(" ","").isEmpty() || portal.getText().toString().replaceAll(" ","").isEmpty()) {
                     Toast.makeText(this, "Rellene los datos de la direccion", Toast.LENGTH_LONG).show();
                     todoCorrecto = false;
                 } else {
@@ -156,7 +156,7 @@ public class OptionActivity extends MenuBar {
      */
     public boolean cambiosNif() {
         DBHelper db = new DBHelper();
-        ValidadorDNI v = new ValidadorDNI(nif.getText().toString().trim());
+        ValidadorDNI v = new ValidadorDNI(nif.getText().toString().replaceAll(" ",""));
         if (v.validar()) {
             db.updateNifPersona(this, idPersona, nif.getText().toString());
             return true;
@@ -200,7 +200,7 @@ public class OptionActivity extends MenuBar {
     public boolean cambiosTelefono() {
         DBHelper db = new DBHelper();
         //Comprobamos el telefono
-        String auxNumTelefono = (telefono.getText().toString().trim());
+        String auxNumTelefono = (telefono.getText().toString().replaceAll(" ",""));
         if (!(auxNumTelefono.length() < 9)) {
             //Se añade un telefono nuevo
             db.addPersonaTelefono(this, idPersona, Integer.parseInt(auxNumTelefono));

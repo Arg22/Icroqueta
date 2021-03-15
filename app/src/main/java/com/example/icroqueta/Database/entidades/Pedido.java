@@ -8,36 +8,39 @@ import com.example.icroqueta.database.tablas.PedidoTable;
 @SuppressWarnings("unused")
 public class Pedido implements java.io.Serializable {
 
-
     private Integer idPedido;
     private Integer idPersona;
     private String fechaPedido;
     private String estado;
     private String telefono;
     private String coordenadas;
+    private String puerta;
     private double importe;
 
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, Integer idPersona, String fechaPedido, String estado, String telefono, String coordenadas, double importe) {
+    public Pedido(Integer idPedido, Integer idPersona, String fechaPedido, String estado, String telefono, String coordenadas,String puerta, double importe) {
         this.idPedido = idPedido;
         this.idPersona = idPersona;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
         this.telefono = telefono;
         this.coordenadas = coordenadas;
+        this.puerta = puerta;
         this.importe = importe;
 
     }
 
-    public Pedido(Integer persona, String fechaPedido, String estado, String telefono, String coordenadas, double importe) {
+    public Pedido(Integer persona, String fechaPedido, String estado, String telefono, String coordenadas,String puerta, double importe) {
         this.idPersona = persona;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
         this.telefono = telefono;
         this.coordenadas = coordenadas;
+        this.puerta = puerta;
         this.importe = importe;
+
     }
 
     public Integer getIdPersona() {
@@ -96,6 +99,14 @@ public class Pedido implements java.io.Serializable {
         this.coordenadas = coordenadas;
     }
 
+    public String getPuerta() {
+        return puerta;
+    }
+
+    public void setPuerta(String puerta) {
+        this.puerta = puerta;
+    }
+
     /**
      * Mapear sirve para meter valores y crear un mapa
      * mete en cada columna de la tabla, el dato del objeto
@@ -111,6 +122,7 @@ public class Pedido implements java.io.Serializable {
         values.put(PedidoTable.ESTADO, estado);
         values.put(PedidoTable.TELEFONO, telefono);
         values.put(PedidoTable.COORDENADAS, coordenadas);
+        values.put(PedidoTable.PUERTA, puerta);
         values.put(PedidoTable.IMPORTE, importe);
         return values;
     }
@@ -130,6 +142,7 @@ public class Pedido implements java.io.Serializable {
         String estado = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.ESTADO));
         String telefono = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.TELEFONO));
         String coordenadas = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.COORDENADAS));
+        String puerta = cursor.getString(cursor.getColumnIndexOrThrow(PedidoTable.PUERTA));
         double importe = cursor.getDouble(cursor.getColumnIndexOrThrow(PedidoTable.IMPORTE));
 
         this.idPedido = idPedido;
@@ -138,6 +151,7 @@ public class Pedido implements java.io.Serializable {
         this.estado = estado;
         this.telefono = telefono;
         this.coordenadas = coordenadas;
+        this.puerta = puerta;
         this.importe = importe;
         return this;
     }

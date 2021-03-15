@@ -52,12 +52,17 @@ public class MapsActivity extends MenuBar implements OnMapReadyCallback {
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        //Se meten en una lista todos los pedidos activos
         DBHelper db = new DBHelper();
         List<Pedido> pedidosList = db.allPedidosActivos(this);
         boolean primero = true;
+        //Se hace un recorrido de cada uno de los pedidos
         for (Pedido p : pedidosList) {
+            //Se sacan las coordenadas guardades en la base de datos
             String[] coordenadas = p.getCoordenadas().split(" ");
+            //Transformamros las coordenadas en un objeto LatLng para enviarlas al mapa
             LatLng latlng = new LatLng(Double.parseDouble(coordenadas[0]), Double.parseDouble(coordenadas[1]));
+            //añadimos el marcador con la coordenada y el nombre, que en este caso es la puerta del edificio
             googleMap.addMarker(new MarkerOptions().position(latlng).title(p.getPuerta()));
             if (primero) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, DEFAULT_ZOOM));
