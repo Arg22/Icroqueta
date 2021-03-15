@@ -8,10 +8,11 @@ public class ValidadorDNI {
         this.dni = dni;
     }
 
-
+    /**
+     * Método para validar el DNI
+     * @return true cuando está correcto, false cuando hay algún fallo
+     */
     public boolean validar() {
-
-
         String letraMayuscula; //Guardaremos la letra introducida en formato mayúscula
 
         // Aquí excluimos cadenas distintas a 9 caracteres que debe tener un dni y también si el último caracter no es una letra
@@ -28,6 +29,10 @@ public class ValidadorDNI {
         return soloNumeros() && letraDNI().equals(letraMayuscula);
     }
 
+    /**
+     * Método para comprobar que los primeros dígitos del DNI son numéricos
+     * @return true si solo son números y falso en caso de fallo
+     */
     private boolean soloNumeros() {
 
         int i;
@@ -49,6 +54,10 @@ public class ValidadorDNI {
         return miDNI.length() == 8;
     }
 
+    /**
+     * Comprueba que el último dígito sea una letra y se corresponda con el algoritmo de comprobación de los DNIs
+     * @return el último dígito
+     */
     private String letraDNI() {
         // El método es privado porque lo voy a usar internamente en esta clase, no se necesita fuera de ella
         // pasar miNumero a integer
