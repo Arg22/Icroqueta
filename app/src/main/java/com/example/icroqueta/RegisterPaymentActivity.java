@@ -121,7 +121,7 @@ public class RegisterPaymentActivity extends MenuBar {
     public void validarPago() {
         //Se elimina el carro una vez hecho y se crea las lineas del producto asociado a un pedido
         DBHelper db = new DBHelper();
-        if (db.addPedido(this, idPersona, telefono.getText().toString(), coordenadas)) {
+        if (db.addPedido(this, idPersona, telefono.getText().toString(),coordenadas, puerta.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Pago realizado con éxito", Toast.LENGTH_LONG).show();
             //Se va automáticamente al MainActivity
             Intent intent = new Intent(this, MainActivity.class);
@@ -134,7 +134,6 @@ public class RegisterPaymentActivity extends MenuBar {
         intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
     /**
      * Método para sacar datos guardados

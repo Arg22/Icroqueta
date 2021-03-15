@@ -58,7 +58,7 @@ public class MapsActivity extends MenuBar implements OnMapReadyCallback {
         for (Pedido p : pedidosList) {
             String[] coordenadas = p.getCoordenadas().split(" ");
             LatLng latlng = new LatLng(Double.parseDouble(coordenadas[0]), Double.parseDouble(coordenadas[1]));
-            googleMap.addMarker(new MarkerOptions().position(latlng).title(p.getTelefono()));
+            googleMap.addMarker(new MarkerOptions().position(latlng).title(p.getPuerta()));
             if (primero) {
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, DEFAULT_ZOOM));
                 primero = false;
